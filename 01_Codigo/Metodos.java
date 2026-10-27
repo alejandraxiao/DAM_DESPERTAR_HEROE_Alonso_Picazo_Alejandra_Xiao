@@ -98,6 +98,59 @@ public class Metodos
          / \\  )
         """);
     }
+    public void ArmaMago()
+    {
+        System.out.println("MIAUUUUU! Que buena elección nuevo Mago! Seguro serás el mejor.");
+        System.out.println("Es importante que sepas que los magos son muy extraños a veces, te acostumbrarás.");
+        System.out.println("Como sabrás, hace más de mil años se han diferenciado por dos grupos: 'Magos Ocuros' y 'Magos de luz'");
+        System.out.println("Ahora es tu turno de elegir que tipo de mágia quieres aprender.");
+        System.out.println("¡PERO CUIDADO!");
+        System.out.println("Los magos de de luz aunque tengan menos fuerza tendrás más ataques al gastar menos maná y más resistencias.");
+        System.out.println("Los magos oscuros con su fuerza bruta gastan más maná y se cansarán antes");
 
-    
+        System.out.println("(1) Luz");
+        System.out.println("(2) Oscuridad");
+    }
+    public void ArmaCaballero()
+    {
+        System.out.println("MIAUUUUU! Que buena elección nuevo Caballero! Seguro serás el mejor.");
+        System.out.println("Los caballeros siempre tienen a su mejor amiga ¡LA ESPADA!");
+        System.out.println("Y como buen caballero es tu turno de elegir a tu compañera de vida");
+        System.out.println("Muchos fortachones eligen la Espada Pesada ya que hace mucho daño.");
+        System.out.println("¡PERO CUIDADO!");
+        System.out.println("Te vas a cansar antes y tu maná volará con cada movimiento que hagas.");
+        System.out.println("Asi que debes de tener cuidado ehhhhhhhhhhh.");
+        System.out.println("Sino ve a lo seguro como la mayoría, la Espada Ligera, menos cansancio y menos uso de maná, eso sí, te tocará atacar más por tener menos fuerza.");
+
+        System.out.println("(1) Espada pesada");
+        System.out.println("(2) Espada ligera");
+    }
+    public void ArmaSacerdote()
+    {
+        System.out.println("MIAUUUUU! Asi que tenías escondido ese don, veremos que tan creyente eres.");
+        System.out.println("No lo digo por nada pero muchos sacerdotes cayeron en la codícia y refinaron un método bastante curioso.");
+        System.out.println("El SACRIFICIO");
+        System.out.println("Este se basa en cuando matas a alguien se convierte en un sacrificio y te dará más poder divino.");
+        System.out.println("Ya que los que teneis este don no teneis maná y actua algo diferente la divinidad, esta no se debilita pero si no consigues divinidad tu fuerza disminuirá.");
+        System.out.println("El sacrficio hace que tengas menos reisitencia ya que no es una divinidad pura, pero será fácil de conseguir en las expediciones.");
+        System.out.println("La fe dependerá de lo que tu creas, esta solo puede mejorarse o rezando o con unas pociones antiguas que otorgan divinidad pura.");
+        System.out.println("Que curiosidad!! ¿Cual será tu elección?.");
+
+        System.out.println("(1) Fe");
+        System.out.println("(2) Sacrificios");
+    }
+    public void ArmaArquero()
+    {
+        System.out.println("MIAUUUUU! Que buena elección nuevo Arquero! Seguro tendrás una puntería increible.");
+        System.out.println("Los arqueros siempre tienen a su mejor amigo ¡EL ARCO!");
+        System.out.println("Y como buen arquero es tu turno de elegir a tu compañero de vida");
+        System.out.println("Muchos osados eligen el Arco Triple ya que hace mucho daño.");
+        System.out.println("¡PERO CUIDADO!");
+        System.out.println("Te vas a cansar antes y tu maná volará con cada movimiento que hagas.");
+        System.out.println("Asi que debes de tener cuidado ehhhhhhhhhhh.");
+        System.out.println("Sino ve a lo seguro como la mayoría,el Arco Ligero, menos cansancio y menos uso de maná, eso sí, te tocará atacar más por tener menos fuerza.");
+
+        System.out.println("(1) Arco Triple");
+        System.out.println("(2) Arco Ligero");
+    }
 }
