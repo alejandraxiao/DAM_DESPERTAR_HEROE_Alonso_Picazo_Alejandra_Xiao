@@ -1,5 +1,6 @@
 package 01_Codigo;
 
-public class Codigo {
+public class Codigo 
+{
     
 }
