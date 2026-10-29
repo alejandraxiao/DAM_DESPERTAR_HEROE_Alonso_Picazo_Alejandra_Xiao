@@ -9,6 +9,12 @@ public class Metodos
 {
     Scanner sc = new Scanner(System.in);
 
+    //---Imports de clases---
+    ClasePersonaje p = new ClasePersonaje();
+    ClaseMoustruo m = new ClaseMoustruo();
+    ClaseArma a = new ClaseArma();
+    ClaseObjeto o = new ClaseObjeto();
+
     //---Introducción de la historia---
     public void Historia()
     {
@@ -65,9 +71,9 @@ public class Metodos
         System.out.println("Escoja su personaje: \n" +
         "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Sacerdote \n" + "\n" + "4) Arquero");
 
-        int eleccion = sc.nextInt();
+        int eleccionPersonaje = sc.nextInt();
 
-        switch (eleccion) {
+        switch (eleccionPersonaje) {
             case 1:
                 ArmaMago();
                 break;
@@ -255,6 +261,15 @@ public class Metodos
 
         }
 
+        public void InfoPersonaje(int eleccionPersonaje)
+        {
+
+        }
+
+        public void InfoMounstruos()
+        {
+
+        }
     }
     //---Tema ranking---
 }
