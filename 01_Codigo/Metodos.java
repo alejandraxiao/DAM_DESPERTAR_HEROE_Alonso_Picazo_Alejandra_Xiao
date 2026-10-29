@@ -306,4 +306,12 @@ public class Metodos
         int scoreTotal = (scorePartida + scoreVida) - scoreAbandono;
         return scoreTotal;
     }
+
+    public void PartidaPerdida(String guia,String nombre)
+    {
+        System.out.println(guia + " : MIAUUUU! Menudo golpe ese, aunque hayas perdido la primera prueba no te pongas triste, la puedes volver a hacer.");
+        System.out.println(guia + " : " + nombre + " te dejo tu score de esta partida.");
+        InfoScore();
+        System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
+    }
 }
