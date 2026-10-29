@@ -366,4 +366,10 @@ public class Metodos
             }
         }
     }
+
+    public void AbrirInventario()
+    {
+        int [] inventario = new int[10];
+        
+    }
 }
