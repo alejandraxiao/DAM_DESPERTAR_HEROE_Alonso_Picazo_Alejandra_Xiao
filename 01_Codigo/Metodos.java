@@ -273,4 +273,14 @@ public class Metodos
 
     }
     //---Tema ranking---
+
+    public int InfoScore()
+    {
+        int scorePartida = 0;
+        int scoreVida = 0;
+        int scoreAbandono = -10;
+
+        int scoreTotal = (scorePartida + scoreVida) - scoreAbandono;
+        return scoreTotal;
+    }
 }
