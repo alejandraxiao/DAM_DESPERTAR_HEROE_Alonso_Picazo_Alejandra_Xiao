@@ -11,7 +11,7 @@ public class Metodos
     Random r = new Random();
 
     //---Imports de clases---
-    ClasePersonaje p = new ClasePersonaje(null, 0, 0, null, null);
+    ClasePersonaje p = new ClasePersonaje(null, 0, 0, 0, 0, 0, null, null);
     ClaseMoustruo m = new ClaseMoustruo();
     ClaseArma a = new ClaseArma();
     ClaseObjeto o = new ClaseObjeto();
