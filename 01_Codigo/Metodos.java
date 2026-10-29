@@ -222,5 +222,39 @@ public class Metodos
         System.out.println(guia + " : Este es un pequeñó recordatorio, puedes atacar, salir de la prueba o pedir información, se te abrirá un pequeño panel con la información que necesites.");
         System.out.println(guia + " : Pues buena suertee, MIAUUUU!!");
     }
+
+    public void PanelInfo()
+    {
+        boolean respuesta = false;
+
+        while (respuesta)
+        {
+            System.out.println("    Panel de información");
+            System.out.println("    (1) Personaje");
+            System.out.println("    (2) Mosuntruos");
+            System.out.println("    (3) Volver al juego");
+    
+            System.out.println("Elija su siguiente acción: ");
+    
+            int eleccion = sc.nextInt();
+    
+            switch (eleccion) {
+                case 1:
+                    InfoPersonaje();
+                    break;
+                case 2:
+                    InfoMounstruos();
+                    break;
+                case 3:
+                    respuesta  = true;
+                    break;
+                default:
+                    System.out.println("Elija una de las opciones disponibles");
+                    break;
+            }
+
+        }
+
+    }
     //---Tema ranking---
 }
