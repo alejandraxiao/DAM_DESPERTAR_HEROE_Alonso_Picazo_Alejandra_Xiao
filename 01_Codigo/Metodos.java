@@ -57,6 +57,34 @@ public class Metodos
 
     //---Bigotín---
 
+    public void EleccionPersonaje(String nombre, String guia)
+    {
+        SaludoInicial();
+
+        System.out.println("Escoja su personaje: \n" +
+        "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Sacerdote \n" + "\n" + "4) Arquero");
+
+        int eleccion = sc.nextInt();
+
+        switch (eleccion) {
+            case 1:
+                ArmaMago();
+                break;
+            case 2:
+                ArmaCaballero();
+                break;
+            case 3:
+                ArmaSacerdote();
+                break;
+            case 4:
+                ArmaArquero();
+                break;
+            default:
+                System.out.println(guia + " : " + nombre + "debes elegir un personaje para poder continuar con tu destino");
+                break;
+        }
+    }
+
     public void SaludoInicial()
     {
         System.out.println("Introduce tu nombre futuro heroe: ");
@@ -98,6 +126,7 @@ public class Metodos
          / \\  )
         """);
     }
+
     public void ArmaMago()
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Mago! Seguro serás el mejor.");
