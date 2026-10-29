@@ -57,6 +57,7 @@ public class Metodos
 
     //---Bigotín---
 
+    //---Personajes y armas---
     public void EleccionPersonaje(String nombre, String guia)
     {
         SaludoInicial();
@@ -140,6 +141,7 @@ public class Metodos
         System.out.println("(1) Luz");
         System.out.println("(2) Oscuridad");
     }
+
     public void ArmaCaballero()
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Caballero! Seguro serás el mejor.");
@@ -154,6 +156,7 @@ public class Metodos
         System.out.println("(1) Espada pesada");
         System.out.println("(2) Espada ligera");
     }
+
     public void ArmaSacerdote()
     {
         System.out.println("MIAUUUUU! Asi que tenías escondido ese don, veremos que tan creyente eres.");
@@ -168,6 +171,7 @@ public class Metodos
         System.out.println("(1) Fe");
         System.out.println("(2) Sacrificios");
     }
+
     public void ArmaArquero()
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Arquero! Seguro tendrás una puntería increible.");
@@ -182,4 +186,8 @@ public class Metodos
         System.out.println("(1) Arco Triple");
         System.out.println("(2) Arco Ligero");
     }
+
+    //---Forma de juego---
+
+    //---Tema ranking---
 }
