@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Metodos 
 {
     Scanner sc = new Scanner(System.in);
+    Random r = new Random();
 
     //---Imports de clases---
     ClasePersonaje p = new ClasePersonaje();
@@ -330,5 +331,39 @@ public class Metodos
         System.out.println(guia + " : Sigues teniendo tu score te la dejo por aquí para que la tengas:");
         System.out.println("");
         InfoScore();
+    }
+
+
+    //---PARTES DEL JUEGO---
+
+    public void VisualizaciónAtaque()
+    {
+        System.out.println("(1) Atacar \n" + "\n" + "(2) USar objeto \n" + "\n" + "(3) Salir de la torre");
+
+        int respuestaAtaque = sc.nextInt();
+        boolean respuesta = true;
+        while (respuesta)
+        {
+
+            switch (respuestaAtaque)
+            {
+                case 1:
+                    int maximo = 20;
+                    int minimo = 10;
+                    int numeroDaño = r.nextInt(minimo,maximo);
+    
+                    respuesta = false;
+                    break;
+    
+                case 2:
+                    AbrirInventario();
+                    break;
+    
+                case 3:
+                    PartidaAbandonada(null, null);
+                    respuesta = false;
+                    break;
+            }
+        }
     }
 }
