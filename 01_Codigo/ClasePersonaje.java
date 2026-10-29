@@ -8,7 +8,7 @@ public class ClasePersonaje
     private String clase;
     private String arma;
 
-    public ClasePersonaje(Strinf nombre, int edad, int altura, String clase, String arma)
+    public ClasePersonaje(String nombre, int edad, int altura, String clase, String arma)
     {
         this.nombre = nombre;
         this.edad = 16;
