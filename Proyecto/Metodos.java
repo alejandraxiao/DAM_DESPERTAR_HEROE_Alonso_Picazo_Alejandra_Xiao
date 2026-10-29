@@ -11,7 +11,7 @@ public class Metodos
     Random r = new Random();
 
     //---Imports de clases---
-    ClasePersonaje p = new ClasePersonaje();
+    ClasePersonaje p = new ClasePersonaje(null, 0, 0, null, null);
     ClaseMoustruo m = new ClaseMoustruo();
     ClaseArma a = new ClaseArma();
     ClaseObjeto o = new ClaseObjeto();
@@ -244,7 +244,7 @@ public class Metodos
                 p.setVida(p.getVida() + 25);
                 break;
             case 2:
-                FinalizarPartida();
+                PartidaAbandonada(null, null);
                 break;
             default:
                 break;
@@ -270,7 +270,7 @@ public class Metodos
     
             switch (eleccion) {
                 case 1:
-                    InfoPersonaje();
+                    p.InfoPersonaje();
                     break;
                 case 2:
                     InfoMounstruos();
