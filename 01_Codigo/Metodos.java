@@ -260,16 +260,17 @@ public class Metodos
             }
 
         }
+    }
 
-        public void InfoPersonaje(int eleccionPersonaje)
-        {
+    public void InfoPersonaje(int eleccionPersonaje)
+    {
+        p.InfoPersonaje();
+        InfoScore();
+    }
 
-        }
+    public void InfoMounstruos()
+    {
 
-        public void InfoMounstruos()
-        {
-
-        }
     }
     //---Tema ranking---
 }
