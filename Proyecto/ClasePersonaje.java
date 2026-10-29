@@ -4,14 +4,20 @@ public class ClasePersonaje
 {
     private String nombre;
     private int edad;
+    private final int vidaMaxima; //Constante
+    private int vida;
+    private int fuerza;
     private int altura;
     private String clase;
     private String arma;
 
-    public ClasePersonaje(String nombre, int edad, int altura, String clase, String arma)
+    public ClasePersonaje(String nombre, int edad,int vidaMaxima, int vida, int fuerza, int altura, String clase, String arma)
     {
         this.nombre = nombre;
         this.edad = 16;
+        this.vidaMaxima = 100;
+        this.vida = 100;
+        this.fuerza = fuerza;
         this.altura = 160;
         this.clase = clase;
         this.arma = arma;
@@ -29,6 +35,26 @@ public class ClasePersonaje
 
     public int getEdad() {
         return edad;
+    }
+
+    public int getVidaMaxima() {
+        return vidaMaxima;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+
+    public int getFuerza() {
+        return fuerza;
+    }
+
+    public void setFuerza(int fuerza) {
+        this.fuerza = fuerza;
     }
 
     public int getAltura() {
