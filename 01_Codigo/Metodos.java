@@ -314,4 +314,13 @@ public class Metodos
         InfoScore();
         System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
     }
+
+    public void PartidaGanada (String guia, String nombre)
+    {
+        System.out.println(guia + " : MIAUUU! Ese golpe habla de quien manda aquí!!");
+        System.out.println(guia + " : Felicidades por pasar la primera torre de tu vida, más en el fututo conocerás muchas más torres y convertirte en un gran heroe reconocido de nuestro reino.");
+        System.out.println(guia + " : Te dejo tu score por aquí:");
+        System.out.println("");
+        InfoScore();
+    }
 }
