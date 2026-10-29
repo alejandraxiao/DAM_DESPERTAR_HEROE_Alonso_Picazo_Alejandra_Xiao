@@ -229,6 +229,29 @@ public class Metodos
         System.out.println(guia + " : Pues buena suertee, MIAUUUU!!");
     }
 
+    public void Emergencia(String guia, String nombre)
+    {
+        System.out.println(guia + " : MIAUUUUU!!! Ten cuidado!!!");
+        System.out.println(guia + " : Tu vida está en números críticos, puede ser que no soportes el siguiente golpe.");
+        System.out.println(guia + " : Opta en este turno en tomar una poción de curación desde tu inventario, llamar a los profesores o seguir hasta el final.");
+        System.out.println("(1) Beber poción \n" + "\n" + "(2) Abandonar prueba \n" + "\n" + "(3) Seguir partida");
+
+        int respuestaEmergencia = sc.nextInt();
+
+        switch (respuestaEmergencia) {
+            case 1:
+                p.setVida(p.getVida() + 25);
+                break;
+            case 2:
+                FinalizarPartida();
+                break;
+            default:
+                break;
+        }
+        
+
+    }
+
     public void PanelInfo()
     {
         boolean respuesta = false;
