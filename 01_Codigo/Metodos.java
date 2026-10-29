@@ -214,10 +214,13 @@ public class Metodos
                 respuesta = false;
             }
         }
+    }
 
-
-
-
+    public void Ataque(String guia, String nombre)
+    {
+        System.out.println(guia + " : Ya estamos dentro de la torre!!!");
+        System.out.println(guia + " : Este es un pequeñó recordatorio, puedes atacar, salir de la prueba o pedir información, se te abrirá un pequeño panel con la información que necesites.");
+        System.out.println(guia + " : Pues buena suertee, MIAUUUU!!");
     }
     //---Tema ranking---
 }
