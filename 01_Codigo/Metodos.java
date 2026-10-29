@@ -323,4 +323,12 @@ public class Metodos
         System.out.println("");
         InfoScore();
     }
+
+    public void PartidaAbandonada(String guia, String nombre)
+    {
+        System.out.println(guia + " : MIAUUUUU!! Que susto ese, no te preocupes, es tu primera prueba y es normal que no la finalices.");
+        System.out.println(guia + " : Sigues teniendo tu score te la dejo por aquí para que la tengas:");
+        System.out.println("");
+        InfoScore();
+    }
 }
