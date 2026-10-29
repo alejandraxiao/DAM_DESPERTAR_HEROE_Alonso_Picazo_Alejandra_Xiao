@@ -189,5 +189,35 @@ public class Metodos
 
     //---Forma de juego---
 
+    public void TorreExplicacion(String guia, String nombre)
+    {
+        boolean respuesta = false;
+
+        while (respuesta)
+        {
+            System.out.println(guia + " : " + "Que emoción " + nombre + " ya tenemos nuestro destino elegido, y como primera prueba para ver tu nivel, los profesores han preparado la 'prueba de la torre'.");
+            System.out.println(guia + " : No te preocupes de nada, generalmente la mayoría de estudiantes la pasan sin problema y al ser una prueba de inicio lo único que estás haciendo es poner tu consciencia dentro de la torre.");
+            System.out.println(guia + " : Acuerdate que esto es solo una pequeña prueba, los profesores y yo estaremos aquí para cuelquier duda o ayuda que necesites.");
+            System.out.println(guia + " : Las normas sin fáciles, si tu vida llega a 0 los profesores te sacarán inmediatamente de la torre, si ganas tu solo pasaste la prueba y podrás salir sin ningún problema.");
+            System.out.println(guia + " : En caso de que tu conscienda se salga sola sin querer se te guardará tu score o incluso si te ves atrapado puedes obtar por abandonar la prueba, eso si, decidelo bien porque si abandonas se te restará 10 puntos de tu nota.");
+            System.out.println(guia + " : Lo entendiste??");
+            System.out.println(nombre + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
+
+            int respuestaNuestra = sc.nextInt();
+            
+            if (respuestaNuestra == 1)
+            {
+                respuesta = true;
+            }
+            else
+            {
+                respuesta = false;
+            }
+        }
+
+
+
+
+    }
     //---Tema ranking---
 }
