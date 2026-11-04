@@ -1,6 +1,6 @@
 package Armas;
 
-import Proyecto.ClaseArma;
+import Clases.ClaseArma;
 
 public class PoderOscuridad extends ClaseArma
 {

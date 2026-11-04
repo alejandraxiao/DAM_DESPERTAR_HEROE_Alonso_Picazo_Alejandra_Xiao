@@ -1,6 +1,6 @@
 package Objetos;
 
-import Proyecto.ClaseObjeto;
+import Clases.ClaseObjeto;
 
 public class PocionResistencia extends ClaseObjeto
 {

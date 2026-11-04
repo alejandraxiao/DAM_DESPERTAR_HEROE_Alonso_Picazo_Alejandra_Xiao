@@ -1,6 +1,6 @@
 package Objetos;
 
-import Proyecto.ClaseObjeto;
+import Clases.ClaseObjeto;
 
 public class MejoraArma extends ClaseObjeto
 {
@@ -19,7 +19,7 @@ public class MejoraArma extends ClaseObjeto
     }
 
     //----------Get / Set --------------------
-    
+
     public static int getMejora() {
         return mejora;
     }

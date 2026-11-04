@@ -1,4 +1,4 @@
-package Proyecto;
+package Clases;
 
 public class ClaseMoustruo 
 {
