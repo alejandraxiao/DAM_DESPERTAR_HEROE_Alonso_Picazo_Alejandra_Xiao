@@ -1,21 +1,17 @@
 package Proyecto;
 
-    public class ClaseObjeto 
+public class ClaseObjeto 
 {
     private String nombre;
-    private int puntosExtra;
     private int nivel;
-    private String descripcion;
-
-    public ClaseObjeto(String nombre, int puntosExtra,int nivel, String descripcion)
+    
+    public ClaseObjeto(String nombre, int nivel)
     {
         this.nombre = nombre;
-        this.puntosExtra = puntosExtra;
         this.nivel = nivel;
-        this.descripcion = descripcion;
     }
 
-    //---Get / Set---
+    //--------Get/Set------------
 
     public String getNombre() {
         return nombre;
@@ -23,14 +19,6 @@ package Proyecto;
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public int getPuntosExtra() {
-        return puntosExtra;
-    }
-
-    public void setPuntosExtra(int puntosExtra) {
-        this.puntosExtra = puntosExtra;
     }
 
     public int getNivel() {
@@ -41,21 +29,14 @@ package Proyecto;
         this.nivel = nivel;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    //----------Métodos--------------
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    //---Métodos---
-
-    public void InfoObjeto()
+    public void MostrarInfo()
     {
         System.out.println("Nombre : " + nombre);
-        System.out.println("Plus : " + puntosExtra);
         System.out.println("Nivel : " + nivel);
-        System.out.println("Descrpción : " + descripcion);
     }
+
+    
+
 }

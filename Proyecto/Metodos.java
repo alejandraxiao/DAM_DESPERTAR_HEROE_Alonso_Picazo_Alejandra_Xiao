@@ -1,4 +1,4 @@
-package 01_Codigo;
+package Proyecto;
 
 //---imports---
 import java.util.Random;
