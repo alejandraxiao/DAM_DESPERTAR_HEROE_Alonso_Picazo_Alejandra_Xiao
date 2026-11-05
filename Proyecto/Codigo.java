@@ -2,6 +2,7 @@ package Proyecto;
 
 public class Codigo 
 {
+<<<<<<< HEAD
     public static void main(String[] args) 
     {
         Metodos m = new Metodos();
@@ -22,4 +23,7 @@ public class Codigo
             
         }
     }
+=======
+
+>>>>>>> Clases
 }
