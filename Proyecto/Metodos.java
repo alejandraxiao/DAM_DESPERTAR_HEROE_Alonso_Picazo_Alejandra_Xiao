@@ -52,8 +52,10 @@ public class Metodos
     PocionResistencia PR = new PocionResistencia(null, 0, 0, null); 
 
 
+    //---------------------------------------------------------------------------------------------------------------------------
 
-    
+    //----------------------------------------PARTES DEL JUEGO-------------------------------------------------------------------
+
     //---Introducción de la historia---
     public void Historia()
     {
@@ -64,8 +66,8 @@ public class Metodos
          "\n" + 
          "Tú eres uno de esos jóvenes. Tras tu Despertar, tendrás que demostrar tu valía enfrentándote a tres criaturas que amenazan el reino, cada una más poderosa que la anterior. Solo quien sobreviva a los tres encuentros será recordado como un verdadero héroe.");
     }
-    
-    //--Inicio---
+
+    //--Menú de inicio---
     public void Inicio()
     {
         boolean jugando = true;
@@ -100,9 +102,136 @@ public class Metodos
         }
     }
 
-    //---Bigotín---
+    //---Creación del panel informativo durante el videojuego---
+    public void PanelInfo()
+    {
+        boolean respuesta = false;
 
-    //---Personajes y armas---
+        while (respuesta)
+        {
+            System.out.println("    Panel de información");
+            System.out.println("    (1) Personaje");
+            System.out.println("    (2) Mosuntruos");
+            System.out.println("    (3) Volver al juego");
+    
+            System.out.println("Elija su siguiente acción: ");
+    
+            int eleccion = sc.nextInt();
+    
+            switch (eleccion) {
+                case 1:
+                    p.InfoPersonaje();
+                    break;
+                case 2:
+                    InfoMounstruos();
+                    break;
+                case 3:
+                    respuesta  = true;
+                    break;
+                default:
+                    System.out.println("Elija una de las opciones disponibles");
+                    break;
+            }
+
+        }
+    }
+    
+    //--------------------------------------------FUNCIONES DEL VIDEOJUEGO----------------------------------------------------------
+
+    public void InfoPersonaje(int eleccionPersonaje)
+    {
+        p.InfoPersonaje();
+        InfoScore();
+    }
+
+    public void InfoMounstruos()
+    {
+
+    }
+
+  //---ranking---
+
+    public int InfoScore()
+    {
+        int scorePartida = 0;
+        int scoreVida = 0;
+        int scoreAbandono = -10;
+
+        int scoreTotal = (scorePartida + scoreVida) - scoreAbandono;
+        return scoreTotal;
+    }
+
+    public void PartidaPerdida(String guia,String nombre)
+    {
+        System.out.println(guia + " : MIAUUUU! Menudo golpe ese, aunque hayas perdido la primera prueba no te pongas triste, la puedes volver a hacer.");
+        System.out.println(guia + " : " + nombre + " te dejo tu score de esta partida.");
+        InfoScore();
+        System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
+    }
+
+    public void PartidaGanada (String guia, String nombre)
+    {
+        System.out.println(guia + " : MIAUUU! Ese golpe habla de quien manda aquí!!");
+        System.out.println(guia + " : Felicidades por pasar la primera torre de tu vida, más en el fututo conocerás muchas más torres y convertirte en un gran heroe reconocido de nuestro reino.");
+        System.out.println(guia + " : Te dejo tu score por aquí:");
+        System.out.println("");
+        InfoScore();
+    }
+
+    public void PartidaAbandonada(String guia, String nombre)
+    {
+        System.out.println(guia + " : MIAUUUUU!! Que susto ese, no te preocupes, es tu primera prueba y es normal que no la finalices.");
+        System.out.println(guia + " : Sigues teniendo tu score te la dejo por aquí para que la tengas:");
+        System.out.println("");
+        InfoScore();
+    }
+    
+
+    //-------------------------------------------PARTE DE COMBATES------------------------------------------------------------------
+
+    public void VisualizaciónAtaque()
+    {
+        System.out.println("(1) Atacar \n" + "\n" + "(2) USar objeto \n" + "\n" + "(3) Salir de la torre");
+
+        int respuestaAtaque = sc.nextInt();
+        boolean respuesta = true;
+        while (respuesta)
+        {
+
+            switch (respuestaAtaque)
+            {
+                case 1:
+                    int maximo = 20;
+                    int minimo = 10;
+                    int numeroDaño = r.nextInt(minimo,maximo);
+    
+                    respuesta = false;
+                    break;
+    
+                case 2:
+                    AbrirInventario();
+                    break;
+    
+                case 3:
+                    PartidaAbandonada(null, null);
+                    respuesta = false;
+                    break;
+            }
+        }
+    }
+
+    public void AbrirInventario()
+    {
+        int [] inventario = new int[10];
+        
+    }
+
+
+
+
+    //-------------------------------------------BIGOTÍN--------------------------------------------------------------------------
+
+    //---Elección del personaje---
     public void EleccionPersonaje(String nombre, String guia)
     {
         SaludoInicial();
@@ -131,6 +260,7 @@ public class Metodos
         }
     }
 
+    //---Diálogos del Bigotín---
     public void SaludoInicial()
     {
         System.out.println("Introduce tu nombre futuro heroe: ");
@@ -173,6 +303,65 @@ public class Metodos
         """);
     }
 
+    public void TorreExplicacion(String guia, String nombre)
+    {
+        boolean respuesta = false;
+
+        while (respuesta)
+        {
+            System.out.println(guia + " : " + "Que emoción " + nombre + " ya tenemos nuestro destino elegido, y como primera prueba para ver tu nivel, los profesores han preparado la 'prueba de la torre'.");
+            System.out.println(guia + " : No te preocupes de nada, generalmente la mayoría de estudiantes la pasan sin problema y al ser una prueba de inicio lo único que estás haciendo es poner tu consciencia dentro de la torre.");
+            System.out.println(guia + " : Acuerdate que esto es solo una pequeña prueba, los profesores y yo estaremos aquí para cuelquier duda o ayuda que necesites.");
+            System.out.println(guia + " : Las normas sin fáciles, si tu vida llega a 0 los profesores te sacarán inmediatamente de la torre, si ganas tu solo pasaste la prueba y podrás salir sin ningún problema.");
+            System.out.println(guia + " : En caso de que tu conscienda se salga sola sin querer se te guardará tu score o incluso si te ves atrapado puedes obtar por abandonar la prueba, eso si, decidelo bien porque si abandonas se te restará 10 puntos de tu nota.");
+            System.out.println(guia + " : Lo entendiste??");
+            System.out.println(nombre + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
+
+            int respuestaNuestra = sc.nextInt();
+            
+            if (respuestaNuestra == 1)
+            {
+                respuesta = true;
+            }
+            else
+            {
+                respuesta = false;
+            }
+        }
+    }
+
+    public void Ataque(String guia, String nombre)
+    {
+        System.out.println(guia + " : Ya estamos dentro de la torre!!!");
+        System.out.println(guia + " : Este es un pequeñó recordatorio, puedes atacar, salir de la prueba o pedir información, se te abrirá un pequeño panel con la información que necesites.");
+        System.out.println(guia + " : Pues buena suertee, MIAUUUU!!");
+    }
+
+    public void Emergencia(String guia, String nombre)
+    {
+        System.out.println(guia + " : MIAUUUUU!!! Ten cuidado!!!");
+        System.out.println(guia + " : Tu vida está en números críticos, puede ser que no soportes el siguiente golpe.");
+        System.out.println(guia + " : Opta en este turno en tomar una poción de curación desde tu inventario, llamar a los profesores o seguir hasta el final.");
+        System.out.println("(1) Beber poción \n" + "\n" + "(2) Abandonar prueba \n" + "\n" + "(3) Seguir partida");
+
+        int respuestaEmergencia = sc.nextInt();
+
+        switch (respuestaEmergencia) {
+            case 1:
+                p.setVida(p.getVida() + 25);
+                break;
+            case 2:
+                PartidaAbandonada(null, null);
+                break;
+            default:
+                break;
+        }
+        
+
+    }
+
+
+    //---Explicación de  tipo de armas---
     public void ArmaMago()
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Mago! Seguro serás el mejor.");
@@ -232,182 +421,4 @@ public class Metodos
         System.out.println("(2) Arco Ligero");
     }
 
-    //---Forma de juego---
-
-    public void TorreExplicacion(String guia, String nombre)
-    {
-        boolean respuesta = false;
-
-        while (respuesta)
-        {
-            System.out.println(guia + " : " + "Que emoción " + nombre + " ya tenemos nuestro destino elegido, y como primera prueba para ver tu nivel, los profesores han preparado la 'prueba de la torre'.");
-            System.out.println(guia + " : No te preocupes de nada, generalmente la mayoría de estudiantes la pasan sin problema y al ser una prueba de inicio lo único que estás haciendo es poner tu consciencia dentro de la torre.");
-            System.out.println(guia + " : Acuerdate que esto es solo una pequeña prueba, los profesores y yo estaremos aquí para cuelquier duda o ayuda que necesites.");
-            System.out.println(guia + " : Las normas sin fáciles, si tu vida llega a 0 los profesores te sacarán inmediatamente de la torre, si ganas tu solo pasaste la prueba y podrás salir sin ningún problema.");
-            System.out.println(guia + " : En caso de que tu conscienda se salga sola sin querer se te guardará tu score o incluso si te ves atrapado puedes obtar por abandonar la prueba, eso si, decidelo bien porque si abandonas se te restará 10 puntos de tu nota.");
-            System.out.println(guia + " : Lo entendiste??");
-            System.out.println(nombre + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
-
-            int respuestaNuestra = sc.nextInt();
-            
-            if (respuestaNuestra == 1)
-            {
-                respuesta = true;
-            }
-            else
-            {
-                respuesta = false;
-            }
-        }
-    }
-
-    public void Ataque(String guia, String nombre)
-    {
-        System.out.println(guia + " : Ya estamos dentro de la torre!!!");
-        System.out.println(guia + " : Este es un pequeñó recordatorio, puedes atacar, salir de la prueba o pedir información, se te abrirá un pequeño panel con la información que necesites.");
-        System.out.println(guia + " : Pues buena suertee, MIAUUUU!!");
-    }
-
-    public void Emergencia(String guia, String nombre)
-    {
-        System.out.println(guia + " : MIAUUUUU!!! Ten cuidado!!!");
-        System.out.println(guia + " : Tu vida está en números críticos, puede ser que no soportes el siguiente golpe.");
-        System.out.println(guia + " : Opta en este turno en tomar una poción de curación desde tu inventario, llamar a los profesores o seguir hasta el final.");
-        System.out.println("(1) Beber poción \n" + "\n" + "(2) Abandonar prueba \n" + "\n" + "(3) Seguir partida");
-
-        int respuestaEmergencia = sc.nextInt();
-
-        switch (respuestaEmergencia) {
-            case 1:
-                p.setVida(p.getVida() + 25);
-                break;
-            case 2:
-                PartidaAbandonada(null, null);
-                break;
-            default:
-                break;
-        }
-        
-
-    }
-
-    public void PanelInfo()
-    {
-        boolean respuesta = false;
-
-        while (respuesta)
-        {
-            System.out.println("    Panel de información");
-            System.out.println("    (1) Personaje");
-            System.out.println("    (2) Mosuntruos");
-            System.out.println("    (3) Volver al juego");
-    
-            System.out.println("Elija su siguiente acción: ");
-    
-            int eleccion = sc.nextInt();
-    
-            switch (eleccion) {
-                case 1:
-                    p.InfoPersonaje();
-                    break;
-                case 2:
-                    InfoMounstruos();
-                    break;
-                case 3:
-                    respuesta  = true;
-                    break;
-                default:
-                    System.out.println("Elija una de las opciones disponibles");
-                    break;
-            }
-
-        }
-    }
-
-    public void InfoPersonaje(int eleccionPersonaje)
-    {
-        p.InfoPersonaje();
-        InfoScore();
-    }
-
-    public void InfoMounstruos()
-    {
-
-    }
-    //---Tema ranking---
-
-    public int InfoScore()
-    {
-        int scorePartida = 0;
-        int scoreVida = 0;
-        int scoreAbandono = -10;
-
-        int scoreTotal = (scorePartida + scoreVida) - scoreAbandono;
-        return scoreTotal;
-    }
-
-    public void PartidaPerdida(String guia,String nombre)
-    {
-        System.out.println(guia + " : MIAUUUU! Menudo golpe ese, aunque hayas perdido la primera prueba no te pongas triste, la puedes volver a hacer.");
-        System.out.println(guia + " : " + nombre + " te dejo tu score de esta partida.");
-        InfoScore();
-        System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
-    }
-
-    public void PartidaGanada (String guia, String nombre)
-    {
-        System.out.println(guia + " : MIAUUU! Ese golpe habla de quien manda aquí!!");
-        System.out.println(guia + " : Felicidades por pasar la primera torre de tu vida, más en el fututo conocerás muchas más torres y convertirte en un gran heroe reconocido de nuestro reino.");
-        System.out.println(guia + " : Te dejo tu score por aquí:");
-        System.out.println("");
-        InfoScore();
-    }
-
-    public void PartidaAbandonada(String guia, String nombre)
-    {
-        System.out.println(guia + " : MIAUUUUU!! Que susto ese, no te preocupes, es tu primera prueba y es normal que no la finalices.");
-        System.out.println(guia + " : Sigues teniendo tu score te la dejo por aquí para que la tengas:");
-        System.out.println("");
-        InfoScore();
-    }
-
-
-    //---PARTES DEL JUEGO---
-
-    public void VisualizaciónAtaque()
-    {
-        System.out.println("(1) Atacar \n" + "\n" + "(2) USar objeto \n" + "\n" + "(3) Salir de la torre");
-
-        int respuestaAtaque = sc.nextInt();
-        boolean respuesta = true;
-        while (respuesta)
-        {
-
-            switch (respuestaAtaque)
-            {
-                case 1:
-                    int maximo = 20;
-                    int minimo = 10;
-                    int numeroDaño = r.nextInt(minimo,maximo);
-    
-                    respuesta = false;
-                    break;
-    
-                case 2:
-                    AbrirInventario();
-                    break;
-    
-                case 3:
-                    PartidaAbandonada(null, null);
-                    respuesta = false;
-                    break;
-            }
-        }
-    }
-
-    public void AbrirInventario()
-    {
-        int [] inventario = new int[10];
-        
-    }
 }
