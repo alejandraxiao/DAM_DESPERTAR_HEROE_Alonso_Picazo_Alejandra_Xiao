@@ -4,18 +4,56 @@ package Proyecto;
 import java.util.Random;
 import java.util.Scanner;
 
+import Clases.ClasePersonaje;       //personaje base sin herencias
+import Mounstruos.*;                //Todos los mounstruos
+import Armas.*;                     //Todas las armas
+import Objetos.*;                   //Todos los objetos
+
 //---Métodos---
 public class Metodos 
 {
     Scanner sc = new Scanner(System.in);
     Random r = new Random();
 
-    //---Imports de clases---
-    ClasePersonaje p = new ClasePersonaje(null, 0, 0, 0, 0, 0, null, null);
-    ClaseMoustruo m = new ClaseMoustruo();
-    ClaseArma a = new ClaseArma();
-    ClaseObjeto o = new ClaseObjeto();
+    //---Imports de clases de Herencias---
 
+    //-----------------------------------PROTAGONISTA-------------------------------------------
+    ClasePersonaje CP = new ClasePersonaje(null, null, null, 0, 0, 0, 0);
+
+    //-------------------------------------ARMAS------------------------------------------------
+    //---Arcos---
+    ArcoSimple AS = new ArcoSimple(null, 0, 0, null);
+    ArcoTriple AT = new ArcoTriple(null, 0, 0, null);
+    //---Espada--
+    EspadaLigera EL = new EspadaLigera(null, 0, 0, null);
+    EspadaPesada EP = new EspadaPesada(null, 0, 0, null);
+    //---Fé---
+    Fe fe = new Fe(null, 0, 0, null);
+    Sacrificios S = new Sacrificios(null, 0, 0, null);
+    //---Poder---
+    PoderLuz PL = new PoderLuz(null, 0, 0, null);
+    PoderOscuridad PO = new PoderOscuridad(null, 0, 0, null);
+
+    //-----------------------------------MOUNSTRUOS-----------------------------------------------
+    Nivel1 N1 = new Nivel1(null, 0, 0, 0, 0);
+    Nivel2 N2 = new Nivel2(null, 0, 0, 0, 0);
+    Nivel3 N3 = new Nivel3(null, 0, 0, 0, 0);
+
+    //-----------------------------------OBJETOS--------------------------------------------------
+    //---Maldiciones---
+    MaldicionAlmas MA = new MaldicionAlmas(null, 0, 0, null);
+    MaldicionMuertos MM = new MaldicionMuertos(null, 0, 0, null);
+    MaldicionOscuridad MO = new MaldicionOscuridad(null, 0, 0, null);
+    MaldicionTorre MR = new MaldicionTorre(null, 0, 0, 0, null);
+
+    //---Pociones---
+    PocionCuracion PC = new PocionCuracion(null, 0, 0, null);
+    PocionFe PF = new PocionFe(null, 0, 0, null);
+    PocionResistencia PR = new PocionResistencia(null, 0, 0, null); 
+
+
+
+    
     //---Introducción de la historia---
     public void Historia()
     {
