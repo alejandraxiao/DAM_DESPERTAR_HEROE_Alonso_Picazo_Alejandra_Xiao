@@ -204,7 +204,7 @@ public class Metodos
     public String CofreAleatorio()
     {
         String [] objetoGanado = {"Maldición Almas", "Maldición de Muertos" , "Maldición de la Torre", "Poción de curación"};
-        int ganado = r.nextInt(3);
+        int ganado = r.nextInt(objetoGanado.length);
         String objeto  = objetoGanado[ganado];
         System.out.println("Has ganado : " + objeto);
         return objetoGanado[ganado];
