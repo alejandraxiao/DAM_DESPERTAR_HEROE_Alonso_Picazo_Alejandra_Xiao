@@ -120,7 +120,7 @@ public class Metodos
     
             switch (eleccion) {
                 case 1:
-                    p.InfoPersonaje();
+                    InfoPersonaje();
                     break;
                 case 2:
                     InfoMounstruos();
@@ -140,7 +140,7 @@ public class Metodos
 
     public void InfoPersonaje(int eleccionPersonaje)
     {
-        p.InfoPersonaje();
+        CP.InfoPersonaje();
         InfoScore();
     }
 

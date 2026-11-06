@@ -80,4 +80,11 @@ public class ClasePersonaje
         System.out.println("Daño : " + daño);
         System.out.println("Arma : " + arma);
     }
+
+    public void InfoPersonaje()
+    {
+        System.out.println("Nombre : " + nombre);
+        System.out.println("Vida : " + getVida());
+        System.out.println("Daño : " + getDaño());
+    }
 }
