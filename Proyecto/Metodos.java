@@ -67,30 +67,18 @@ public class Metodos
 
     public void Juego()
     {
+        String guia = "Bigotín";
         //Inicio del juego con Bigotín, es la EXPLICACIÓN DE TODO EL JUEGO
         SaludoInicial();
-        EleccionPersonaje(null, null);
-        TorreExplicacion("null", "null");
-        Ataque(null, null);
-        Emergencia(null, null);
+        EleccionPersonaje(CP.getNombre(), guia);
+        TorreExplicacion(guia);
+        Ataque(guia);
+        Emergencia(guia);
 
         //PARTE DEL JUEGO CON ATAQUES
 
         System.out.println("Nivel 1");
-        boolean juego = true;
-        boolean mounstruo = false;
-        boolean personaje = false;
         
-        while (juego)
-        {
-            if (personaje == true)
-            {
-                while(mounstruo)
-                {
-
-                }
-            }
-        }
     }
     //---Introducción de la historia---
     public void Historia()
