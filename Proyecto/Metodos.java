@@ -18,32 +18,32 @@ public class Metodos
     //---Imports de clases de Herencias---
 
     //-----------------------------------PROTAGONISTA-------------------------------------------
-    ClasePersonaje CP = new ClasePersonaje(null, null, null, 0, 0, 0, 0);
+    ClasePersonaje CP = new ClasePersonaje(null, null, null, 100, 15, 100, 0);
 
     //-------------------------------------ARMAS------------------------------------------------
     //---Arcos---
-    ArcoSimple AS = new ArcoSimple(null, 0, 0, null);
-    ArcoTriple AT = new ArcoTriple(null, 0, 0, null);
+    ArcoSimple AS = new ArcoSimple(null, 1, 15, null);
+    ArcoTriple AT = new ArcoTriple(null, 1, 17, null);
     //---Espada--
-    EspadaLigera EL = new EspadaLigera(null, 0, 0, null);
-    EspadaPesada EP = new EspadaPesada(null, 0, 0, null);
+    EspadaLigera EL = new EspadaLigera(null, 1, 17, null);
+    EspadaPesada EP = new EspadaPesada(null, 1, 20, null);
     //---Poder---
-    PoderLuz PL = new PoderLuz(null, 0, 0, null);
-    PoderOscuridad PO = new PoderOscuridad(null, 0, 0, null);
+    PoderLuz PL = new PoderLuz(null, 1, 16, null);
+    PoderOscuridad PO = new PoderOscuridad(null, 1, 19, null);
 
     //-----------------------------------MOUNSTRUOS-----------------------------------------------
-    Nivel1 N1 = new Nivel1(null, 0, 0, 0, 0);
-    Nivel2 N2 = new Nivel2(null, 0, 0, 0, 0);
-    Nivel3 N3 = new Nivel3(null, 0, 0, 0, 0);
+    Nivel1 N1 = new Nivel1("Hada corrupta", 50, 1, 10, 0);
+    Nivel2 N2 = new Nivel2("Espectro de Maná", 100, 2, 15, 0);
+    Nivel3 N3 = new Nivel3("Guardian de la Torre", 120, 3, 25, 0);
 
     //-----------------------------------OBJETOS--------------------------------------------------
     //---Maldiciones---
-    MaldicionAlmas MA = new MaldicionAlmas(null, 0, 0, null);
-    MaldicionMuertos MM = new MaldicionMuertos(null, 0, 0, null);
-    MaldicionTorre MR = new MaldicionTorre(null, 0, 0, 0, null);
+    MaldicionAlmas MA = new MaldicionAlmas("Maldición de las Almas", 1, 0, null);
+    MaldicionMuertos MM = new MaldicionMuertos("Maldición de los Muertos", 1, 0, null);
+    MaldicionTorre MR = new MaldicionTorre("Maldición de la Torre", 1, 0, 0, null);
 
     //---Pociones---
-    PocionCuracion PC = new PocionCuracion(null, 0, 0, null);
+    PocionCuracion PC = new PocionCuracion("Poción de Curación", 1, 0, null);
 
 
     //---------------------------------------------------------------------------------------------------------------------------
@@ -204,7 +204,7 @@ public class Metodos
     public String CofreAleatorio()
     {
         String [] objetoGanado = {"Maldición Almas", "Maldición de Muertos" , "Maldición de la Torre", "Poción de curación"};
-        int ganado = r.nextInt(7);
+        int ganado = r.nextInt(3);
         String objeto  = objetoGanado[ganado];
         System.out.println("Has ganado : " + objeto);
         return objetoGanado[ganado];
