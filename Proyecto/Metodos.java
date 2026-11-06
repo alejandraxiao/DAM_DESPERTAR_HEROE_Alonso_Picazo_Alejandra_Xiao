@@ -44,7 +44,6 @@ public class Metodos
 
     //---Pociones---
     PocionCuracion PC = new PocionCuracion(null, 0, 0, null);
-    PocionResistencia PR = new PocionResistencia(null, 0, 0, null); 
 
 
     //---------------------------------------------------------------------------------------------------------------------------
@@ -204,7 +203,7 @@ public class Metodos
 
     public String CofreAleatorio()
     {
-        String [] objetoGanado = {"Maldición Almas", "Maldición de Muertos" , "Maldición de Oscuridad" , "Maldición de la Torre", "Poción de curación", "Poción de Fé" , "Poción de Resistencia"};
+        String [] objetoGanado = {"Maldición Almas", "Maldición de Muertos" , "Maldición de la Torre", "Poción de curación"};
         int ganado = r.nextInt(7);
         String objeto  = objetoGanado[ganado];
         System.out.println("Has ganado : " + objeto);
