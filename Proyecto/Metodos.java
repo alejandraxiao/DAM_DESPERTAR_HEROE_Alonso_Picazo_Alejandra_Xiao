@@ -55,7 +55,49 @@ public class Metodos
     //---------------------------------------------------------------------------------------------------------------------------
 
     //----------------------------------------PARTES DEL JUEGO-------------------------------------------------------------------
+    //---Juego---
+    public void FinalJuego()
+    {
+        boolean juego = true;
+    
+        while (juego)
+        {
+            Historia();
+            do 
+            {
+                Inicio();
+            } 
+            while ();
+        }
+    }
 
+    public void Juego()
+    {
+        //Inicio del juego con Bigotín, es la EXPLICACIÓN DE TODO EL JUEGO
+        SaludoInicial();
+        EleccionPersonaje(null, null);
+        TorreExplicacion(null, null);
+        Ataque(null, null);
+        Emergencia(null, null);
+
+        //PARTE DEL JUEGO CON ATAQUES
+
+        System.out.println("Nivel 1");
+        boolean juego = true;
+        boolean mounstruo = false;
+        boolean personaje = false;
+        
+        while (juego)
+        {
+            if (personaje == true)
+            {
+                while(mounstruo)
+                {
+                    
+                }
+            }
+        }
+    }
     //---Introducción de la historia---
     public void Historia()
     {
@@ -68,7 +110,7 @@ public class Metodos
     }
 
     //--Menú de inicio---
-    public void Inicio()
+    public boolean Inicio()
     {
         boolean jugando = true;
 
@@ -87,14 +129,17 @@ public class Metodos
                 case 1:
                     Juego();
                     jugando = true;
+                    return true;
                     break;
                 case 2:
                     Ranking();
                     jugando = true;
+                    return true;
                     break;
                 case 3:
                     System.exit(0);
                     jugando = false;
+                    return false;
                 default:
                     System.out.println("Error");
                     jugando = true;
@@ -146,7 +191,6 @@ public class Metodos
 
     public void InfoMounstruos()
     {
-
     }
 
   //---ranking---
