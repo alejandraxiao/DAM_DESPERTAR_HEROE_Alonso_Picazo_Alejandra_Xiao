@@ -76,7 +76,7 @@ public class Metodos
         //Inicio del juego con Bigotín, es la EXPLICACIÓN DE TODO EL JUEGO
         SaludoInicial();
         EleccionPersonaje(null, null);
-        TorreExplicacion(null, null);
+        TorreExplicacion("null", "null");
         Ataque(null, null);
         Emergencia(null, null);
 
@@ -183,7 +183,7 @@ public class Metodos
     
     //--------------------------------------------FUNCIONES DEL VIDEOJUEGO----------------------------------------------------------
 
-    public void InfoPersonaje(int eleccionPersonaje)
+    public void InfoPersonaje()
     {
         CP.getNombre();
         CP.getVida();
@@ -207,6 +207,14 @@ public class Metodos
         N3.getFuerza();
     }
 
+    public String CofreAleatorio()
+    {
+        String [] objetoGanado = {"Maldición Almas", "Maldición de Muertos" , "Maldición de Oscuridad" , "Maldición de la Torre", "Poción de curación", "Poción de Fé" , "Poción de Resistencia"};
+        int ganado = r.nextInt(7);
+        String objeto  = objetoGanado[ganado];
+        System.out.println("Has ganado : " + objeto);
+        return objetoGanado[ganado];
+    }
   //---ranking---
 
     public int InfoScore()
@@ -214,6 +222,28 @@ public class Metodos
         int scorePartida = 0;
         int scoreVida = 0;
         int scoreAbandono = -10;
+
+        scoreVida = CP.getVida();
+        if (CP.getVida() >= 0 & N1.getVida() == 0 & N2.getVida() == 0 & N3.getVida() == 0)
+        {
+            scorePartida = 1000;
+        }
+
+        if (CP.getVida() >= 0 & N1.getVida() == 0 & N2.getVida() == 0)
+        {
+            scorePartida = 450;
+        }
+
+        if (CP.getVida() >= 0 & N1.getVida() == 0)
+        {
+            scorePartida = 100;
+        }
+
+        if (CP.getVida() == 0 & N1.getVida() > 0)
+        {
+            scorePartida = 0;
+        }
+
 
         int scoreTotal = (scorePartida + scoreVida) - scoreAbandono;
         return scoreTotal;
