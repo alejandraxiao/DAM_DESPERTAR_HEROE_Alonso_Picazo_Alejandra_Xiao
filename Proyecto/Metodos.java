@@ -235,7 +235,7 @@ public class Metodos
 
     public void VisualizaciónAtaque()
     {
-        System.out.println("(1) Atacar \n" + "\n" + "(2) USar objeto \n" + "\n" + "(3) Salir de la torre");
+        System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre");
 
         int respuestaAtaque = sc.nextInt();
         boolean respuesta = true;
@@ -253,7 +253,7 @@ public class Metodos
                     break;
     
                 case 2:
-                    AbrirInventario();
+                    ConsumirCura();
                     break;
     
                 case 3:
@@ -264,11 +264,31 @@ public class Metodos
         }
     }
 
-    public void AbrirInventario()
+    public void ConsumirCura()
     {
-        int [] inventario = new int[10];
-        
+        String [] inventario = new String[3];
+
+        inventario [0] = "pocion de curacion";
+        inventario [1] = "pocion de curacion";
+        inventario [2] = "pocion de curacion";
+
+        boolean curado = false;
+
+    for (int i = inventario.length - 1; i >= 0; i--)
+    {
+        if (inventario[i] != null)
+        {
+            inventario[i] = null;               
+            CP.setVida(CP.getVida() + 25);
+            curado = true;
+            break;                             
+        }
     }
+
+if (!curado)
+{
+    System.out.println("No te quedan pociones");
+}
 
 
     //-------------------------------------------BIGOTÍN--------------------------------------------------------------------------
@@ -389,9 +409,10 @@ public class Metodos
 
         int respuestaEmergencia = sc.nextInt();
 
-        switch (respuestaEmergencia) {
+        switch (respuestaEmergencia) 
+        {
             case 1:
-                CP.setVida(CP.getVida() + 25);
+                ConsumirCura();
                 break;
             case 2:
                 PartidaAbandonada(null, null);
