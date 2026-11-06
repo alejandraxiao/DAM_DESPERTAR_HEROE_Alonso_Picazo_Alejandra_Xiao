@@ -185,7 +185,9 @@ public class Metodos
 
     public void InfoPersonaje(int eleccionPersonaje)
     {
-        CP.InfoPersonaje();
+        CP.getNombre();
+        CP.getVida();
+        CP.getDaño();
         InfoScore();
     }
 
