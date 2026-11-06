@@ -27,9 +27,6 @@ public class Metodos
     //---Espada--
     EspadaLigera EL = new EspadaLigera(null, 0, 0, null);
     EspadaPesada EP = new EspadaPesada(null, 0, 0, null);
-    //---Fé---
-    Fe fe = new Fe(null, 0, 0, null);
-    Sacrificios S = new Sacrificios(null, 0, 0, null);
     //---Poder---
     PoderLuz PL = new PoderLuz(null, 0, 0, null);
     PoderOscuridad PO = new PoderOscuridad(null, 0, 0, null);
@@ -43,12 +40,10 @@ public class Metodos
     //---Maldiciones---
     MaldicionAlmas MA = new MaldicionAlmas(null, 0, 0, null);
     MaldicionMuertos MM = new MaldicionMuertos(null, 0, 0, null);
-    MaldicionOscuridad MO = new MaldicionOscuridad(null, 0, 0, null);
     MaldicionTorre MR = new MaldicionTorre(null, 0, 0, 0, null);
 
     //---Pociones---
     PocionCuracion PC = new PocionCuracion(null, 0, 0, null);
-    PocionFe PF = new PocionFe(null, 0, 0, null);
     PocionResistencia PR = new PocionResistencia(null, 0, 0, null); 
 
 
@@ -240,7 +235,7 @@ public class Metodos
             System.out.println("No hay cofre en este pasillo. Pasas al siguiente nivel.");
         }
     }
-    
+
   //---ranking---
 
     public int InfoScore()
@@ -370,7 +365,7 @@ if (!curado)
         SaludoInicial();
 
         System.out.println("Escoja su personaje: \n" +
-        "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Sacerdote \n" + "\n" + "4) Arquero");
+        "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Arquero \n");
 
         int eleccionPersonaje = sc.nextInt();
 
@@ -382,9 +377,6 @@ if (!curado)
                 ArmaCaballero();
                 break;
             case 3:
-                ArmaSacerdote();
-                break;
-            case 4:
                 ArmaArquero();
                 break;
             default:
@@ -421,13 +413,6 @@ if (!curado)
           O    |
          [#]===+-       (2) El Caballero! Un clásico, si te gusta moverte es lo tuyo. Tiene mucha agilidad y resistencia. Su única debilidad es que su fuerza es en base a tu condición física.
          / \\
-        """);
-        System.out.println("----------------------------------------");
-        System.out.println("""
-          ___      |
-         (o_o)    -+-   (3) El sacerdote! No todos lo valen, mucha gente cree más en la mágia que en la fe, pero sigue habiendo gente  que cree y nace con un don "La divinidad"
-         /| |\\    |        Contra más divinidad tengas mayor fuerza tendrás y lo mejor de todo! Tu divinidad dependerá de tu fe así que no baja mucho normalmente, solo que tu resistencia es algo más baja
-        /_____\\   |
         """);
         System.out.println("-----------------------------------------");
         System.out.println("""
@@ -524,21 +509,6 @@ if (!curado)
 
         System.out.println("(1) Espada pesada");
         System.out.println("(2) Espada ligera");
-    }
-
-    public void ArmaSacerdote()
-    {
-        System.out.println("MIAUUUUU! Asi que tenías escondido ese don, veremos que tan creyente eres.");
-        System.out.println("No lo digo por nada pero muchos sacerdotes cayeron en la codícia y refinaron un método bastante curioso.");
-        System.out.println("El SACRIFICIO");
-        System.out.println("Este se basa en cuando matas a alguien se convierte en un sacrificio y te dará más poder divino.");
-        System.out.println("Ya que los que teneis este don no teneis maná y actua algo diferente la divinidad, esta no se debilita pero si no consigues divinidad tu fuerza disminuirá.");
-        System.out.println("El sacrficio hace que tengas menos reisitencia ya que no es una divinidad pura, pero será fácil de conseguir en las expediciones.");
-        System.out.println("La fe dependerá de lo que tu creas, esta solo puede mejorarse o rezando o con unas pociones antiguas que otorgan divinidad pura.");
-        System.out.println("Que curiosidad!! ¿Cual será tu elección?.");
-
-        System.out.println("(1) Fe");
-        System.out.println("(2) Sacrificios");
     }
 
     public void ArmaArquero()

@@ -1,9 +1,11 @@
 package Objetos;
 
 import Clases.ClaseObjeto;
+import Clases.ClasePersonaje;
 
 public class MejoraArma extends ClaseObjeto
 {
+    ClasePersonaje CP = new ClasePersonaje(null, null, null, 0, 0, 0, 0);
     private static int mejora = 1;
     private static int daño = 5;
     private static int mana = -5;
@@ -37,5 +39,10 @@ public class MejoraArma extends ClaseObjeto
     }
 
 
-    
+    //---------------------------MÉTODOS-----------------------
+
+    public void ponerNivelArma()
+    {
+        CP.setDaño(CP.getDaño() + daño);
+    }
 }
