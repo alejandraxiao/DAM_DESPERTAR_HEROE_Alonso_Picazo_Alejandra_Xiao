@@ -191,6 +191,18 @@ public class Metodos
 
     public void InfoMounstruos()
     {
+        System.out.println("nivel 1");
+        N1.getNivel();
+        N1.getVida();
+        N1.getFuerza();
+        System.out.println("Nivel 2");
+        N2.getNivel();
+        N2.getVida();
+        N2.getFuerza();
+        System.out.println("Nivel 3");
+        N3.getNivel();
+        N3.getVida();
+        N3.getFuerza();
     }
 
   //---ranking---
@@ -254,6 +266,7 @@ public class Metodos
     
                 case 2:
                     ConsumirCura();
+                    respuesta = true;
                     break;
     
                 case 3:
