@@ -93,7 +93,7 @@ public class Metodos
             {
                 while(mounstruo)
                 {
-                    
+
                 }
             }
         }
@@ -271,8 +271,6 @@ public class Metodos
     }
 
 
-
-
     //-------------------------------------------BIGOTÍN--------------------------------------------------------------------------
 
     //---Elección del personaje---
@@ -309,8 +307,9 @@ public class Metodos
     {
         System.out.println("Introduce tu nombre futuro heroe: ");
         String nombre = sc.nextLine();
+        CP.setNombre(nombre);
         String guia = "Bigotín";
-        System.out.println("?? : ¡Bienvenido " + nombre + "!");
+        System.out.println("?? : ¡Bienvenido " + CP.getNombre() + "!");
         System.out.println("");
         System.out.println("?? : ¡Soy Bigotín! Tu compañero durante tus siguientes años escolares.");
         System.out.println(" ");
@@ -347,19 +346,19 @@ public class Metodos
         """);
     }
 
-    public void TorreExplicacion(String guia, String nombre)
+    public void TorreExplicacion(String guia)
     {
         boolean respuesta = false;
 
         while (respuesta)
         {
-            System.out.println(guia + " : " + "Que emoción " + nombre + " ya tenemos nuestro destino elegido, y como primera prueba para ver tu nivel, los profesores han preparado la 'prueba de la torre'.");
+            System.out.println(guia + " : " + "Que emoción " + CP.getNombre() + " ya tenemos nuestro destino elegido, y como primera prueba para ver tu nivel, los profesores han preparado la 'prueba de la torre'.");
             System.out.println(guia + " : No te preocupes de nada, generalmente la mayoría de estudiantes la pasan sin problema y al ser una prueba de inicio lo único que estás haciendo es poner tu consciencia dentro de la torre.");
             System.out.println(guia + " : Acuerdate que esto es solo una pequeña prueba, los profesores y yo estaremos aquí para cuelquier duda o ayuda que necesites.");
             System.out.println(guia + " : Las normas sin fáciles, si tu vida llega a 0 los profesores te sacarán inmediatamente de la torre, si ganas tu solo pasaste la prueba y podrás salir sin ningún problema.");
             System.out.println(guia + " : En caso de que tu conscienda se salga sola sin querer se te guardará tu score o incluso si te ves atrapado puedes obtar por abandonar la prueba, eso si, decidelo bien porque si abandonas se te restará 10 puntos de tu nota.");
             System.out.println(guia + " : Lo entendiste??");
-            System.out.println(nombre + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
+            System.out.println(CP.getNombre() + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
 
             int respuestaNuestra = sc.nextInt();
             
@@ -374,14 +373,14 @@ public class Metodos
         }
     }
 
-    public void Ataque(String guia, String nombre)
+    public void Ataque(String guia)
     {
         System.out.println(guia + " : Ya estamos dentro de la torre!!!");
         System.out.println(guia + " : Este es un pequeñó recordatorio, puedes atacar, salir de la prueba o pedir información, se te abrirá un pequeño panel con la información que necesites.");
         System.out.println(guia + " : Pues buena suertee, MIAUUUU!!");
     }
 
-    public void Emergencia(String guia, String nombre)
+    public void Emergencia(String guia)
     {
         System.out.println(guia + " : MIAUUUUU!!! Ten cuidado!!!");
         System.out.println(guia + " : Tu vida está en números críticos, puede ser que no soportes el siguiente golpe.");
@@ -392,7 +391,7 @@ public class Metodos
 
         switch (respuestaEmergencia) {
             case 1:
-                p.setVida(p.getVida() + 25);
+                CP.setVida(CP.getVida() + 25);
                 break;
             case 2:
                 PartidaAbandonada(null, null);
