@@ -8,12 +8,14 @@ import Clases.ClasePersonaje;       //personaje base sin herencias
 import Mounstruos.*;                //Todos los mounstruos
 import Armas.*;                     //Todas las armas
 import Objetos.*;                   //Todos los objetos
+import Clases.ClaseMoustruo;        //Clase mounstruo
 
 //---Métodos---
 public class Metodos 
 {
     Scanner sc = new Scanner(System.in);
     Random r = new Random();
+    String guia = "Bigotín";
 
     //---Imports de clases de Herencias---
 
@@ -67,19 +69,48 @@ public class Metodos
 
     public void Juego()
     {
-        String guia = "Bigotín";
-        //Inicio del juego con Bigotín, es la EXPLICACIÓN DE TODO EL JUEGO
-        SaludoInicial();
+       //---Partida nueva: todo vuelve a empezar---
+        CP.setVida(100);
+        N1 = new Nivel1("Hada corrupta", 50, 1, 20, 0);
+        N2 = new Nivel2("Espectro de maná", 100, 2, 30, 0);
+        N3 = new Nivel3("Guardián de la Torre", 150, 3, 35, 0);
+
+        //---Nuestro inventario al inicio---
+        String[] inventario = new String[10];
+        inventario [0] = "Poción de curación";
+        inventario [1] = "Poción de curación";
+        inventario [2] = "Poción de curación";
+
+        //---Abandono de la partida---
+        boolean abandonado = false;
+
+        //---Inicio con Bigotín---
         EleccionPersonaje(CP.getNombre(), guia);
         TorreExplicacion(guia);
         Ataque(guia);
-        Emergencia(guia);
 
-        //PARTE DEL JUEGO CON ATAQUES
-
+        //---INICIO DEL JUEGO---
         System.out.println("Nivel 1");
-        
+        if (!Combate(N1))
+        {
+            return;
+        }
+        ElegirPasillo();
+        System.out.println("Nivel 2");
+        if (!Combate(N2))
+        {
+            return;
+        }
+        ElegirPasillo();
+        System.out.println("Nivel 3");
+        if (!Combate(N3))
+        {
+            return;
+        }
+        PartidaGanada(guia, CP.getNombre());
     }
+
+    
     //---Introducción de la historia---
     public void Historia()
     {
@@ -297,10 +328,11 @@ public class Metodos
             switch (respuestaAtaque)
             {
                 case 1:
-                    int maximo = 20;
+                    int maximo = 21;
                     int minimo = 10;
                     int numeroDaño = r.nextInt(minimo,maximo);
-    
+
+                    M.setVida(M.getVida() - numeroDaño);
                     respuesta = false;
                     break;
     
