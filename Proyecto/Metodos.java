@@ -339,22 +339,22 @@ public class Metodos
 
         boolean curado = false;
 
-    for (int i = inventario.length - 1; i >= 0; i--)
-    {
-        if (inventario[i] != null)
+        for (int i = inventario.length - 1; i >= 0; i--)
         {
-            inventario[i] = null;               
-            CP.setVida(CP.getVida() + 25);
-            curado = true;
-            break;                             
+            if (inventario[i] != null)
+            {
+                inventario[i] = null;               
+                CP.setVida(Math.min(CP.getVida() + 25, 100));
+                curado = true;
+                break;                             
+            }
+        }
+
+        if (!curado)
+        {
+            System.out.println("No te quedan pociones");
         }
     }
-
-if (!curado)
-{
-    System.out.println("No te quedan pociones");
-}
-
 
     //-------------------------------------------BIGOTÍN--------------------------------------------------------------------------
 
