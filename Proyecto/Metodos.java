@@ -215,6 +215,32 @@ public class Metodos
         System.out.println("Has ganado : " + objeto);
         return objetoGanado[ganado];
     }
+
+    public int PasilloAleatorio()
+    {
+        int pasillo = r.nextInt(2);
+        return pasillo;
+    }
+
+    public void ElegirPasillo()
+    {
+        int pasilloCofre = PasilloAleatorio();   // dónde está el cofre esta vez
+
+        System.out.println("(1) Pasillo A \n" + "\n" + "(2) Pasillo B");
+        int eleccion = sc.nextInt();
+        int pasilloElegido = eleccion - 1;
+
+        if (pasilloElegido == pasilloCofre)
+        {
+            System.out.println("¡Has encontrado un cofre!");
+            CofreAleatorio();
+        }
+        else
+        {
+            System.out.println("No hay cofre en este pasillo. Pasas al siguiente nivel.");
+        }
+    }
+    
   //---ranking---
 
     public int InfoScore()
