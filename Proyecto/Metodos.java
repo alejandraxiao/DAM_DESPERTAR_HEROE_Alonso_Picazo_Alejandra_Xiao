@@ -306,6 +306,11 @@ public class Metodos
 
   //---ranking---
 
+    public void Ranking()
+    {
+        System.out.println("Score : " + InfoScore());
+    }
+
     public int InfoScore()
     {
         int scorePartida = 0;
