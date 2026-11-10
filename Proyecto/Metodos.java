@@ -52,20 +52,6 @@ public class Metodos
 
     //----------------------------------------PARTES DEL JUEGO-------------------------------------------------------------------
     //---Juego---
-    public void FinalJuego()
-    {
-        boolean juego = true;
-    
-        while (juego)
-        {
-            Historia();
-            do 
-            {
-                Inicio();
-            } 
-            while ();
-        }
-    }
 
     public void Juego()
     {
@@ -110,7 +96,7 @@ public class Metodos
         PartidaGanada(guia, CP.getNombre());
     }
 
-    
+
     //---Introducción de la historia---
     public void Historia()
     {
@@ -142,17 +128,14 @@ public class Metodos
                 case 1:
                     Juego();
                     jugando = true;
-                    return true;
                     break;
                 case 2:
                     Ranking();
                     jugando = true;
-                    return true;
                     break;
                 case 3:
-                    System.exit(0);
                     jugando = false;
-                    return false;
+                    break;
                 default:
                     System.out.println("Error");
                     jugando = true;
@@ -513,6 +496,20 @@ public class Metodos
 
         System.out.println("(1) Luz");
         System.out.println("(2) Oscuridad");
+
+        int eleccionArma = sc.nextInt();
+        CP.setClase("Mago");
+
+        if (eleccionArma == 1)
+        {
+            CP.setArma(PL.getNombre());
+            CP.setDaño(PL.getDaño());
+        }
+        else
+        {
+            CP.setArma(PO.getNombre());
+            CP.setDaño(PO.getDaño());
+        }
     }
 
     public void ArmaCaballero()
@@ -528,6 +525,20 @@ public class Metodos
 
         System.out.println("(1) Espada pesada");
         System.out.println("(2) Espada ligera");
+
+        int eleccionArma = sc.nextInt();
+        CP.setClase("Caballero");
+
+        if (eleccionArma == 1)
+        {
+            CP.setArma(EP.getNombre());
+            CP.setDaño(EP.getDaño());
+        }
+        else
+        {
+            CP.setArma(EL.getNombre());
+            CP.setDaño(EL.getDaño());
+        }
     }
 
     public void ArmaArquero()
@@ -543,6 +554,14 @@ public class Metodos
 
         System.out.println("(1) Arco Triple");
         System.out.println("(2) Arco Ligero");
+
+        int eleccionArma = sc.nextInt();
+        CP.setClase("Arquero");
+        if (eleccionArma == 1)
+        {
+            CP.setArma(AT.getNombre());
+            CP.setDaño(AT.getDaño());
+        }
     }
 
 }
