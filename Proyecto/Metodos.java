@@ -203,26 +203,26 @@ public class Metodos
 
     public void InfoPersonaje()
     {
-        CP.getNombre();
-        CP.getVida();
-        CP.getDaño();
-        InfoScore();
+        System.out.println("Nombre : " + CP.getNombre());
+        System.out.println("Vida : " + CP.getVida());
+        System.out.println("Daño : " + CP.getDaño());
+        System.out.println("Score : " + InfoScore());
     }
 
     public void InfoMounstruos()
     {
         System.out.println("nivel 1");
-        N1.getNivel();
-        N1.getVida();
-        N1.getFuerza();
+        System.out.println("Nombre : " + N1.getNombre());
+        System.out.println("Vida : " + N1.getVida());
+        System.out.println("Fuerza máxima : " + N1.getFuerza());
         System.out.println("Nivel 2");
-        N2.getNivel();
-        N2.getVida();
-        N2.getFuerza();
+        System.out.println("Nombre : " + N2.getNombre());
+        System.out.println("Vida : " + N2.getVida());
+        System.out.println("Fuerza máxima : " + N2.getFuerza());
         System.out.println("Nivel 3");
-        N3.getNivel();
-        N3.getVida();
-        N3.getFuerza();
+        System.out.println("Nombre : " + N3.getNombre());
+        System.out.println("Vida : " + N3.getVida());
+        System.out.println("Fuerza máxima : " + N3.getFuerza());
     }
 
     public String CofreAleatorio()
