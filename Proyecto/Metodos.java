@@ -422,7 +422,7 @@ public class Metodos
         return CP.getVida() > 0;
     }
 
-    public void VisualizacionAtaque()
+    public void VisualizacionAtaque(ClaseMoustruo M)
     {
         System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre");
 
