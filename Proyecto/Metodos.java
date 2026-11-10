@@ -143,6 +143,7 @@ public class Metodos
 
             System.out.println("Elija que acción quiere hacer: ");
             int eleccion = sc.nextInt();
+            sc.nextLine();     //Corección para que no nos salte el siguiente valor que debemos introducir
 
             switch (eleccion)
             {
