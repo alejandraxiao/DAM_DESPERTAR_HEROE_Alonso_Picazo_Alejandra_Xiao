@@ -56,6 +56,9 @@ public class Metodos
     //---Inventario---
     String [] inventario = new String[3];
 
+    //---Abandono de la partida---
+    boolean abandonado = false;
+
     public void Juego()
     {
        //---Partida nueva: todo vuelve a empezar---
