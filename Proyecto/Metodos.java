@@ -73,17 +73,17 @@ public class Metodos
     //----------------------------------------------------------------------------------------------------------------------------
     //----------------------------------------PARTES DEL JUEGO--------------------------------------------------------------------
     //---Juego---
-    
+
     public void Juego()
     {
        //---Partida nueva: todo vuelve a empezar---
         CP.setVida(100);
-        N1 = new Nivel1("Hada corrupta", 50, 1, 20, 0);
-        N2 = new Nivel2("Espectro de maná", 100, 2, 30, 0);
-        N3 = new Nivel3("Guardián de la Torre", 150, 3, 35, 0);
+        N1 = new Nivel1("Hada corrupta", 50, 1, 10, 0);
+        N2 = new Nivel2("Espectro de maná", 100, 2, 15, 0);
+        N3 = new Nivel3("Guardián de la Torre", 150, 3, 18, 0);
 
         //---Nuestro inventario al inicio---
-        String[] inventario = new String[10];
+        inventario = new String[3];
         inventario [0] = "Poción de curación";
         inventario [1] = "Poción de curación";
         inventario [2] = "Poción de curación";
