@@ -419,7 +419,7 @@ public class Metodos
         System.out.println("-----------------------------------------");
         System.out.println("""
           O   )
-         /|\\--->       (4) El arquero hace que tengas muchas posibilidades, ni te cansas tanto ni gastas tanto maná, eso sí, tu fuerza si que es menor que al del caballero.
+         /|\\--->       (3) El arquero hace que tengas muchas posibilidades, ni te cansas tanto ni gastas tanto maná, eso sí, tu fuerza si que es menor que al del caballero.
          / \\  )
         """);
     }
