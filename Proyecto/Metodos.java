@@ -1,5 +1,6 @@
 package Proyecto;
 
+import java.lang.annotation.Documented;
 //---imports---
 import java.util.Random;
 import java.util.Scanner;
@@ -40,9 +41,9 @@ public class Metodos
 
     //-----------------------------------OBJETOS--------------------------------------------------
     //---Maldiciones---
-    MaldicionAlmas MA = new MaldicionAlmas("Maldición de las Almas", 1, 0, null);
-    MaldicionMuertos MM = new MaldicionMuertos("Maldición de los Muertos", 1, 0, null);
-    MaldicionTorre MR = new MaldicionTorre("Maldición de la Torre", 1, 0, 0, null);
+    MaldicionAlmas MA = new MaldicionAlmas("Maldición de las Almas", 1, -20, null);
+    MaldicionMuertos MM = new MaldicionMuertos("Maldición de los Muertos", 1, -15, null);
+    MaldicionTorre MR = new MaldicionTorre("Maldición de la Torre", 1, 20, 5, null);
 
     //---Pociones---
     PocionCuracion PC = new PocionCuracion("Poción de Curación", 1, 0, null);
