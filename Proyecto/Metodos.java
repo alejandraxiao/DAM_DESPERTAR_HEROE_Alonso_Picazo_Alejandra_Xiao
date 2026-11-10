@@ -371,7 +371,58 @@ public class Metodos
 
     //-------------------------------------------PARTE DE COMBATES------------------------------------------------------------------
 
-    public void VisualizaciónAtaque()
+    //---Combate por turnos---
+    public boolean Combate(ClaseMoustruo M)
+    {
+        System.out.println("Aparece " + M.getNombre() + " con " + M.getVida() + " de vida");
+        Pausa();
+
+        while (CP.getVida() > 0 && M.getVida() > 0)
+        {
+            //---Turno del personaje---
+            VisualizacionAtaque(M);
+
+            if (abandonado)
+            {
+                PartidaAbandonada(guia, CP.getNombre());
+                return false;
+            }
+
+            if (M.getVida() <= 0)
+            {
+                System.out.println("Has derrotado a " + M.getNombre());
+                Pausa();
+                return true;
+            }
+
+            //---Turno del mounstruo---
+            int dañoMounstruo = r.nextInt(5, M.getFuerza() + 1);   
+            CP.setVida(CP.getVida() - dañoMounstruo);
+            System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
+            Pausa();
+
+            if (CP.getVida() <= 0)
+            {
+                PartidaPerdida(guia, CP.getNombre());
+                return false;
+            }
+
+            //---Vida baja con el aviso de Bigotín---
+            if (CP.getVida() <= 25)
+            {
+                Emergencia(guia);
+
+                if (abandonado)
+                {
+                    PartidaAbandonada(guia, CP.getNombre());
+                    return false;
+                }
+            }
+        }
+        return CP.getVida() > 0;
+    }
+
+    public void VisualizacionAtaque()
     {
         System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre");
 
