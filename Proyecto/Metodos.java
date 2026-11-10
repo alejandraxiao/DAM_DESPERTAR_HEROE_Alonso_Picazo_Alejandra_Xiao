@@ -457,12 +457,6 @@ public class Metodos
 
     public void ConsumirCura()
     {
-        String [] inventario = new String[3];
-
-        inventario [0] = "pocion de curacion";
-        inventario [1] = "pocion de curacion";
-        inventario [2] = "pocion de curacion";
-
         boolean curado = false;
 
         for (int i = inventario.length - 1; i >= 0; i--)
@@ -471,6 +465,8 @@ public class Metodos
             {
                 inventario[i] = null;               
                 CP.setVida(Math.min(CP.getVida() + 25, 100));
+                System.out.println("Te has curado. Tu vida: " + CP.getVida());
+                Pausa();
                 curado = true;
                 break;                             
             }
