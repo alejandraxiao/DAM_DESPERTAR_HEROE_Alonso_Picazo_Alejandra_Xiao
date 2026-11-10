@@ -53,6 +53,8 @@ public class Metodos
 
     //----------------------------------------PARTES DEL JUEGO-------------------------------------------------------------------
     //---Juego---
+    //---Inventario---
+    String [] inventario = new String[3];
 
     public void Juego()
     {
