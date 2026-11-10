@@ -163,6 +163,7 @@ public class Metodos
                     jugando = true;
             }
         }
+        return false;
     }
 
     //---Creación del panel informativo durante el videojuego---
