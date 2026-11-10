@@ -357,7 +357,7 @@ public class Metodos
         System.out.println(guia + " : Felicidades por pasar la primera torre de tu vida, más en el fututo conocerás muchas más torres y convertirte en un gran heroe reconocido de nuestro reino.");
         System.out.println(guia + " : Te dejo tu score por aquí:");
         System.out.println("");
-        InfoScore();
+        System.out.println("Score : " + InfoScore());
     }
 
     public void PartidaAbandonada(String guia, String nombre)
