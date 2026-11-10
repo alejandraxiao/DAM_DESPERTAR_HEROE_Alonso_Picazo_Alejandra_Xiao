@@ -51,14 +51,29 @@ public class Metodos
 
     //---------------------------------------------------------------------------------------------------------------------------
 
-    //----------------------------------------PARTES DEL JUEGO-------------------------------------------------------------------
-    //---Juego---
     //---Inventario---
     String [] inventario = new String[3];
 
     //---Abandono de la partida---
     boolean abandonado = false;
 
+    //---Método para la pausa entre textos---
+    public void Pausa()
+    {
+        try
+        {
+            Thread.sleep(1500);
+        }
+        catch (InterruptedException e)
+        {
+
+        }
+    }
+
+    //----------------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------PARTES DEL JUEGO--------------------------------------------------------------------
+    //---Juego---
+    
     public void Juego()
     {
        //---Partida nueva: todo vuelve a empezar---
