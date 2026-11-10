@@ -347,7 +347,7 @@ public class Metodos
     {
         System.out.println(guia + " : MIAUUUU! Menudo golpe ese, aunque hayas perdido la primera prueba no te pongas triste, la puedes volver a hacer.");
         System.out.println(guia + " : " + nombre + " te dejo tu score de esta partida.");
-        InfoScore();
+        System.out.println("Score : " + InfoScore());
         System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
     }
 
@@ -365,7 +365,7 @@ public class Metodos
         System.out.println(guia + " : MIAUUUUU!! Que susto ese, no te preocupes, es tu primera prueba y es normal que no la finalices.");
         System.out.println(guia + " : Sigues teniendo tu score te la dejo por aquí para que la tengas:");
         System.out.println("");
-        InfoScore();
+        System.out.println("Score : " + InfoScore());
     }
     
 
