@@ -89,7 +89,7 @@ public class Metodos
         inventario [2] = "Poción de curación";
 
         //---Abandono de la partida---
-        boolean abandonado = false;
+        abandonado = false;
 
         //---Inicio con Bigotín---
         EleccionPersonaje(CP.getNombre(), guia);
