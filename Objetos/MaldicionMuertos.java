@@ -27,7 +27,7 @@ public class MaldicionMuertos extends ClaseObjeto
     }
 
     //---------------------------------MÉTODOS---------------------------
-    public void ponerMaldicionMuertos()
+    public void ponerMaldicionMuertos(ClasePersonaje CP)
     {
         CP.setVida(CP.getVida() + mana);
     }

@@ -231,6 +231,51 @@ public class Metodos
         int ganado = r.nextInt(objetoGanado.length);
         String objeto  = objetoGanado[ganado];
         System.out.println("Has ganado : " + objeto);
+
+        switch (ganado)
+        {
+            case 0:
+                MA.ponerMaldiciónAlmas(CP);
+                if (CP.getVida() < 1)
+                {
+                    CP.setVida(1);              //una maldición no te puede matar
+                }
+                System.out.println("Tu vida: " + CP.getVida());
+                Pausa();
+                break;
+            case 1:
+                MM.ponerMaldicionMuertos(CP);
+                if (CP.getVida() < 1)
+                {
+                    CP.setVida(1);
+                }
+                System.out.println("Tu vida: " + CP.getVida());
+                Pausa();
+                break;
+            case 2:
+                if (N2.getVida() > 0)               //primer cofre: quedan nivel 2 y 3
+                {
+                    MR.ponerMaldicionMounstruosPrimerCofre(N2, N3);
+                }
+                else                                //segundo cofre: solo queda el nivel 3
+                {
+                    MR.ponerMaldicionMounstruosSegundoCofre(N3);
+                }
+                System.out.println("Los mounstruos que quedan tienen más vida y fuerza");
+                Pausa();
+                break;
+            case 3:
+                for (int i = 0; i < inventario.length; i++)
+                {
+                    if (inventario[i] == null)
+                    {
+                        inventario[i] = "Poción de curación";
+                        break;
+                    }
+                }
+                break;
+        }
+        
         return objetoGanado[ganado];
     }
 

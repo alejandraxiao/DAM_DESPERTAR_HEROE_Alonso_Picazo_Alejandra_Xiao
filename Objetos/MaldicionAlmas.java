@@ -19,7 +19,7 @@ public class MaldicionAlmas extends ClaseObjeto
 
     //---------------------MÉTODOS--------------------
 
-    public void ponerMaldiciónAlmas()
+    public void ponerMaldiciónAlmas(ClasePersonaje CP)
     {
         CP.setVida(CP.getVida() + vida);
     }

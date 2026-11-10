@@ -41,7 +41,7 @@ public class MejoraArma extends ClaseObjeto
 
     //---------------------------MÉTODOS-----------------------
 
-    public void ponerNivelArma()
+    public void ponerNivelArma(ClasePersonaje CP)
     {
         CP.setDaño(CP.getDaño() + daño);
     }
