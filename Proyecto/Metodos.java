@@ -592,7 +592,7 @@ public class Metodos
                 ConsumirCura();
                 break;
             case 2:
-                PartidaAbandonada(null, null);
+                abandonado = true;
                 break;
             default:
                 break;
