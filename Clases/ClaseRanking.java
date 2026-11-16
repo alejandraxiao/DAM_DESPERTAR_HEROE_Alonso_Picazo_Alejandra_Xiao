@@ -143,7 +143,7 @@ public class ClaseRanking
             return;
         }
 
-        System.out.println("---------- RANKING ----------");
+        //---El título del ranking ya lo pone Metodos---
         for (int i = 0; i < cantidad; i++)
         {
             System.out.println((i + 1) + ". " + jugadores[i].getNombre() + " - " + jugadores[i].getPuntos() + " puntos");

@@ -102,7 +102,12 @@ public class Metodos
 
         //---INICIO DEL JUEGO---
         System.out.println("");
-        System.out.println("Nivel 1");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|                 NIVEL 1                  |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
         Pausa();
         if (!Combate(N1))
         {
@@ -110,7 +115,12 @@ public class Metodos
         }
         ElegirPasillo();
         System.out.println("");
-        System.out.println("Nivel 2");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|                 NIVEL 2                  |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
         Pausa();
         if (!Combate(N2))
         {
@@ -118,7 +128,12 @@ public class Metodos
         }
         ElegirPasillo();
         System.out.println("");
-        System.out.println("Nivel 3");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|                 NIVEL 3                  |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
         Pausa();
         if (!Combate(N3))
         {
@@ -131,6 +146,14 @@ public class Metodos
     //---Introducción de la historia---
     public void Historia()
     {
+        System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|                 HISTORIA                 |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
         //---Un párrafo cada vez, con pausa entre ellos---
         System.out.println("En el reino de Kiadur, la magia fluye por cada rincón. El maná recorre la tierra, los ríos y el aire, y cada persona nace con la capacidad de absorber una cantidad distinta. Pero no todo lo que habita este mundo es bondadoso: espíritus errantes y hadas malignas acechan en los bosques y las ruinas, alimentándose del maná de quienes se atreven a cruzar su camino.");
         Pausa();
@@ -150,7 +173,13 @@ public class Metodos
         while(jugando)
         {
             System.out.println("");
-            System.out.println("   Bienvenido a tu zona personal  ");
+            System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+            System.out.println("|                                          |");
+            System.out.println("|      BIENVENIDO A TU ZONA PERSONAL       |");
+            System.out.println("|                                          |");
+            System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+            System.out.println("");
+            Pausa();
             System.out.println("            (1) Jugar             ");
             System.out.println("            (2) Ranking           ");
             System.out.println("            (3) Salir             ");
@@ -189,9 +218,10 @@ public class Metodos
         while (!respuesta)
         {
             System.out.println("");
-            System.out.println("    Panel de información");
+            System.out.println("---------=[ PANEL DE INFORMACIÓN ]=---------");
+            System.out.println("");
             System.out.println("    (1) Personaje");
-            System.out.println("    (2) Mosuntruos");
+            System.out.println("    (2) Mounstruos");
             System.out.println("    (3) Volver al juego");
     
             System.out.println("Elija su siguiente acción: ");
@@ -222,6 +252,8 @@ public class Metodos
     public void InfoPersonaje()
     {
         System.out.println("");
+        System.out.println("--------------=[ PERSONAJE ]=---------------");
+        System.out.println("");
         System.out.println("Nombre : " + CP.getNombre());
         System.out.println("Vida : " + CP.getVida());
         System.out.println("Daño : " + CP.getDaño());
@@ -232,19 +264,22 @@ public class Metodos
     public void InfoMounstruos()
     {
         System.out.println("");
-        System.out.println("Nivel 1");
+        System.out.println("---------------=[ NIVEL 1 ]=----------------");
+        System.out.println("");
         System.out.println("Nombre : " + N1.getNombre());
         System.out.println("Vida : " + N1.getVida());
         System.out.println("Fuerza máxima : " + N1.getFuerza());
         Pausa();
         System.out.println("");
-        System.out.println("Nivel 2");
+        System.out.println("---------------=[ NIVEL 2 ]=----------------");
+        System.out.println("");
         System.out.println("Nombre : " + N2.getNombre());
         System.out.println("Vida : " + N2.getVida());
         System.out.println("Fuerza máxima : " + N2.getFuerza());
         Pausa();
         System.out.println("");
-        System.out.println("Nivel 3");
+        System.out.println("---------------=[ NIVEL 3 ]=----------------");
+        System.out.println("");
         System.out.println("Nombre : " + N3.getNombre());
         System.out.println("Vida : " + N3.getVida());
         System.out.println("Fuerza máxima : " + N3.getFuerza());
@@ -256,6 +291,9 @@ public class Metodos
         String [] objetoGanado = {"Maldición Almas", "Maldición de Muertos" , "Maldición de la Torre", "Poción de curación"};
         int ganado = r.nextInt(objetoGanado.length);
         String objeto  = objetoGanado[ganado];
+        System.out.println("");
+        System.out.println("----------------=[ COFRE ]=-----------------");
+        System.out.println("");
         System.out.println("Has ganado : " + objeto);
         Pausa();
 
@@ -318,6 +356,8 @@ public class Metodos
         int pasilloCofre = PasilloAleatorio();   // dónde está el cofre esta vez
 
         System.out.println("");
+        System.out.println("-----------=[ ELIGE UN PASILLO ]=-----------");
+        System.out.println("");
         System.out.println("(1) Pasillo A \n" + "\n" + "(2) Pasillo B");
         int eleccion = sc.nextInt();
         int pasilloElegido = eleccion - 1;
@@ -340,6 +380,13 @@ public class Metodos
     public void Ranking()
     {
         System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|                 RANKING                  |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
         rankingJuego.Mostrar();
         Pausa();
     }
@@ -383,13 +430,22 @@ public class Metodos
 
     public void PartidaPerdida(String guia,String nombre)
     {
+        System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|              PRUEBA FALLIDA              |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
         System.out.println(guia + " : MIAUUUU! Menudo golpe ese, aunque hayas perdido la primera prueba no te pongas triste, la puedes volver a hacer.");
         Pausa();
         System.out.println("");
         System.out.println(guia + " : " + nombre + " te dejo tu score de esta partida.");
         Pausa();
         System.out.println("");
-        System.out.println("Score : " + InfoScore());
+        System.out.println("-------------=[ SCORE : " + InfoScore() + " ]=-------------");
+        System.out.println("");
         Pausa();
         System.out.println("");
         System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
@@ -399,6 +455,14 @@ public class Metodos
 
     public void PartidaGanada (String guia, String nombre)
     {
+        System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|            ¡PRUEBA SUPERADA!             |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
         System.out.println(guia + " : MIAUUU! Ese golpe habla de quien manda aquí!!");
         Pausa();
         System.out.println("");
@@ -408,20 +472,30 @@ public class Metodos
         System.out.println(guia + " : Te dejo tu score por aquí:");
         Pausa();
         System.out.println("");
-        System.out.println("Score : " + InfoScore());
+        System.out.println("-------------=[ SCORE : " + InfoScore() + " ]=-------------");
+        System.out.println("");
         Pausa();
         GuardarPartida();
     }
 
     public void PartidaAbandonada(String guia, String nombre)
     {
+        System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|            PRUEBA ABANDONADA             |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
         System.out.println(guia + " : MIAUUUUU!! Que susto ese, no te preocupes, es tu primera prueba y es normal que no la finalices.");
         Pausa();
         System.out.println("");
         System.out.println(guia + " : Sigues teniendo tu score te la dejo por aquí para que la tengas:");
         Pausa();
         System.out.println("");
-        System.out.println("Score : " + InfoScore());
+        System.out.println("-------------=[ SCORE : " + InfoScore() + " ]=-------------");
+        System.out.println("");
         Pausa();
         GuardarPartida();
     }
@@ -432,6 +506,9 @@ public class Metodos
     //---Combate por turnos---
     public boolean Combate(ClaseMoustruo M)
     {
+        System.out.println("");
+        System.out.println("---------------=[ COMBATE ]=----------------");
+        System.out.println("");
         System.out.println("Aparece " + M.getNombre() + " con " + M.getVida() + " de vida");
         Pausa();
 
@@ -486,6 +563,8 @@ public class Metodos
         while (respuesta)
         {
             //---El menú se vuelve a pedir en cada vuelta para poder corregir una opción no válida---
+            System.out.println("");
+            System.out.println("---------------=[ TU TURNO ]=---------------");
             System.out.println("");
             System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre \n" + "\n" + "(4) Panel de información");
 
@@ -566,6 +645,8 @@ public class Metodos
         while (!elegido)
         {
             System.out.println("");
+            System.out.println("----------=[ ELIGE TU PERSONAJE ]=----------");
+            System.out.println("");
             System.out.println("Escoja su personaje: \n" +
             "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Arquero \n");
 
@@ -595,6 +676,14 @@ public class Metodos
     //---Diálogos del Bigotín---
     public void SaludoInicial()
     {
+        System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|               EL DESPERTAR               |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
         System.out.println("Introduce tu nombre futuro heroe: ");
         String nombre = sc.nextLine();
         CP.setNombre(nombre);
@@ -611,6 +700,13 @@ public class Metodos
         System.out.println(guia + " : Esto es muy importante ya que no podrás cambiar tu decisión y quedará de por vida, así que ten en cuenta las siguientes cosas.");
         Pausa();
         System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|             LOS TRES CAMINOS             |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
         System.out.println("""
           *
          /^\\
@@ -624,7 +720,10 @@ public class Metodos
         System.out.println("    pero te cansarás bastante rápido, al final dependes de tu maná.");
         System.out.println("");
         Pausa();
-        System.out.println("----------------------------------------");
+        System.out.println("");
+        System.out.println(" ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~");
+        System.out.println("");
+        Pausa();
         System.out.println("""
             |
           O    |
@@ -636,7 +735,10 @@ public class Metodos
         System.out.println("    Su única debilidad es que su fuerza es en base a tu condición física.");
         System.out.println("");
         Pausa();
-        System.out.println("-----------------------------------------");
+        System.out.println("");
+        System.out.println(" ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~ * ~");
+        System.out.println("");
+        Pausa();
         System.out.println("""
           O   )
          /|\\--->
@@ -652,6 +754,15 @@ public class Metodos
     public void TorreExplicacion(String guia)
     {
         boolean respuesta = false;
+
+        System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|          LA PRUEBA DE LA TORRE           |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
 
         while (!respuesta)
         {
@@ -691,6 +802,14 @@ public class Metodos
 
     public void Ataque(String guia)
     {
+        System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|            DENTRO DE LA TORRE            |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
         System.out.println(guia + " : Ya estamos dentro de la torre!!!");
         Pausa();
         System.out.println("");
@@ -703,6 +822,9 @@ public class Metodos
 
     public void Emergencia(String guia)
     {
+        System.out.println("");
+        System.out.println("-------------=[ ¡EMERGENCIA! ]=-------------");
+        System.out.println("");
         System.out.println(guia + " : MIAUUUUU!!! Ten cuidado!!!");
         Pausa();
         System.out.println("");
