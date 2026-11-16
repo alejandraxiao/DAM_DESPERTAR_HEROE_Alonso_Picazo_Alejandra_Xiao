@@ -450,11 +450,13 @@ public class Metodos
             switch (respuestaAtaque)
             {
                 case 1:
-                    int maximo = 21;
-                    int minimo = 10;
+                    //---El daño depende del arma elegida: entre 5 menos y 5 más que su daño---
+                    int maximo = CP.getDaño() + 6;
+                    int minimo = CP.getDaño() - 5;
                     int numeroDaño = r.nextInt(minimo,maximo);
 
                     M.setVida(M.getVida() - numeroDaño);
+                    System.out.println("Le haces " + numeroDaño + " de daño a " + M.getNombre() + ". Su vida: " + Math.max(M.getVida(), 0));
                     Pausa();
                     respuesta = false;
                     break;
