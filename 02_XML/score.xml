@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE score SYSTEM "score.dtd">
+
+<score>
+    <jugadores>
+        <jugador id = "1">
+            <nombre>Juan</nombre>
+            <puntos>100</puntos>
+        </jugador>
+        <jugador id = "2">
+            <nombre>Jaime</nombre>
+            <puntos>500</puntos>
+        </jugador>
+        <jugador>
+            <nombre>Maite</nombre>
+            <puntos>350</puntos>
+        </jugador>
+    </jugadores>
+</score>
