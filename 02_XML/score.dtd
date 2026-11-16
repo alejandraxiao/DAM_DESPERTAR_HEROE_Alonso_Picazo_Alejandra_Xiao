@@ -1,0 +1,6 @@
+<!ELEMENT score (jugadores)>
+<!ELEMENT jugadores (jugador+)>
+<!ELEMENT jugador (nombre, puntos)>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT puntos (#PCDATA)>
+<!ATTLIST jugador id CDATA #IMPLIED>
