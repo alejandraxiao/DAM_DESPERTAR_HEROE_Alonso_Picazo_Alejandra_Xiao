@@ -10,6 +10,7 @@ import Mounstruos.*;                //Todos los mounstruos
 import Armas.*;                     //Todas las armas
 import Objetos.*;                   //Todos los objetos
 import Clases.ClaseMoustruo;        //Clase mounstruo
+import Clases.ClaseRanking;         //Ranking de partidas
 
 //---Métodos---
 public class Metodos 
@@ -56,6 +57,9 @@ public class Metodos
 
     //---Abandono de la partida---
     boolean abandonado = false;
+
+    //---Ranking (carga las partidas guardadas al empezar)---
+    ClaseRanking rankingJuego = new ClaseRanking();
 
     //---Método para la pausa entre textos---
     public void Pausa()
@@ -313,7 +317,13 @@ public class Metodos
 
     public void Ranking()
     {
-        System.out.println("Score : " + InfoScore());
+        rankingJuego.Mostrar();
+    }
+
+    //---Guarda la partida terminada en el ranking---
+    public void GuardarPartida()
+    {
+        rankingJuego.NuevoJugador(CP.getNombre(), InfoScore());
     }
 
     public int InfoScore()
@@ -357,6 +367,7 @@ public class Metodos
         Pausa();
         System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
         Pausa();
+        GuardarPartida();
     }
 
     public void PartidaGanada (String guia, String nombre)
@@ -370,6 +381,7 @@ public class Metodos
         System.out.println("");
         System.out.println("Score : " + InfoScore());
         Pausa();
+        GuardarPartida();
     }
 
     public void PartidaAbandonada(String guia, String nombre)
@@ -381,6 +393,7 @@ public class Metodos
         System.out.println("");
         System.out.println("Score : " + InfoScore());
         Pausa();
+        GuardarPartida();
     }
     
 
