@@ -443,7 +443,7 @@ public class Metodos
         while (respuesta)
         {
             //---El menú se vuelve a pedir en cada vuelta para poder corregir una opción no válida---
-            System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre");
+            System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre \n" + "\n" + "(4) Panel de información");
 
             int respuestaAtaque = sc.nextInt();
 
@@ -467,6 +467,11 @@ public class Metodos
                 case 3:
                     abandonado = true;          //Combate() se encarga de llamar a PartidaAbandonada
                     respuesta = false;
+                    break;
+
+                case 4:
+                    PanelInfo();
+                    respuesta = true;           //mirar la información no gasta el turno
                     break;
 
                 default:
