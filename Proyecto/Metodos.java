@@ -476,7 +476,7 @@ public class Metodos
     
                 case 2:
                     ConsumirCura();
-                    respuesta = false;
+                    respuesta = true;           //curarse no gasta el turno, solo atacar lo pasa
                     break;
     
                 case 3:
