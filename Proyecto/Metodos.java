@@ -172,7 +172,7 @@ public class Metodos
     {
         boolean respuesta = false;
 
-        while (respuesta)
+        while (!respuesta)
         {
             System.out.println("    Panel de información");
             System.out.println("    (1) Personaje");
