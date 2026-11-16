@@ -13,7 +13,7 @@
             <nombre>Jaime</nombre>
             <puntos>500</puntos>
         </jugador>
-        <jugador>
+        <jugador id = "3">
             <nombre>Maite</nombre>
             <puntos>350</puntos>
         </jugador>
