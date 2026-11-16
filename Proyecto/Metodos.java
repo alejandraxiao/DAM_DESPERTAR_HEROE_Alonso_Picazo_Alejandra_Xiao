@@ -513,24 +513,33 @@ public class Metodos
     {
         SaludoInicial();
 
-        System.out.println("Escoja su personaje: \n" +
-        "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Arquero \n");
+        boolean elegido = false;
 
-        int eleccionPersonaje = sc.nextInt();
+        //---Se repite hasta que se elija un personaje válido---
+        while (!elegido)
+        {
+            System.out.println("Escoja su personaje: \n" +
+            "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Arquero \n");
 
-        switch (eleccionPersonaje) {
-            case 1:
-                ArmaMago();
-                break;
-            case 2:
-                ArmaCaballero();
-                break;
-            case 3:
-                ArmaArquero();
-                break;
-            default:
-                System.out.println(guia + " : " + nombre + "debes elegir un personaje para poder continuar con tu destino");
-                break;
+            int eleccionPersonaje = sc.nextInt();
+
+            switch (eleccionPersonaje) {
+                case 1:
+                    ArmaMago();
+                    elegido = true;
+                    break;
+                case 2:
+                    ArmaCaballero();
+                    elegido = true;
+                    break;
+                case 3:
+                    ArmaArquero();
+                    elegido = true;
+                    break;
+                default:
+                    System.out.println(guia + " : " + CP.getNombre() + " debes elegir un personaje para poder continuar con tu destino");
+                    break;
+            }
         }
     }
 
