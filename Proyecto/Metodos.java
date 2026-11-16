@@ -101,19 +101,25 @@ public class Metodos
         Ataque(guia);
 
         //---INICIO DEL JUEGO---
+        System.out.println("");
         System.out.println("Nivel 1");
+        Pausa();
         if (!Combate(N1))
         {
             return;
         }
         ElegirPasillo();
+        System.out.println("");
         System.out.println("Nivel 2");
+        Pausa();
         if (!Combate(N2))
         {
             return;
         }
         ElegirPasillo();
+        System.out.println("");
         System.out.println("Nivel 3");
+        Pausa();
         if (!Combate(N3))
         {
             return;
@@ -125,14 +131,16 @@ public class Metodos
     //---Introducción de la historia---
     public void Historia()
     {
-        System.out.println
-        ("En el reino de Kiadur, la magia fluye por cada rincón. El maná recorre la tierra, los ríos y el aire, y cada persona nace con la capacidad de absorber una cantidad distinta. Pero no todo lo que habita este mundo es bondadoso: espíritus errantes y hadas malignas acechan en los bosques y las ruinas, alimentándose del maná de quienes se atreven a cruzar su camino.\n" + //
-         "\n" + 
-         "Hoy es el día más importante para los jóvenes de Kiadur: el Despertar. Al alcanzar la edad adecuada, cada joven se presenta ante el altar del maná para descubrir cuánto poder puede absorber y elegir el inicio de su camino. Algunos se convertirán en magos, otros en guerreros, escuderos o curanderos. Esta elección sellará su destino para siempre.\n" + //
-         "\n" + 
-         "Tú eres uno de esos jóvenes. Tras tu Despertar, tendrás que demostrar tu valía enfrentándote a tres criaturas que amenazan el reino, cada una más poderosa que la anterior. Solo quien sobreviva a los tres encuentros será recordado como un verdadero héroe.");
-         Pausa();
-        }
+        //---Un párrafo cada vez, con pausa entre ellos---
+        System.out.println("En el reino de Kiadur, la magia fluye por cada rincón. El maná recorre la tierra, los ríos y el aire, y cada persona nace con la capacidad de absorber una cantidad distinta. Pero no todo lo que habita este mundo es bondadoso: espíritus errantes y hadas malignas acechan en los bosques y las ruinas, alimentándose del maná de quienes se atreven a cruzar su camino.");
+        Pausa();
+        System.out.println("");
+        System.out.println("Hoy es el día más importante para los jóvenes de Kiadur: el Despertar. Al alcanzar la edad adecuada, cada joven se presenta ante el altar del maná para descubrir cuánto poder puede absorber y elegir el inicio de su camino. Algunos se convertirán en magos, otros en guerreros, escuderos o curanderos. Esta elección sellará su destino para siempre.");
+        Pausa();
+        System.out.println("");
+        System.out.println("Tú eres uno de esos jóvenes. Tras tu Despertar, tendrás que demostrar tu valía enfrentándote a tres criaturas que amenazan el reino, cada una más poderosa que la anterior. Solo quien sobreviva a los tres encuentros será recordado como un verdadero héroe.");
+        Pausa();
+    }
 
     //--Menú de inicio---
     public boolean Inicio()
@@ -141,6 +149,7 @@ public class Metodos
 
         while(jugando)
         {
+            System.out.println("");
             System.out.println("   Bienvenido a tu zona personal  ");
             System.out.println("            (1) Jugar             ");
             System.out.println("            (2) Ranking           ");
@@ -165,6 +174,7 @@ public class Metodos
                     break;
                 default:
                     System.out.println("Error");
+                    Pausa();
                     jugando = true;
             }
         }
@@ -178,6 +188,7 @@ public class Metodos
 
         while (!respuesta)
         {
+            System.out.println("");
             System.out.println("    Panel de información");
             System.out.println("    (1) Personaje");
             System.out.println("    (2) Mosuntruos");
@@ -199,6 +210,7 @@ public class Metodos
                     break;
                 default:
                     System.out.println("Elija una de las opciones disponibles");
+                    Pausa();
                     break;
             }
 
@@ -209,26 +221,34 @@ public class Metodos
 
     public void InfoPersonaje()
     {
+        System.out.println("");
         System.out.println("Nombre : " + CP.getNombre());
         System.out.println("Vida : " + CP.getVida());
         System.out.println("Daño : " + CP.getDaño());
         System.out.println("Score : " + InfoScore());
+        Pausa();
     }
 
     public void InfoMounstruos()
     {
-        System.out.println("nivel 1");
+        System.out.println("");
+        System.out.println("Nivel 1");
         System.out.println("Nombre : " + N1.getNombre());
         System.out.println("Vida : " + N1.getVida());
         System.out.println("Fuerza máxima : " + N1.getFuerza());
+        Pausa();
+        System.out.println("");
         System.out.println("Nivel 2");
         System.out.println("Nombre : " + N2.getNombre());
         System.out.println("Vida : " + N2.getVida());
         System.out.println("Fuerza máxima : " + N2.getFuerza());
+        Pausa();
+        System.out.println("");
         System.out.println("Nivel 3");
         System.out.println("Nombre : " + N3.getNombre());
         System.out.println("Vida : " + N3.getVida());
         System.out.println("Fuerza máxima : " + N3.getFuerza());
+        Pausa();
     }
 
     public String CofreAleatorio()
@@ -280,6 +300,7 @@ public class Metodos
                         break;
                     }
                 }
+                Pausa();
                 break;
         }
         
@@ -296,6 +317,7 @@ public class Metodos
     {
         int pasilloCofre = PasilloAleatorio();   // dónde está el cofre esta vez
 
+        System.out.println("");
         System.out.println("(1) Pasillo A \n" + "\n" + "(2) Pasillo B");
         int eleccion = sc.nextInt();
         int pasilloElegido = eleccion - 1;
@@ -317,7 +339,9 @@ public class Metodos
 
     public void Ranking()
     {
+        System.out.println("");
         rankingJuego.Mostrar();
+        Pausa();
     }
 
     //---Guarda la partida terminada en el ranking---
@@ -361,10 +385,13 @@ public class Metodos
     {
         System.out.println(guia + " : MIAUUUU! Menudo golpe ese, aunque hayas perdido la primera prueba no te pongas triste, la puedes volver a hacer.");
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : " + nombre + " te dejo tu score de esta partida.");
         Pausa();
+        System.out.println("");
         System.out.println("Score : " + InfoScore());
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
         Pausa();
         GuardarPartida();
@@ -374,8 +401,10 @@ public class Metodos
     {
         System.out.println(guia + " : MIAUUU! Ese golpe habla de quien manda aquí!!");
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : Felicidades por pasar la primera torre de tu vida, más en el fututo conocerás muchas más torres y convertirte en un gran heroe reconocido de nuestro reino.");
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : Te dejo tu score por aquí:");
         Pausa();
         System.out.println("");
@@ -388,6 +417,7 @@ public class Metodos
     {
         System.out.println(guia + " : MIAUUUUU!! Que susto ese, no te preocupes, es tu primera prueba y es normal que no la finalices.");
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : Sigues teniendo tu score te la dejo por aquí para que la tengas:");
         Pausa();
         System.out.println("");
@@ -456,6 +486,7 @@ public class Metodos
         while (respuesta)
         {
             //---El menú se vuelve a pedir en cada vuelta para poder corregir una opción no válida---
+            System.out.println("");
             System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre \n" + "\n" + "(4) Panel de información");
 
             int respuestaAtaque = sc.nextInt();
@@ -491,6 +522,7 @@ public class Metodos
 
                 default:
                     System.out.println("Elija una de las opciones disponibles");
+                    Pausa();
                     respuesta = true;
                     break;
             }
@@ -533,6 +565,7 @@ public class Metodos
         //---Se repite hasta que se elija un personaje válido---
         while (!elegido)
         {
+            System.out.println("");
             System.out.println("Escoja su personaje: \n" +
             "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Arquero \n");
 
@@ -553,6 +586,7 @@ public class Metodos
                     break;
                 default:
                     System.out.println(guia + " : " + CP.getNombre() + " debes elegir un personaje para poder continuar con tu destino");
+                    Pausa();
                     break;
             }
         }
@@ -623,16 +657,22 @@ public class Metodos
         {
             System.out.println(guia + " : " + "Que emoción " + CP.getNombre() + " ya tenemos nuestro destino elegido, y como primera prueba para ver tu nivel, los profesores han preparado la 'prueba de la torre'.");
             Pausa();
+            System.out.println("");
             System.out.println(guia + " : No te preocupes de nada, generalmente la mayoría de estudiantes la pasan sin problema y al ser una prueba de inicio lo único que estás haciendo es poner tu consciencia dentro de la torre.");
             Pausa();
+            System.out.println("");
             System.out.println(guia + " : Acuerdate que esto es solo una pequeña prueba, los profesores y yo estaremos aquí para cuelquier duda o ayuda que necesites.");
             Pausa();
+            System.out.println("");
             System.out.println(guia + " : Las normas sin fáciles, si tu vida llega a 0 los profesores te sacarán inmediatamente de la torre, si ganas tu solo pasaste la prueba y podrás salir sin ningún problema.");
             Pausa();
+            System.out.println("");
             System.out.println(guia + " : En caso de que tu conscienda se salga sola sin querer se te guardará tu score o incluso si te ves atrapado puedes obtar por abandonar la prueba, eso si, decidelo bien porque si abandonas se te restará 10 puntos de tu nota.");
             Pausa();
+            System.out.println("");
             System.out.println(guia + " : Lo entendiste??");
             Pausa();
+            System.out.println("");
             System.out.println(CP.getNombre() + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
             Pausa();
 
@@ -653,8 +693,10 @@ public class Metodos
     {
         System.out.println(guia + " : Ya estamos dentro de la torre!!!");
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : Este es un pequeñó recordatorio, puedes atacar, salir de la prueba o pedir información, se te abrirá un pequeño panel con la información que necesites.");
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : Pues buena suertee, MIAUUUU!!");
         Pausa();
     }
@@ -663,10 +705,13 @@ public class Metodos
     {
         System.out.println(guia + " : MIAUUUUU!!! Ten cuidado!!!");
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : Tu vida está en números críticos, puede ser que no soportes el siguiente golpe.");
         Pausa();
+        System.out.println("");
         System.out.println(guia + " : Opta en este turno en tomar una poción de curación desde tu inventario, llamar a los profesores o seguir hasta el final.");
         Pausa();
+        System.out.println("");
         System.out.println("(1) Beber poción \n" + "\n" + "(2) Abandonar prueba \n" + "\n" + "(3) Seguir partida");
         Pausa();
 
@@ -693,18 +738,25 @@ public class Metodos
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Mago! Seguro serás el mejor.");
         Pausa();
+        System.out.println("");
         System.out.println("Es importante que sepas que los magos son muy extraños a veces, te acostumbrarás.");
         Pausa();
+        System.out.println("");
         System.out.println("Como sabrás, hace más de mil años se han diferenciado por dos grupos: 'Magos Ocuros' y 'Magos de luz'");
         Pausa();
+        System.out.println("");
         System.out.println("Ahora es tu turno de elegir que tipo de mágia quieres aprender.");
         Pausa();
+        System.out.println("");
         System.out.println("¡PERO CUIDADO!");
         Pausa();
+        System.out.println("");
         System.out.println("Los magos de de luz aunque tengan menos fuerza tendrás más ataques al gastar menos maná y más resistencias.");
         Pausa();
+        System.out.println("");
         System.out.println("Los magos oscuros con su fuerza bruta gastan más maná y se cansarán antes");
         Pausa();
+        System.out.println("");
 
         System.out.println("(1) Luz");
         System.out.println("(2) Oscuridad");
@@ -728,20 +780,28 @@ public class Metodos
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Caballero! Seguro serás el mejor.");
         Pausa();
+        System.out.println("");
         System.out.println("Los caballeros siempre tienen a su mejor amiga ¡LA ESPADA!");
         Pausa();
+        System.out.println("");
         System.out.println("Y como buen caballero es tu turno de elegir a tu compañera de vida");
         Pausa();
+        System.out.println("");
         System.out.println("Muchos fortachones eligen la Espada Pesada ya que hace mucho daño.");
         Pausa();
+        System.out.println("");
         System.out.println("¡PERO CUIDADO!");
         Pausa();
+        System.out.println("");
         System.out.println("Te vas a cansar antes y tu maná volará con cada movimiento que hagas.");
         Pausa();
+        System.out.println("");
         System.out.println("Asi que debes de tener cuidado ehhhhhhhhhhh.");
         Pausa();
+        System.out.println("");
         System.out.println("Sino ve a lo seguro como la mayoría, la Espada Ligera, menos cansancio y menos uso de maná, eso sí, te tocará atacar más por tener menos fuerza.");
         Pausa();
+        System.out.println("");
 
         System.out.println("(1) Espada pesada");
         System.out.println("(2) Espada ligera");
@@ -765,20 +825,28 @@ public class Metodos
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Arquero! Seguro tendrás una puntería increible.");
         Pausa();
+        System.out.println("");
         System.out.println("Los arqueros siempre tienen a su mejor amigo ¡EL ARCO!");
         Pausa();
+        System.out.println("");
         System.out.println("Y como buen arquero es tu turno de elegir a tu compañero de vida");
         Pausa();
+        System.out.println("");
         System.out.println("Muchos osados eligen el Arco Triple ya que hace mucho daño.");
         Pausa();
+        System.out.println("");
         System.out.println("¡PERO CUIDADO!");
         Pausa();
+        System.out.println("");
         System.out.println("Te vas a cansar antes y tu maná volará con cada movimiento que hagas.");
         Pausa();
+        System.out.println("");
         System.out.println("Asi que debes de tener cuidado ehhhhhhhhhhh.");
         Pausa();
+        System.out.println("");
         System.out.println("Sino ve a lo seguro como la mayoría,el Arco Ligero, menos cansancio y menos uso de maná, eso sí, te tocará atacar más por tener menos fuerza.");
         Pausa();
+        System.out.println("");
 
         System.out.println("(1) Arco Triple");
         System.out.println("(2) Arco Ligero");
