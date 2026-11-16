@@ -460,7 +460,7 @@ public class Metodos
     
                 case 2:
                     ConsumirCura();
-                    respuesta = true;
+                    respuesta = false;
                     break;
     
                 case 3:
