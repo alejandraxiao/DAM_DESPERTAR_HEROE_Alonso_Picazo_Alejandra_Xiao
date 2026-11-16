@@ -17,5 +17,13 @@
             <nombre>Maite</nombre>
             <puntos>350</puntos>
         </jugador>
+        <jugador id = "4">
+            <nombre>Juanjo</nombre>
+            <puntos>250</puntos>
+        </jugador>
+        <jugador id = "5">
+            <nombre>Jose</nombre>
+            <puntos>50</puntos>
+        </jugador>
     </jugadores>
 </score>
