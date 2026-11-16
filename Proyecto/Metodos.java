@@ -439,12 +439,13 @@ public class Metodos
 
     public void VisualizacionAtaque(ClaseMoustruo M)
     {
-        System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre");
-
-        int respuestaAtaque = sc.nextInt();
         boolean respuesta = true;
         while (respuesta)
         {
+            //---El menú se vuelve a pedir en cada vuelta para poder corregir una opción no válida---
+            System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre");
+
+            int respuestaAtaque = sc.nextInt();
 
             switch (respuestaAtaque)
             {
@@ -466,6 +467,11 @@ public class Metodos
                 case 3:
                     abandonado = true;          //Combate() se encarga de llamar a PartidaAbandonada
                     respuesta = false;
+                    break;
+
+                default:
+                    System.out.println("Elija una de las opciones disponibles");
+                    respuesta = true;
                     break;
             }
         }
