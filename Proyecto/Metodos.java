@@ -753,6 +753,11 @@ public class Metodos
             CP.setArma(AT.getNombre());
             CP.setDaño(AT.getDaño());
         }
+        else
+        {
+            CP.setArma(AS.getNombre());
+            CP.setDaño(AS.getDaño());
+        }
     }
 
 }
