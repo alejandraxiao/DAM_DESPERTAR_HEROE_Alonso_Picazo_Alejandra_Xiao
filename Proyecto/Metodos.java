@@ -320,31 +320,30 @@ public class Metodos
     {
         int scorePartida = 0;
         int scoreVida = 0;
-        int scoreAbandono = -10;
+        int scoreAbandono = 10;
 
-        scoreVida = CP.getVida();
-        if (CP.getVida() >= 0 & N1.getVida() == 0 & N2.getVida() == 0 & N3.getVida() == 0)
+        scoreVida = Math.max(CP.getVida(), 0);      //la vida negativa no resta puntos
+
+        //---La vida del mounstruo puede quedar negativa, por eso <= 0---
+        if (N3.getVida() <= 0)
         {
             scorePartida = 1000;
         }
-
-        if (CP.getVida() >= 0 & N1.getVida() == 0 & N2.getVida() == 0)
+        else if (N2.getVida() <= 0)
         {
             scorePartida = 450;
         }
-
-        if (CP.getVida() >= 0 & N1.getVida() == 0)
+        else if (N1.getVida() <= 0)
         {
             scorePartida = 100;
         }
 
-        if (CP.getVida() == 0 & N1.getVida() > 0)
+        int scoreTotal = scorePartida + scoreVida;
+
+        if (abandonado)
         {
-            scorePartida = 0;
+            scoreTotal = scoreTotal - scoreAbandono;
         }
-
-
-        int scoreTotal = (scorePartida + scoreVida) - scoreAbandono;
         return scoreTotal;
     }
 
