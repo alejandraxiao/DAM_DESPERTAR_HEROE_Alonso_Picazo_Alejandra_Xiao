@@ -464,7 +464,7 @@ public class Metodos
                     break;
     
                 case 3:
-                    PartidaAbandonada(null, null);
+                    abandonado = true;          //Combate() se encarga de llamar a PartidaAbandonada
                     respuesta = false;
                     break;
             }
