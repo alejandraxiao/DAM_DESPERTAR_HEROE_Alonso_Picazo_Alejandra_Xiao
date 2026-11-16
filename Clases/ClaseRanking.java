@@ -8,15 +8,22 @@ import java.util.Scanner;
 
 public class ClaseRanking
 {
-    private final String RUTA_TXT = "ranking.txt";
-    private final String RUTA_XML = "02_XML/score.xml";
+    //---Todo se guarda únicamente en el xml del score---
+    private String rutaXml = "02_XML/score.xml";
 
     private ClaseJugador[] jugadores = new ClaseJugador[100];
     private int cantidad = 0;
 
     public ClaseRanking()
     {
-        Cargar();       //al arrancar el juego recupera las partidas anteriores
+        //---Si el juego se ejecuta desde la carpeta Proyecto, el xml está una carpeta más arriba---
+        File fichero = new File(rutaXml);
+        if (!fichero.exists())
+        {
+            rutaXml = "../02_XML/score.xml";
+        }
+
+        Cargar();       //al arrancar el juego recupera los jugadores que ya hay en el xml
     }
 
     //---Get---
@@ -27,27 +34,43 @@ public class ClaseRanking
 
     //--- Métodos ---
 
-    //---Leer el fichero: cada línea es id;nombre;puntos---
+    //---Leer el xml línea a línea y sacar los datos de cada jugador---
     public void Cargar()
     {
-        File fichero = new File(RUTA_TXT);
+        File fichero = new File(rutaXml);
 
         if (!fichero.exists())
         {
-            return;     //primera vez que se juega, no hay nada guardado
+            System.out.println("No se encontró el xml del ranking");
+            return;
         }
+
+        int id = 0;
+        String nombre = "";
+        int puntos = 0;
 
         try (Scanner lector = new Scanner(fichero))
         {
             while (lector.hasNextLine() && cantidad < jugadores.length)
             {
-                String[] partes = lector.nextLine().split(";");
-                int id = Integer.parseInt(partes[0]);
-                String nombre = partes[1];
-                int puntos = Integer.parseInt(partes[2]);
+                String linea = lector.nextLine().trim();
 
-                jugadores[cantidad] = new ClaseJugador(id, nombre, puntos);
-                cantidad++;
+                if (linea.startsWith("<jugador "))
+                {
+                    id = Integer.parseInt(linea.split("\"")[1]);       //lo que hay entre las comillas
+                }
+                else if (linea.startsWith("<nombre>"))
+                {
+                    nombre = linea.replace("<nombre>", "").replace("</nombre>", "");
+                }
+                else if (linea.startsWith("<puntos>"))
+                {
+                    puntos = Integer.parseInt(linea.replace("<puntos>", "").replace("</puntos>", ""));
+
+                    //---Con los puntos ya tenemos el jugador completo---
+                    jugadores[cantidad] = new ClaseJugador(id, nombre, puntos);
+                    cantidad++;
+                }
             }
         }
         catch (IOException e)
@@ -56,8 +79,24 @@ public class ClaseRanking
         }
     }
 
-    //---Añadir la partida que acaba de terminar---
-    public void NuevoJugador(String nombre, int puntos)
+    //---Ver: mostrar el ranking por pantalla---
+    public void Ver()
+    {
+        if (cantidad == 0)
+        {
+            System.out.println("Todavía no hay partidas en el ranking");
+            return;
+        }
+
+        //---El título del ranking ya lo pone Metodos---
+        for (int i = 0; i < cantidad; i++)
+        {
+            System.out.println((i + 1) + ". " + jugadores[i].getNombre() + " - " + jugadores[i].getPuntos() + " puntos");
+        }
+    }
+
+    //---Modificar: añadir la partida que acaba de terminar y guardar el xml---
+    public void Modificar(String nombre, int puntos)
     {
         if (cantidad == jugadores.length)
         {
@@ -65,12 +104,26 @@ public class ClaseRanking
             return;
         }
 
-        jugadores[cantidad] = new ClaseJugador(cantidad + 1, nombre, puntos);
+        jugadores[cantidad] = new ClaseJugador(NuevoId(), nombre, puntos);
         cantidad++;
 
         Ordenar();
-        Guardar();
         GuardarXml();
+    }
+
+    //---El id nuevo es el mayor id que haya + 1, así nunca se repite---
+    public int NuevoId()
+    {
+        int mayor = 0;
+
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (jugadores[i].getId() > mayor)
+            {
+                mayor = jugadores[i].getId();
+            }
+        }
+        return mayor + 1;
     }
 
     //---Burbuja: de más puntos a menos---
@@ -90,26 +143,10 @@ public class ClaseRanking
         }
     }
 
-    //---Guardar en el txt (sobrescribe todo con el ranking ya ordenado)---
-    public void Guardar()
-    {
-        try (FileWriter escritor = new FileWriter(RUTA_TXT))
-        {
-            for (int i = 0; i < cantidad; i++)
-            {
-                escritor.write(jugadores[i].getId() + ";" + jugadores[i].getNombre() + ";" + jugadores[i].getPuntos() + "\n");
-            }
-        }
-        catch (IOException e)
-        {
-            System.out.println("No se pudo guardar el ranking");
-        }
-    }
-
-    //---Guardar en el xml con la misma estructura que score.dtd---
+    //---Guardar en el xml con la misma estructura que score.dtd (se reescribe con todos los jugadores)---
     public void GuardarXml()
     {
-        try (FileWriter escritor = new FileWriter(RUTA_XML))
+        try (FileWriter escritor = new FileWriter(rutaXml))
         {
             escritor.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n");
             escritor.write("<?xml-stylesheet type=\"text/xsl\" href=\"score.xslt\"?>\n\n");
@@ -131,22 +168,6 @@ public class ClaseRanking
         catch (IOException e)
         {
             System.out.println("No se pudo guardar el xml");
-        }
-    }
-
-    //---Mostrar por pantalla---
-    public void Mostrar()
-    {
-        if (cantidad == 0)
-        {
-            System.out.println("Todavía no hay partidas en el ranking");
-            return;
-        }
-
-        //---El título del ranking ya lo pone Metodos---
-        for (int i = 0; i < cantidad; i++)
-        {
-            System.out.println((i + 1) + ". " + jugadores[i].getNombre() + " - " + jugadores[i].getPuntos() + " puntos");
         }
     }
 }

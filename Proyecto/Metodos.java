@@ -387,14 +387,14 @@ public class Metodos
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
         System.out.println("");
         Pausa();
-        rankingJuego.Mostrar();
+        rankingJuego.Ver();
         Pausa();
     }
 
     //---Guarda la partida terminada en el ranking---
     public void GuardarPartida()
     {
-        rankingJuego.NuevoJugador(CP.getNombre(), InfoScore());
+        rankingJuego.Modificar(CP.getNombre(), InfoScore());
     }
 
     public int InfoScore()
