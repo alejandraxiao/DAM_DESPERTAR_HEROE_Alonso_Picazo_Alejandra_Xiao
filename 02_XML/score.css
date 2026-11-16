@@ -1,0 +1,72 @@
+/* ---Fondo de la página--- */
+score
+{
+    display: block;
+    background-color: #FADADD;
+    font-family: 'Times New Roman';
+    padding: 20px;
+}
+
+/* ---Título (el CSS lo añade antes de la tabla)--- */
+score::before
+{
+    content: "Ranking de jugadores";
+    display: block;
+    text-align: center;
+    color: #E75480;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ---Tabla centrada con borde fucsia--- */
+jugadores
+{
+    display: table;
+    margin: auto;
+    border-collapse: collapse;
+    border: 3px solid #FF1493;
+}
+
+/* ---Cabecera--- */
+jugadores::before
+{
+    content: "Nombre\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0\00A0Puntos";
+    display: table-caption;
+    background-color: white;
+    border: 3px solid #FF1493;
+    border-bottom: none;
+    padding: 8px 20px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+/* ---Cada jugador es una fila--- */
+jugador
+{
+    display: table-row;
+    background-color: white;
+}
+
+/* ---Filas pares en rosa--- */
+jugador:nth-child(even)
+{
+    background-color: #FFC0CB;
+}
+
+/* ---1º puesto en dorado (el xml ya está ordenado de mayor a menor)--- */
+jugador:first-child
+{
+    background-color: gold;
+}
+
+/* ---Celdas--- */
+nombre, puntos
+{
+    display: table-cell;
+    border: 3px solid #FF1493;
+    padding: 8px 20px;
+    text-align: center;
+    color: black;
+}
