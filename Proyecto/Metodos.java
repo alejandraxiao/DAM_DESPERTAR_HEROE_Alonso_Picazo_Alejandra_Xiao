@@ -581,24 +581,37 @@ public class Metodos
           *
          /^\\
         /_*_\\
-        (o.o)           (1) Este es el mago, ¡y tendrás una fuerza extraordinaria! Eres un crack con el maná y una fuerza sin límites, pero e cansarás bastante rápido, al final dependes de tu maná.
+        (o.o)
         /| |\\
         """);
+        //---El texto va debajo del dibujo en líneas cortas para que la terminal no lo corte---
+        System.out.println("(1) Este es el mago, ¡y tendrás una fuerza extraordinaria!");
+        System.out.println("    Eres un crack con el maná y una fuerza sin límites,");
+        System.out.println("    pero te cansarás bastante rápido, al final dependes de tu maná.");
+        System.out.println("");
         Pausa();
         System.out.println("----------------------------------------");
         System.out.println("""
             |
           O    |
-         [#]===+-       (2) El Caballero! Un clásico, si te gusta moverte es lo tuyo. Tiene mucha agilidad y resistencia. Su única debilidad es que su fuerza es en base a tu condición física.
+         [#]===+-
          / \\
         """);
+        System.out.println("(2) El Caballero! Un clásico, si te gusta moverte es lo tuyo.");
+        System.out.println("    Tiene mucha agilidad y resistencia.");
+        System.out.println("    Su única debilidad es que su fuerza es en base a tu condición física.");
+        System.out.println("");
         Pausa();
         System.out.println("-----------------------------------------");
         System.out.println("""
           O   )
-         /|\\--->       (3) El arquero hace que tengas muchas posibilidades, ni te cansas tanto ni gastas tanto maná, eso sí, tu fuerza si que es menor que al del caballero.
+         /|\\--->
          / \\  )
         """);
+        System.out.println("(3) El arquero hace que tengas muchas posibilidades,");
+        System.out.println("    ni te cansas tanto ni gastas tanto maná,");
+        System.out.println("    eso sí, tu fuerza sí que es menor que la del caballero.");
+        System.out.println("");
         Pausa();
     }
 
