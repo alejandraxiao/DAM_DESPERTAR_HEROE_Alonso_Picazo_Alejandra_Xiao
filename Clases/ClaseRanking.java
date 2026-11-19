@@ -21,11 +21,15 @@ public class ClaseRanking
     //---Contador de posiciones ocupadas---
     private int cantidad = 0;
 
+    //---Si el xml tiene errores no se guarda encima, para no perder los datos---
+    private boolean archivoCorrecto = true;
+
     public ClaseRanking()
     {
         //---Si el juego se ejecuta desde la carpeta Proyecto, el xml está una carpeta más arriba---
-        File fichero = new File(rutaXml);
-        if (!fichero.exists())
+        //---Se mira la carpeta y no el archivo, así si el xml aún no existe se crea en su sitio---
+        File carpeta = new File("02_XML");
+        if (!carpeta.exists())
         {
             rutaXml = "../02_XML/score.xml";
         }
@@ -48,38 +52,88 @@ public class ClaseRanking
 
         if (!fichero.exists())
         {
-            System.out.println("No se encontró el xml del ranking");
+            System.out.println("No se encontró el xml del ranking, se empieza con un ranking vacío");
             return;
         }
 
         String nombre = "";
+        String error = "";          //si se queda vacío es que el archivo está bien
 
         try (Scanner lector = new Scanner(fichero))
         {
-            //---Como mucho se cargan 10 jugadores (el tamaño de los arrays)---
-            while (lector.hasNextLine() && cantidad < MAXIMO)
+            while (lector.hasNextLine() && error.equals(""))
             {
                 String linea = lector.nextLine().trim();
 
                 if (linea.startsWith("<nombre>"))
                 {
-                    nombre = linea.replace("<nombre>", "").replace("</nombre>", "");
+                    nombre = Desescapar(linea.replace("<nombre>", "").replace("</nombre>", ""));
                 }
                 else if (linea.startsWith("<puntos>"))
                 {
-                    int puntosLeidos = Integer.parseInt(linea.replace("<puntos>", "").replace("</puntos>", ""));
+                    String textoPuntos = linea.replace("<puntos>", "").replace("</puntos>", "");
 
-                    //---Con los puntos ya tenemos el jugador completo: se pone en la misma posición de los dos arrays---
-                    nombres[cantidad] = nombre;
-                    puntos[cantidad] = puntosLeidos;
-                    cantidad++;
+                    //---Comprobaciones antes de meter el jugador en los arrays---
+                    if (cantidad == MAXIMO)
+                    {
+                        error = "hay más de " + MAXIMO + " jugadores";
+                    }
+                    else if (nombre.trim().equals(""))
+                    {
+                        error = "hay un jugador sin nombre";
+                    }
+                    else
+                    {
+                        try
+                        {
+                            int puntosLeidos = Integer.parseInt(textoPuntos);
+
+                            if (puntosLeidos < 0)
+                            {
+                                error = "hay una puntuación negativa (" + puntosLeidos + ")";
+                            }
+                            else
+                            {
+                                //---Jugador correcto: se pone en la misma posición de los dos arrays---
+                                nombres[cantidad] = nombre;
+                                puntos[cantidad] = puntosLeidos;
+                                cantidad++;
+                                nombre = "";        //el siguiente jugador tiene que traer su propio nombre
+                            }
+                        }
+                        catch (NumberFormatException e)
+                        {
+                            error = "la puntuación '" + textoPuntos + "' no es un número";
+                        }
+                    }
                 }
             }
         }
         catch (IOException e)
         {
-            System.out.println("No se pudo leer el ranking");
+            error = "no se pudo leer el archivo";
         }
+
+        //---Si algo está mal se avisa, se empieza vacío y el archivo no se sobrescribe---
+        if (!error.equals(""))
+        {
+            System.out.println("Error en el ranking: " + error + ".");
+            System.out.println("El archivo no se va a modificar hasta que se corrija. Esta vez las partidas no se guardarán.");
+            archivoCorrecto = false;
+            cantidad = 0;
+        }
+    }
+
+    //---Al guardar: & < > se escriben como &amp; &lt; &gt; para que el xml siga bien formado---
+    public String Escapar(String texto)
+    {
+        return texto.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+    }
+
+    //---Al cargar: se hace al revés (el &amp; el último para no estropear los otros)---
+    public String Desescapar(String texto)
+    {
+        return texto.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&");
     }
 
     //---Ver: mostrar el ranking por pantalla---
@@ -139,6 +193,13 @@ public class ClaseRanking
     //---Guardar en el xml con la misma estructura que score.dtd (se reescribe con todos los jugadores)---
     public void GuardarXml()
     {
+        //---No se pisa un archivo que tenía errores---
+        if (!archivoCorrecto)
+        {
+            System.out.println("La partida no se guarda porque el xml del ranking tiene errores");
+            return;
+        }
+
         try (FileWriter escritor = new FileWriter(rutaXml))
         {
             escritor.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n");
@@ -151,7 +212,7 @@ public class ClaseRanking
             for (int i = 0; i < cantidad; i++)
             {
                 escritor.write("        <jugador id = \"" + (i + 1) + "\">\n");
-                escritor.write("            <nombre>" + nombres[i] + "</nombre>\n");
+                escritor.write("            <nombre>" + Escapar(nombres[i]) + "</nombre>\n");
                 escritor.write("            <puntos>" + puntos[i] + "</puntos>\n");
                 escritor.write("        </jugador>\n");
             }
