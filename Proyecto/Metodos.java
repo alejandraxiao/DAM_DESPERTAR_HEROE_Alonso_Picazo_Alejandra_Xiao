@@ -2,7 +2,6 @@ package Proyecto;
 
 import java.lang.annotation.Documented;
 //---imports---
-import java.util.Random;
 import java.util.Scanner;
 
 import Clases.ClasePersonaje;       //personaje base sin herencias
@@ -16,7 +15,6 @@ import Clases.ClaseRanking;         //Ranking de partidas
 public class Metodos 
 {
     Scanner sc = new Scanner(System.in);
-    Random r = new Random();
     String guia = "Bigotín";
 
     //---Imports de clases de Herencias---
@@ -289,7 +287,7 @@ public class Metodos
     public String CofreAleatorio()
     {
         String [] objetoGanado = {"Maldición Almas", "Maldición de Muertos" , "Maldición de la Torre", "Poción de curación"};
-        int ganado = r.nextInt(objetoGanado.length);
+        int ganado = (int)(Math.random() * objetoGanado.length);      //número entre 0 y 3
         String objeto  = objetoGanado[ganado];
         System.out.println("");
         System.out.println("----------------=[ COFRE ]=-----------------");
@@ -347,7 +345,7 @@ public class Metodos
 
     public int PasilloAleatorio()
     {
-        int pasillo = r.nextInt(2);
+        int pasillo = (int)(Math.random() * 2);      //0 o 1
         return pasillo;
     }
 
@@ -540,7 +538,7 @@ public class Metodos
             }
 
             //---Turno del mounstruo---
-            int dañoMounstruo = r.nextInt(5, M.getFuerza() + 1);   
+            int dañoMounstruo = (int)(Math.random() * (M.getFuerza() - 5 + 1)) + 5;      //entre 5 y su fuerza, los dos incluidos
             CP.setVida(CP.getVida() - dañoMounstruo);
             System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
             Pausa();
@@ -583,9 +581,9 @@ public class Metodos
             {
                 case "1":
                     //---El daño depende del arma elegida: entre 5 menos y 5 más que su daño---
-                    int maximo = CP.getDaño() + 6;
+                    int maximo = CP.getDaño() + 5;
                     int minimo = CP.getDaño() - 5;
-                    int numeroDaño = r.nextInt(minimo,maximo);
+                    int numeroDaño = (int)(Math.random() * (maximo - minimo + 1)) + minimo;      //entre minimo y maximo, los dos incluidos
 
                     M.setVida(M.getVida() - numeroDaño);
                     System.out.println("Le haces " + numeroDaño + " de daño a " + M.getNombre() + ". Su vida: " + Math.max(M.getVida(), 0));
