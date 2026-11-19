@@ -50,8 +50,9 @@ public class Metodos
 
     //---------------------------------------------------------------------------------------------------------------------------
 
-    //---Inventario---
+    //---Inventario: array de tamaño fijo con las pociones y un contador de las que quedan---
     String [] inventario = new String[3];
+    int pociones = 0;       //posiciones ocupadas: siempre están al principio del array (0 .. pociones-1)
 
     //---Abandono de la partida---
     boolean abandonado = false;
@@ -89,6 +90,7 @@ public class Metodos
         inventario [0] = "Poción de curación";
         inventario [1] = "Poción de curación";
         inventario [2] = "Poción de curación";
+        pociones = 3;
 
         //---Abandono de la partida---
         abandonado = false;
@@ -328,13 +330,16 @@ public class Metodos
                 Pausa();
                 break;
             case 3:
-                for (int i = 0; i < inventario.length; i++)
+                //---Solo cabe si hay un hueco libre en el inventario (no se sale de los límites del array)---
+                if (pociones < inventario.length)
                 {
-                    if (inventario[i] == null)
-                    {
-                        inventario[i] = "Poción de curación";
-                        break;
-                    }
+                    inventario[pociones] = "Poción de curación";
+                    pociones++;
+                    System.out.println("La guardas en tu inventario. Pociones: " + pociones + "/" + inventario.length);
+                }
+                else
+                {
+                    System.out.println("Tu inventario está lleno, no puedes guardar la poción");
                 }
                 Pausa();
                 break;
@@ -573,7 +578,7 @@ public class Metodos
             System.out.println("");
             System.out.println("---------------=[ TU TURNO ]=---------------");
             System.out.println("");
-            System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre \n" + "\n" + "(4) Panel de información");
+            System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre \n" + "\n" + "(4) Panel de información \n" + "\n" + "(5) Ver inventario");
 
             String respuestaAtaque = sc.nextLine();
 
@@ -606,6 +611,11 @@ public class Metodos
                     respuesta = true;           //mirar la información no gasta el turno
                     break;
 
+                case "5":
+                    VerInventario();
+                    respuesta = true;           //mirar el inventario no gasta el turno
+                    break;
+
                 default:
                     System.out.println("Elija una de las opciones disponibles");
                     Pausa();
@@ -615,28 +625,54 @@ public class Metodos
         }
     }
 
-    public void ConsumirCura()
+    //---Ver inventario: recorre solo las posiciones ocupadas del array---
+    public void VerInventario()
     {
-        boolean curado = false;
+        System.out.println("");
+        System.out.println("---------------=[ INVENTARIO ]=-------------");
+        System.out.println("");
 
-        for (int i = inventario.length - 1; i >= 0; i--)
+        if (pociones == 0)
         {
-            if (inventario[i] != null)
+            System.out.println("Tu inventario está vacío");
+        }
+        else
+        {
+            for (int i = 0; i < pociones; i++)
             {
-                inventario[i] = null;               
-                CP.setVida(Math.min(CP.getVida() + 25, 100));
-                System.out.println("Te has curado. Tu vida: " + CP.getVida());
-                Pausa();
-                curado = true;
-                break;                             
+                System.out.println((i + 1) + ". " + inventario[i]);
             }
         }
 
-        if (!curado)
+        System.out.println("");
+        System.out.println("Pociones: " + pociones + "/" + inventario.length);
+        Pausa();
+    }
+
+    //---Consumir cura: se gasta la última poción ocupada y se deja su hueco vacío---
+    public void ConsumirCura()
+    {
+        //---Con la vida al máximo no se gasta la poción---
+        if (CP.getVida() >= 100)
+        {
+            System.out.println("Tienes la vida al máximo, no necesitas curarte");
+            Pausa();
+            return;
+        }
+
+        //---Si el contador está a 0 no hay ninguna posición ocupada que consumir---
+        if (pociones == 0)
         {
             System.out.println("No te quedan pociones");
             Pausa();
+            return;
         }
+
+        pociones--;                         //la última poción está en la posición pociones-1
+        inventario[pociones] = null;        //se retira del inventario
+        CP.setVida(Math.min(CP.getVida() + 25, 100));
+        System.out.println("Te has curado. Tu vida: " + CP.getVida() + ". Pociones: " + pociones + "/" + inventario.length);
+        Pausa();
     }
 
     //-------------------------------------------BIGOTÍN--------------------------------------------------------------------------
