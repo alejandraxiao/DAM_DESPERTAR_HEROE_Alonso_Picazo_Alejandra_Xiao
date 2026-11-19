@@ -168,9 +168,10 @@ public class Metodos
     //--Menú de inicio---
     public boolean Inicio()
     {
-        boolean jugando = true;
+        int eleccion = 0;
 
-        while(jugando)
+        //---do-while: el menú se muestra al menos una vez y se repite hasta elegir Salir---
+        do
         {
             System.out.println("");
             System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -185,28 +186,28 @@ public class Metodos
             System.out.println("            (3) Salir             ");
 
             System.out.println("Elija que acción quiere hacer: ");
-            int eleccion = sc.nextInt();
+            eleccion = sc.nextInt();
             sc.nextLine();     //Corección para que no nos salte el siguiente valor que debemos introducir
 
             switch (eleccion)
             {
                 case 1:
                     Juego();
-                    jugando = true;
                     break;
                 case 2:
                     Ranking();
-                    jugando = true;
                     break;
                 case 3:
-                    jugando = false;
+                    System.out.println("Hasta pronto, héroe");
                     break;
                 default:
                     System.out.println("Error");
                     Pausa();
-                    jugando = true;
+                    break;
             }
         }
+        while (eleccion != 3);      //si no se elige Salir, el menú vuelve a salir
+
         return false;
     }
 
