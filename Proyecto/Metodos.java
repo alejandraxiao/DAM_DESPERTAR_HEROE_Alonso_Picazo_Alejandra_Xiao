@@ -168,7 +168,7 @@ public class Metodos
     //--Menú de inicio---
     public boolean Inicio()
     {
-        int eleccion = 0;
+        String eleccion = "";      //se lee como texto para que una letra no cierre el programa
 
         //---do-while: el menú se muestra al menos una vez y se repite hasta elegir Salir---
         do
@@ -186,18 +186,17 @@ public class Metodos
             System.out.println("            (3) Salir             ");
 
             System.out.println("Elija que acción quiere hacer: ");
-            eleccion = sc.nextInt();
-            sc.nextLine();     //Corección para que no nos salte el siguiente valor que debemos introducir
+            eleccion = sc.nextLine();
 
             switch (eleccion)
             {
-                case 1:
+                case "1":
                     Juego();
                     break;
-                case 2:
+                case "2":
                     Ranking();
                     break;
-                case 3:
+                case "3":
                     System.out.println("Hasta pronto, héroe");
                     break;
                 default:
@@ -206,7 +205,7 @@ public class Metodos
                     break;
             }
         }
-        while (eleccion != 3);      //si no se elige Salir, el menú vuelve a salir
+        while (!eleccion.equals("3"));      //si no se elige Salir, el menú vuelve a salir
 
         return false;
     }
@@ -227,16 +226,16 @@ public class Metodos
     
             System.out.println("Elija su siguiente acción: ");
     
-            int eleccion = sc.nextInt();
+            String eleccion = sc.nextLine();
     
             switch (eleccion) {
-                case 1:
+                case "1":
                     InfoPersonaje();
                     break;
-                case 2:
+                case "2":
                     InfoMounstruos();
                     break;
-                case 3:
+                case "3":
                     respuesta  = true;
                     break;
                 default:
@@ -360,8 +359,17 @@ public class Metodos
         System.out.println("-----------=[ ELIGE UN PASILLO ]=-----------");
         System.out.println("");
         System.out.println("(1) Pasillo A \n" + "\n" + "(2) Pasillo B");
-        int eleccion = sc.nextInt();
-        int pasilloElegido = eleccion - 1;
+        String eleccion = sc.nextLine();
+        int pasilloElegido = -1;      //si no se escribe 1 o 2, no se elige ningún pasillo con cofre
+
+        if (eleccion.equals("1"))
+        {
+            pasilloElegido = 0;
+        }
+        else if (eleccion.equals("2"))
+        {
+            pasilloElegido = 1;
+        }
 
         if (pasilloElegido == pasilloCofre)
         {
@@ -569,11 +577,11 @@ public class Metodos
             System.out.println("");
             System.out.println("(1) Atacar \n" + "\n" + "(2) Usar cura \n" + "\n" + "(3) Salir de la torre \n" + "\n" + "(4) Panel de información");
 
-            int respuestaAtaque = sc.nextInt();
+            String respuestaAtaque = sc.nextLine();
 
             switch (respuestaAtaque)
             {
-                case 1:
+                case "1":
                     //---El daño depende del arma elegida: entre 5 menos y 5 más que su daño---
                     int maximo = CP.getDaño() + 6;
                     int minimo = CP.getDaño() - 5;
@@ -585,17 +593,17 @@ public class Metodos
                     respuesta = false;
                     break;
     
-                case 2:
+                case "2":
                     ConsumirCura();
                     respuesta = true;           //curarse no gasta el turno, solo atacar lo pasa
                     break;
     
-                case 3:
+                case "3":
                     abandonado = true;          //Combate() se encarga de llamar a PartidaAbandonada
                     respuesta = false;
                     break;
 
-                case 4:
+                case "4":
                     PanelInfo();
                     respuesta = true;           //mirar la información no gasta el turno
                     break;
@@ -651,18 +659,18 @@ public class Metodos
             System.out.println("Escoja su personaje: \n" +
             "\n" + "1)Mago \n" + "\n" + "2) Caballero \n" + "\n" + "3) Arquero \n");
 
-            int eleccionPersonaje = sc.nextInt();
+            String eleccionPersonaje = sc.nextLine();
 
             switch (eleccionPersonaje) {
-                case 1:
+                case "1":
                     ArmaMago();
                     elegido = true;
                     break;
-                case 2:
+                case "2":
                     ArmaCaballero();
                     elegido = true;
                     break;
-                case 3:
+                case "3":
                     ArmaArquero();
                     elegido = true;
                     break;
@@ -687,7 +695,14 @@ public class Metodos
         Pausa();
         System.out.println("Introduce tu nombre futuro heroe: ");
         String nombre = sc.nextLine();
-        CP.setNombre(nombre);
+
+        //---El nombre no puede estar vacío ni tener solo espacios (trim() quita los espacios de los lados)---
+        while (nombre.trim().equals(""))
+        {
+            System.out.println("El nombre no puede estar vacío, escríbelo de nuevo: ");
+            nombre = sc.nextLine();
+        }
+        CP.setNombre(nombre.trim());
         String guia = "Bigotín";
         System.out.println("?? : ¡Bienvenido " + CP.getNombre() + "!");
         Pausa();
@@ -788,9 +803,9 @@ public class Metodos
             System.out.println(CP.getNombre() + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
             Pausa();
 
-            int respuestaNuestra = sc.nextInt();
+            String respuestaNuestra = sc.nextLine();
             
-            if (respuestaNuestra == 1)
+            if (respuestaNuestra.equals("1"))
             {
                 respuesta = true;
             }
@@ -838,14 +853,14 @@ public class Metodos
         System.out.println("(1) Beber poción \n" + "\n" + "(2) Abandonar prueba \n" + "\n" + "(3) Seguir partida");
         Pausa();
 
-        int respuestaEmergencia = sc.nextInt();
+        String respuestaEmergencia = sc.nextLine();
 
         switch (respuestaEmergencia) 
         {
-            case 1:
+            case "1":
                 ConsumirCura();
                 break;
-            case 2:
+            case "2":
                 abandonado = true;
                 break;
             default:
@@ -884,10 +899,10 @@ public class Metodos
         System.out.println("(1) Luz");
         System.out.println("(2) Oscuridad");
 
-        int eleccionArma = sc.nextInt();
+        String eleccionArma = sc.nextLine();
         CP.setClase("Mago");
 
-        if (eleccionArma == 1)
+        if (eleccionArma.equals("1"))
         {
             CP.setArma(PL.getNombre());
             CP.setDaño(PL.getDaño());
@@ -929,10 +944,10 @@ public class Metodos
         System.out.println("(1) Espada pesada");
         System.out.println("(2) Espada ligera");
 
-        int eleccionArma = sc.nextInt();
+        String eleccionArma = sc.nextLine();
         CP.setClase("Caballero");
 
-        if (eleccionArma == 1)
+        if (eleccionArma.equals("1"))
         {
             CP.setArma(EP.getNombre());
             CP.setDaño(EP.getDaño());
@@ -974,9 +989,9 @@ public class Metodos
         System.out.println("(1) Arco Triple");
         System.out.println("(2) Arco Ligero");
 
-        int eleccionArma = sc.nextInt();
+        String eleccionArma = sc.nextLine();
         CP.setClase("Arquero");
-        if (eleccionArma == 1)
+        if (eleccionArma.equals("1"))
         {
             CP.setArma(AT.getNombre());
             CP.setDaño(AT.getDaño());
