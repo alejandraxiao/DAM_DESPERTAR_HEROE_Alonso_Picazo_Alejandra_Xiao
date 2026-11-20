@@ -824,10 +824,7 @@ public class Metodos
             else if (turnoGastado)
             {
                 //---Turno del mounstruo---
-                int dañoMounstruo = (int)(Math.random() * (M.getFuerza() - 5 + 1)) + 5;      //entre 5 y su fuerza, los dos incluidos
-                CP.setVida(Math.max(CP.getVida() - dañoMounstruo, 0));      //la vida nunca baja de 0
-                System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
-                Pausa();
+                AtaqueMounstruo(CP, M);
 
                 //---Vida baja con el aviso de Bigotín---
                 if (CP.getVida() > 0 && CP.getVida() <= VIDA_CRITICA)
@@ -836,7 +833,14 @@ public class Metodos
 
                     if (respuestaEmergencia.equals("1"))
                     {
+                        //---Beber la poción aquí también es la acción del turno: si se ha podido curar, el mounstruo responde una vez---
+                        //---Si no se ha podido (sin pociones o con la vida al máximo) no se gasta el turno---
+                        int pocionesAntes = pociones;
                         pociones = ConsumirCura(CP, inventario, pociones);
+                        if (pociones < pocionesAntes && M.getVida() > 0)
+                        {
+                            AtaqueMounstruo(CP, M);
+                        }
                     }
                     else if (respuestaEmergencia.equals("2"))
                     {
@@ -846,6 +850,16 @@ public class Metodos
             }
         }
         return pociones;
+    }
+
+    //---Ataque del mounstruo: le quita al héroe entre 5 y su fuerza de vida (los dos incluidos)---
+    //---CP y M son referencias, así que el cambio de vida se ve también en Combate()---
+    public static void AtaqueMounstruo(ClasePersonaje CP, ClaseMoustruo M)
+    {
+        int dañoMounstruo = (int)(Math.random() * (M.getFuerza() - 5 + 1)) + 5;      //entre 5 y su fuerza, los dos incluidos
+        CP.setVida(Math.max(CP.getVida() - dañoMounstruo, 0));      //la vida nunca baja de 0
+        System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
+        Pausa();
     }
 
     //---Menú de tu turno: devuelve "1" si has atacado, "2" si quieres curarte o "3" si sales de la torre---
