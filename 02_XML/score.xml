@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?xml-stylesheet type="text/xsl" href="score.xslt"?>
+
 <!DOCTYPE score SYSTEM "score.dtd">
 
 <score>
     <jugadores>
         <jugador id = "2">
-            <nombre>Jaime</nombre>
-            <puntos>500</puntos>
-        </jugador>
-        <jugador id = "3">
-            <nombre>Maite</nombre>
-            <puntos>350</puntos>
-        </jugador>
-        <jugador id = "4">
-            <nombre>Juanjo</nombre>
-            <puntos>250</puntos>
+            <nombre>alejandra</nombre>
+            <puntos>178</puntos>
         </jugador>
         <jugador id = "1">
-            <nombre>Juan</nombre>
-            <puntos>100</puntos>
-        </jugador>
-        <jugador id = "5">
             <nombre>Jose</nombre>
-            <puntos>50</puntos>
+            <puntos>170</puntos>
         </jugador>
     </jugadores>
 </score>
