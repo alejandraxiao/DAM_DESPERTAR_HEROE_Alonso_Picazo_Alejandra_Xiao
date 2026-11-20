@@ -1,45 +1,48 @@
 CONSULTAS XPATH SOBRE ranking.xml
 =================================
 
-Los resultados son los que dan los datos actuales de ranking.xml (9 jugadores).
+Archivo de prueba: 02_XML/ranking.xml (9 jugadores, con un empate a 450 entre Hugo y Nerea).
 Se pueden probar con la extensión XSLT/XPath de VS Code o con Saxon.
+Cada consulta tiene una finalidad distinta: selección de campos, filtro por puntuación,
+filtro por jugador, dos condiciones en un predicado y una función de recuento.
 
 
-1) Nombres de todos los jugadores
+1) Selección de campos: ¿cómo se llaman todos los jugadores del ranking?
 
-   /score/jugadores/jugador/nombre
-
-   Qué hace: selecciona el nombre de cada jugador del ranking, en el orden del fichero.
-   Resultado: Lucía, Marcos, Sara, Hugo, Nerea, alejandra, Jose, Pablo, Irene
-
-
-2) Primero del ranking
-
-   /score/jugadores/jugador[1]/nombre
-
-   Qué hace: [1] coge el primer jugador; como el ranking está ordenado de mayor a menor, es el que más puntos tiene.
-   Resultado: Lucía
+   Expresión: /score/jugadores/jugador/nombre
+   Qué hace: baja desde la raíz hasta cada jugador y selecciona su nombre, en el orden del fichero.
+   Resultado esperado: los 9 nombres del ranking.
+   Resultado obtenido: Lucía, Marcos, Sara, Hugo, Nerea, alejandra, Jose, Pablo, Irene
 
 
-3) Jugadores con más de 400 puntos
+2) Filtro por puntuación: ¿qué jugadores tienen más de 400 puntos?
 
-   /score/jugadores/jugador[puntos > 400]/nombre
-
-   Qué hace: el filtro [puntos > 400] deja solo los jugadores cuyos puntos pasan de 400 y muestra su nombre.
-   Resultado: Lucía, Marcos, Sara, Hugo, Nerea
-
-
-4) Número de jugadores
-
-   count(/score/jugadores/jugador)
-
-   Qué hace: count() cuenta cuántos elementos jugador hay en el ranking.
-   Resultado: 9
+   Expresión: /score/jugadores/jugador[puntos > 400]/nombre
+   Qué hace: el predicado [puntos > 400] deja solo los jugadores cuyos puntos pasan de 400.
+   Resultado esperado: los 5 primeros (1072, 1035, 500, 450 y 450).
+   Resultado obtenido: Lucía, Marcos, Sara, Hugo, Nerea
 
 
-5) Puntos de un jugador concreto
+3) Filtro por jugador: ¿cuántos puntos tiene Sara?
 
-   /score/jugadores/jugador[nombre = 'Sara']/puntos
+   Expresión: /score/jugadores/jugador[nombre = 'Sara']/puntos
+   Qué hace: el predicado busca el jugador cuyo nombre es Sara y se seleccionan sus puntos.
+   Resultado esperado: 500
+   Resultado obtenido: 500
 
-   Qué hace: busca el jugador cuyo nombre es Sara y muestra sus puntos.
-   Resultado: 500
+
+4) Dos condiciones: ¿qué jugadores tienen al menos 100 puntos pero menos de 500?
+
+   Expresión: /score/jugadores/jugador[puntos >= 100 and puntos < 500]/nombre
+   Qué hace: "and" obliga a que se cumplan las dos condiciones a la vez. Sara (500) queda fuera
+   porque no es menor que 500 e Irene (75) porque no llega a 100.
+   Resultado esperado: Hugo, Nerea, alejandra, Jose, Pablo
+   Resultado obtenido: Hugo, Nerea, alejandra, Jose, Pablo
+
+
+5) Función de recuento: ¿cuántos jugadores hay en el ranking?
+
+   Expresión: count(/score/jugadores/jugador)
+   Qué hace: count() cuenta los elementos jugador y devuelve un número, no nodos.
+   Resultado esperado: 9
+   Resultado obtenido: 9
