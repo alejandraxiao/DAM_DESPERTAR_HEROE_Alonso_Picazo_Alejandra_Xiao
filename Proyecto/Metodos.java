@@ -29,15 +29,6 @@ public class Metodos
     static final int POCIONES_INICIALES = 3;        //tamaño del inventario
     static final int CURACION_POCION = 25;          //vida que cura cada poción
     static final int VIDA_CRITICA = 25;             //a partir de aquí Bigotín avisa
-    static final int DAÑO_MINIMO_HEROE = 10;
-    static final int DAÑO_MAXIMO_HEROE = 20;
-
-    //---Constantes de los mounstruos---
-    static final int VIDA_ENEMIGO_1 = 40;
-    static final int VIDA_ENEMIGO_2 = 60;
-    static final int VIDA_ENEMIGO_3 = 80;
-    static final int DAÑO_MINIMO_ENEMIGO = 5;
-    static final int DAÑO_MAXIMO_ENEMIGO = 15;
 
     //---Método para la pausa entre textos---
     public static void Pausa()
@@ -61,10 +52,9 @@ public class Metodos
     {
         //---Partida nueva: todo vuelve a empezar (se crean aquí y se pasan a los demás métodos)---
         ClasePersonaje CP = new ClasePersonaje(null, null, null, VIDA_MAXIMA, 15, VIDA_MAXIMA, 0);
-        //---La fuerza de los mounstruos es su daño máximo---
-        Nivel1 N1 = new Nivel1("Hada corrupta", VIDA_ENEMIGO_1, 1, DAÑO_MAXIMO_ENEMIGO, 0);
-        Nivel2 N2 = new Nivel2("Espectro de maná", VIDA_ENEMIGO_2, 2, DAÑO_MAXIMO_ENEMIGO, 0);
-        Nivel3 N3 = new Nivel3("Guardián de la Torre", VIDA_ENEMIGO_3, 3, DAÑO_MAXIMO_ENEMIGO, 0);
+        Nivel1 N1 = new Nivel1("Hada corrupta", 50, 1, 10, 0);
+        Nivel2 N2 = new Nivel2("Espectro de maná", 100, 2, 15, 0);
+        Nivel3 N3 = new Nivel3("Guardián de la Torre", 150, 3, 18, 0);
 
         //---Nuestro inventario al inicio: array fijo y contador de pociones---
         String [] inventario = new String[POCIONES_INICIALES];
@@ -254,17 +244,17 @@ public class Metodos
         System.out.println("REGLAS");
         System.out.println("- Tienes que superar tres mounstruos seguidos dentro de la torre, cada uno más fuerte que el anterior.");
         System.out.println("- Empiezas con " + VIDA_MAXIMA + " de vida y " + POCIONES_INICIALES + " pociones que curan " + CURACION_POCION + " de vida (nunca más de " + VIDA_MAXIMA + ").");
-        System.out.println("- Los mounstruos tienen " + VIDA_ENEMIGO_1 + ", " + VIDA_ENEMIGO_2 + " y " + VIDA_ENEMIGO_3 + " de vida.");
+        System.out.println("- Los mounstruos son el Hada corrupta (50 de vida, fuerza 10), el Espectro de maná (100 de vida, fuerza 15) y el Guardián de la Torre (150 de vida, fuerza 18).");
         System.out.println("- La partida termina si ganas al tercer mounstruo, si tu vida llega a 0 o si abandonas.");
         System.out.println("- Entre nivel y nivel eliges un pasillo: puede haber un cofre con una poción o con una maldición.");
         Pausa();
         System.out.println("");
         System.out.println("ACCIONES EN TU TURNO");
-        System.out.println("(1) Atacar: haces entre " + DAÑO_MINIMO_HEROE + " y " + DAÑO_MAXIMO_HEROE + " de daño, según tu arma.");
+        System.out.println("(1) Atacar: haces entre 5 menos y 5 más que el daño de tu arma.");
         System.out.println("(2) Usar cura: bebes una poción. Si no te quedan o tienes la vida al máximo, no pierdes el turno.");
         System.out.println("(3) Salir de la torre: abandonas la partida.");
         System.out.println("(4) Panel de información y (5) Ver inventario: no gastan el turno.");
-        System.out.println("Si el mounstruo sigue vivo después de atacar o curarte, te ataca una vez con entre " + DAÑO_MINIMO_ENEMIGO + " y " + DAÑO_MAXIMO_ENEMIGO + " de daño.");
+        System.out.println("Si el mounstruo sigue vivo después de atacar o curarte, te ataca una vez con entre 5 y su fuerza de daño.");
         Pausa();
         System.out.println("");
         System.out.println("PUNTUACIÓN");
@@ -864,9 +854,7 @@ public class Metodos
             else if (turnoGastado)
             {
                 //---Turno del mounstruo---
-                //---Entre el daño mínimo y su fuerza, los dos incluidos (nunca más que el daño máximo)---
-                int maximoMounstruo = Math.min(M.getFuerza(), DAÑO_MAXIMO_ENEMIGO);
-                int dañoMounstruo = (int)(Math.random() * (maximoMounstruo - DAÑO_MINIMO_ENEMIGO + 1)) + DAÑO_MINIMO_ENEMIGO;
+                int dañoMounstruo = (int)(Math.random() * (M.getFuerza() - 5 + 1)) + 5;      //entre 5 y su fuerza, los dos incluidos
                 CP.setVida(Math.max(CP.getVida() - dañoMounstruo, 0));      //la vida nunca baja de 0
                 System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
                 Pausa();
@@ -906,10 +894,9 @@ public class Metodos
             switch (respuestaAtaque)
             {
                 case "1":
-                    //---El daño depende del arma elegida: entre 5 menos y 5 más que su daño,
-                    //---pero siempre dentro del rango del héroe (de DAÑO_MINIMO_HEROE a DAÑO_MAXIMO_HEROE)---
-                    int maximo = Math.min(CP.getDaño() + 5, DAÑO_MAXIMO_HEROE);
-                    int minimo = Math.max(CP.getDaño() - 5, DAÑO_MINIMO_HEROE);
+                    //---El daño depende del arma elegida: entre 5 menos y 5 más que su daño---
+                    int maximo = CP.getDaño() + 5;
+                    int minimo = CP.getDaño() - 5;
                     int numeroDaño = (int)(Math.random() * (maximo - minimo + 1)) + minimo;      //entre minimo y maximo, los dos incluidos
 
                     M.setVida(Math.max(M.getVida() - numeroDaño, 0));      //la vida del mounstruo tampoco baja de 0

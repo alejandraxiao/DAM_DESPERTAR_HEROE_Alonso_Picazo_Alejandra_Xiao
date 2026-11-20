@@ -54,7 +54,7 @@ En cada turno de combate:
 
 | Opción | Qué hace | ¿Gasta el turno? |
 |---|---|---|
-| 1. Atacar | Daño aleatorio entre 10 y 20, según el arma | Sí, y el mounstruo responde si sigue vivo |
+| 1. Atacar | Daño aleatorio entre 5 menos y 5 más que el daño del arma | Sí, y el mounstruo responde si sigue vivo |
 | 2. Usar cura | Cura 25 de vida, sin pasar de 100 | Solo si se ha podido curar (sin pociones o con la vida llena no) |
 | 3. Salir de la torre | Abandona la partida (se guarda en el ranking) | — |
 | 4. Panel de información | Datos del personaje y de los mounstruos | No |
@@ -63,7 +63,7 @@ En cada turno de combate:
 Reglas principales (todas son constantes en `Proyecto/Metodos.java`):
 
 - El héroe empieza con 100 de vida y 3 pociones de 25.
-- Los mounstruos tienen 40, 60 y 80 de vida y hacen entre 5 y 15 de daño.
+- Los mounstruos son el Hada corrupta (50 de vida, fuerza 10), el Espectro de maná (100 de vida, fuerza 15) y el Guardián de la Torre (150 de vida, fuerza 18). Cada ataque suyo hace entre 5 y su fuerza de daño.
 - La vida nunca baja de 0 ni pasa de 100.
 - Entre nivel y nivel se elige un pasillo; en uno de los dos hay un cofre que puede dar una poción o una maldición.
 - **Puntuación:** 100 puntos si se derrota a 1 mounstruo, 450 si se derrota a 2 y 1000 si se derrota a los 3, más la vida que queda. Si se abandona se restan 10 puntos y el score nunca baja de 0.
