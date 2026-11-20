@@ -76,7 +76,7 @@ Clases/        Clases base: personaje, mounstruo, arma y objeto
 Armas/         Armas de cada personaje (poder de luz y oscuridad, espadas y arcos)
 Mounstruos/    Los tres niveles de mounstruo
 Objetos/       Poción y maldiciones del cofre
-02_XML/        Ficheros de Lenguaje de marcas (ranking e inventario)
+02_XML/        Ficheros de Lenguaje de marcas (ranking)
 Notas extra/   Diagrama de flujo
 ```
 
@@ -88,12 +88,10 @@ Notas extra/   Diagrama de flujo
 | `score.dtd` | Estructura válida del ranking (puede estar vacío; cada jugador tiene id, nombre y puntos). El juego guarda como máximo 10 |
 | `score.xslt` | Transforma el ranking en una tabla HTML ordenada de mayor a menor |
 | `score.html` | Resultado de aplicar `score.xslt` a `score.xml` |
-| `inventario.xml` | Inventario de la partida. El juego lo reescribe cada vez que cambia (al empezar, al beber una poción y al encontrar una en un cofre) |
-| `inventario.dtd` | Estructura válida del inventario (capacidad, pociones ocupadas y cada poción) |
-| `inventario.xslt` | Transforma el inventario en una tabla HTML |
-| `inventario.html` | Resultado de aplicar `inventario.xslt` a `inventario.xml` |
-| `score.css` | Diseño común de los dos HTML |
+| `score.css` | Diseño del HTML del ranking |
 
-Los dos XML enlazan su DTD (`<!DOCTYPE>`) y su XSLT (`<?xml-stylesheet?>`), así que se pueden validar y transformar con la extensión XSLT/XPath de VS Code o abriéndolos en un navegador que aplique XSLT a ficheros locales (por ejemplo Firefox).
+El inventario no se guarda en ningún fichero: está en memoria (un array de tamaño fijo y un contador) mientras dura la partida.
+
+El XML enlaza su DTD (`<!DOCTYPE>`) y su XSLT (`<?xml-stylesheet?>`), así que se puede validar y transformar con la extensión XSLT/XPath de VS Code o abriéndolo en un navegador que aplique XSLT a ficheros locales (por ejemplo Firefox).
 
 Si al leer `score.xml` el juego encuentra datos incorrectos (puntos negativos, puntos que no son números, un jugador sin nombre o más de 10 jugadores), avisa y no lo sobrescribe hasta que se corrija. Si no existe, empieza con el ranking vacío.

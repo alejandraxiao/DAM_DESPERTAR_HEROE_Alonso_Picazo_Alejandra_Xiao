@@ -63,7 +63,6 @@ public class Metodos
             inventario[i] = "Poción de curación";
         }
         int pociones = POCIONES_INICIALES;       //posiciones ocupadas: siempre están al principio del array (0 .. pociones-1)
-        GuardarInventarioXml(inventario, pociones);
 
         String guia = GUIA;
 
@@ -396,7 +395,6 @@ public class Metodos
                 {
                     inventario[pociones] = "Poción de curación";
                     pociones++;
-                    GuardarInventarioXml(inventario, pociones);
                     System.out.println("La guardas en tu inventario. Pociones: " + pociones + "/" + inventario.length);
                 }
                 else
@@ -490,34 +488,6 @@ public class Metodos
     public static String RutaXml()
     {
         return CarpetaXml() + "score.xml";
-    }
-
-    //---Guardar el inventario en inventario.xml con la estructura de inventario.dtd---
-    //---Se llama cada vez que cambia: al empezar la partida, al beber una poción y al encontrar una en un cofre---
-    //---Recibe el array y el contador; solo se recorren las posiciones ocupadas (0 .. pociones-1)---
-    public static void GuardarInventarioXml(String [] inventario, int pociones)
-    {
-        try (FileWriter escritor = new FileWriter(CarpetaXml() + "inventario.xml"))
-        {
-            escritor.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n");
-            escritor.write("<?xml-stylesheet type=\"text/xsl\" href=\"inventario.xslt\"?>\n\n");
-            escritor.write("<!DOCTYPE inventario SYSTEM \"inventario.dtd\">\n\n");
-            escritor.write("<inventario capacidad = \"" + inventario.length + "\" ocupadas = \"" + pociones + "\">\n");
-
-            for (int i = 0; i < pociones; i++)
-            {
-                escritor.write("    <pocion posicion = \"" + (i + 1) + "\">\n");
-                escritor.write("        <nombre>" + Escapar(inventario[i]) + "</nombre>\n");
-                escritor.write("        <curacion>" + CURACION_POCION + "</curacion>\n");
-                escritor.write("    </pocion>\n");
-            }
-
-            escritor.write("</inventario>\n");
-        }
-        catch (IOException e)
-        {
-            System.out.println("No se pudo guardar el xml del inventario");
-        }
     }
 
     //---Cargar: lee el xml línea a línea y mete cada jugador en los arrays---
@@ -972,7 +942,6 @@ public class Metodos
 
         pociones--;                         //la última poción está en la posición pociones-1
         inventario[pociones] = null;        //se retira del inventario
-        GuardarInventarioXml(inventario, pociones);
         CP.setVida(Math.min(CP.getVida() + CURACION_POCION, VIDA_MAXIMA));      //nunca pasa de la vida máxima
         System.out.println("Te has curado. Tu vida: " + CP.getVida() + ". Pociones: " + pociones + "/" + inventario.length);
         Pausa();
