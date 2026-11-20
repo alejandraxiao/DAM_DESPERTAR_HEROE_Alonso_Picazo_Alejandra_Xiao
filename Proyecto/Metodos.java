@@ -24,9 +24,6 @@ public class Metodos
     //---Máximo de partidas que caben en el ranking---
     static final int MAXIMO_RANKING = 10;
 
-    //---Ya no hay variables globales de la partida: el personaje, los mounstruos,
-    //---el inventario y el ranking se crean dentro de los métodos y se pasan por parámetro---
-
     //---Método para la pausa entre textos---
     public static void Pausa()
     {
@@ -120,7 +117,7 @@ public class Metodos
         return GuardarPartida(nombres, puntos, cantidad, CP.getNombre(), score, archivoCorrecto);
     }
 
-    //---Mira cómo ha terminado el combate: devuelve el score si la partida se acaba (perdida o abandonada) o -1 si sigue---
+    //---Devuelve el score si la partida se acaba (perdida o abandonada) o -1 si sigue---
     public static int FinPartida(ClasePersonaje CP, ClaseMoustruo M, Nivel1 N1, Nivel2 N2, Nivel3 N3, String guia)
     {
         if (CP.getVida() <= 0)
@@ -749,25 +746,32 @@ public class Metodos
         {
             //---Turno del personaje: devuelve la acción elegida---
             String accion = VisualizacionAtaque(CP, M, N1, N2, N3, inventario, pociones);
+            boolean turnoGastado = true;        //solo un ataque o una curación que funciona gastan el turno
 
             if (accion.equals("2"))
             {
-                pociones = ConsumirCura(CP, inventario, pociones);      //curarse no gasta el turno
+                //---Si la curación no se puede hacer (sin pociones o con la vida al máximo) el contador no baja---
+                int pocionesAntes = pociones;
+                pociones = ConsumirCura(CP, inventario, pociones);
+                turnoGastado = pociones < pocionesAntes;      //curación válida: el mounstruo responde
             }
             else if (accion.equals("3"))
             {
                 abandonado = true;          //Juego() se encarga de llamar a PartidaAbandonada
+                turnoGastado = false;
             }
-            else if (M.getVida() <= 0)
+
+            //---Si el turno no se ha gastado, el mounstruo no ataca y se vuelve a pedir la acción---
+            if (turnoGastado && M.getVida() <= 0)
             {
                 System.out.println("Has derrotado a " + M.getNombre());
                 Pausa();
             }
-            else
+            else if (turnoGastado)
             {
                 //---Turno del mounstruo---
                 int dañoMounstruo = (int)(Math.random() * (M.getFuerza() - 5 + 1)) + 5;      //entre 5 y su fuerza, los dos incluidos
-                CP.setVida(CP.getVida() - dañoMounstruo);
+                CP.setVida(Math.max(CP.getVida() - dañoMounstruo, 0));      //la vida nunca baja de 0
                 System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
                 Pausa();
 
@@ -811,13 +815,13 @@ public class Metodos
                     int minimo = CP.getDaño() - 5;
                     int numeroDaño = (int)(Math.random() * (maximo - minimo + 1)) + minimo;      //entre minimo y maximo, los dos incluidos
 
-                    M.setVida(M.getVida() - numeroDaño);
-                    System.out.println("Le haces " + numeroDaño + " de daño a " + M.getNombre() + ". Su vida: " + Math.max(M.getVida(), 0));
+                    M.setVida(Math.max(M.getVida() - numeroDaño, 0));      //la vida del mounstruo tampoco baja de 0
+                    System.out.println("Le haces " + numeroDaño + " de daño a " + M.getNombre() + ". Su vida: " + M.getVida());
                     Pausa();
                     return "1";
 
                 case "2":
-                    return "2";             //Combate() gasta la poción
+                    return "2";             //Combate() gasta la poción y, si se ha podido curar, el mounstruo responde
 
                 case "3":
                     return "3";             //Combate() se encarga de salir
