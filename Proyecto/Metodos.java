@@ -24,6 +24,21 @@ public class Metodos
     //---Máximo de partidas que caben en el ranking---
     static final int MAXIMO_RANKING = 10;
 
+    //---Constantes del héroe---
+    static final int VIDA_MAXIMA = 100;             //vida al empezar y máximo al curarse
+    static final int POCIONES_INICIALES = 3;        //tamaño del inventario
+    static final int CURACION_POCION = 25;          //vida que cura cada poción
+    static final int VIDA_CRITICA = 25;             //a partir de aquí Bigotín avisa
+    static final int DAÑO_MINIMO_HEROE = 10;
+    static final int DAÑO_MAXIMO_HEROE = 20;
+
+    //---Constantes de los mounstruos---
+    static final int VIDA_ENEMIGO_1 = 40;
+    static final int VIDA_ENEMIGO_2 = 60;
+    static final int VIDA_ENEMIGO_3 = 80;
+    static final int DAÑO_MINIMO_ENEMIGO = 5;
+    static final int DAÑO_MAXIMO_ENEMIGO = 15;
+
     //---Método para la pausa entre textos---
     public static void Pausa()
     {
@@ -45,17 +60,19 @@ public class Metodos
     public static int Juego(String [] nombres, int [] puntos, int cantidad, boolean archivoCorrecto)
     {
         //---Partida nueva: todo vuelve a empezar (se crean aquí y se pasan a los demás métodos)---
-        ClasePersonaje CP = new ClasePersonaje(null, null, null, 100, 15, 100, 0);
-        Nivel1 N1 = new Nivel1("Hada corrupta", 50, 1, 10, 0);
-        Nivel2 N2 = new Nivel2("Espectro de maná", 100, 2, 15, 0);
-        Nivel3 N3 = new Nivel3("Guardián de la Torre", 150, 3, 18, 0);
+        ClasePersonaje CP = new ClasePersonaje(null, null, null, VIDA_MAXIMA, 15, VIDA_MAXIMA, 0);
+        //---La fuerza de los mounstruos es su daño máximo---
+        Nivel1 N1 = new Nivel1("Hada corrupta", VIDA_ENEMIGO_1, 1, DAÑO_MAXIMO_ENEMIGO, 0);
+        Nivel2 N2 = new Nivel2("Espectro de maná", VIDA_ENEMIGO_2, 2, DAÑO_MAXIMO_ENEMIGO, 0);
+        Nivel3 N3 = new Nivel3("Guardián de la Torre", VIDA_ENEMIGO_3, 3, DAÑO_MAXIMO_ENEMIGO, 0);
 
         //---Nuestro inventario al inicio: array fijo y contador de pociones---
-        String [] inventario = new String[3];
-        inventario [0] = "Poción de curación";
-        inventario [1] = "Poción de curación";
-        inventario [2] = "Poción de curación";
-        int pociones = 3;       //posiciones ocupadas: siempre están al principio del array (0 .. pociones-1)
+        String [] inventario = new String[POCIONES_INICIALES];
+        for (int i = 0; i < inventario.length; i++)
+        {
+            inventario[i] = "Poción de curación";
+        }
+        int pociones = POCIONES_INICIALES;       //posiciones ocupadas: siempre están al principio del array (0 .. pociones-1)
 
         String guia = GUIA;
 
@@ -770,13 +787,15 @@ public class Metodos
             else if (turnoGastado)
             {
                 //---Turno del mounstruo---
-                int dañoMounstruo = (int)(Math.random() * (M.getFuerza() - 5 + 1)) + 5;      //entre 5 y su fuerza, los dos incluidos
+                //---Entre el daño mínimo y su fuerza, los dos incluidos (nunca más que el daño máximo)---
+                int maximoMounstruo = Math.min(M.getFuerza(), DAÑO_MAXIMO_ENEMIGO);
+                int dañoMounstruo = (int)(Math.random() * (maximoMounstruo - DAÑO_MINIMO_ENEMIGO + 1)) + DAÑO_MINIMO_ENEMIGO;
                 CP.setVida(Math.max(CP.getVida() - dañoMounstruo, 0));      //la vida nunca baja de 0
                 System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
                 Pausa();
 
                 //---Vida baja con el aviso de Bigotín---
-                if (CP.getVida() > 0 && CP.getVida() <= 25)
+                if (CP.getVida() > 0 && CP.getVida() <= VIDA_CRITICA)
                 {
                     String respuestaEmergencia = Emergencia(guia);
 
@@ -810,9 +829,10 @@ public class Metodos
             switch (respuestaAtaque)
             {
                 case "1":
-                    //---El daño depende del arma elegida: entre 5 menos y 5 más que su daño---
-                    int maximo = CP.getDaño() + 5;
-                    int minimo = CP.getDaño() - 5;
+                    //---El daño depende del arma elegida: entre 5 menos y 5 más que su daño,
+                    //---pero siempre dentro del rango del héroe (de DAÑO_MINIMO_HEROE a DAÑO_MAXIMO_HEROE)---
+                    int maximo = Math.min(CP.getDaño() + 5, DAÑO_MAXIMO_HEROE);
+                    int minimo = Math.max(CP.getDaño() - 5, DAÑO_MINIMO_HEROE);
                     int numeroDaño = (int)(Math.random() * (maximo - minimo + 1)) + minimo;      //entre minimo y maximo, los dos incluidos
 
                     M.setVida(Math.max(M.getVida() - numeroDaño, 0));      //la vida del mounstruo tampoco baja de 0
@@ -871,7 +891,7 @@ public class Metodos
     public static int ConsumirCura(ClasePersonaje CP, String [] inventario, int pociones)
     {
         //---Con la vida al máximo no se gasta la poción---
-        if (CP.getVida() >= 100)
+        if (CP.getVida() >= VIDA_MAXIMA)
         {
             System.out.println("Tienes la vida al máximo, no necesitas curarte");
             Pausa();
@@ -888,7 +908,7 @@ public class Metodos
 
         pociones--;                         //la última poción está en la posición pociones-1
         inventario[pociones] = null;        //se retira del inventario
-        CP.setVida(Math.min(CP.getVida() + 25, 100));
+        CP.setVida(Math.min(CP.getVida() + CURACION_POCION, VIDA_MAXIMA));      //nunca pasa de la vida máxima
         System.out.println("Te has curado. Tu vida: " + CP.getVida() + ". Pociones: " + pociones + "/" + inventario.length);
         Pausa();
         return pociones;
