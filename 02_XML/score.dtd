@@ -1,6 +1,9 @@
+<!-- Estructura del ranking: lo escribe GuardarXml() de Metodos.java -->
+<!-- jugador* porque el ranking puede estar vacío (0 jugadores) y como máximo tiene 10 -->
 <!ELEMENT score (jugadores)>
-<!ELEMENT jugadores (jugador+)>
+<!ELEMENT jugadores (jugador*)>
 <!ELEMENT jugador (nombre, puntos)>
 <!ELEMENT nombre (#PCDATA)>
 <!ELEMENT puntos (#PCDATA)>
-<!ATTLIST jugador id CDATA #IMPLIED>
+<!-- id es la posición en el ranking (1 = el primero) -->
+<!ATTLIST jugador id CDATA #REQUIRED>
