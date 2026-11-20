@@ -73,7 +73,7 @@ public class ClasePersonaje
 
     //--- Métodos ---
     
-    public void InfoDaño()
+    public void infoDaño()
     {
         System.out.println("Nombre : " + nombre);
         System.out.println("Vida : " + vida);
@@ -81,7 +81,7 @@ public class ClasePersonaje
         System.out.println("Arma : " + arma);
     }
 
-    public void InfoPersonaje()
+    public void infoPersonaje()
     {
         System.out.println("Nombre : " + nombre);
         System.out.println("Vida : " + getVida());

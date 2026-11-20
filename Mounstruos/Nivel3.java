@@ -20,7 +20,7 @@ public class Nivel3 extends ClaseMoustruo
 
     //-----------Métodos-------------
 
-    public void InfoMounstruos(int nivel, int vida, int fuerza, int arma)
+    public void infoMounstruos(int nivel, int vida, int fuerza, int arma)
     {
         System.out.println("Nivel : " + nivel);
         System.out.println("Fuerza : " + incrementoFuerza(fuerza, arma));

@@ -57,7 +57,7 @@ public class ClaseMoustruo
 
     //--- Métodos ---
 
-    public void InfoMounstruos()
+    public void infoMounstruos()
     {
         System.out.println("Nombre : " + nombre);
         System.out.println("Vida : " + vida);

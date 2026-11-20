@@ -31,7 +31,7 @@ public class ClaseObjeto
 
     //----------Métodos--------------
 
-    public void MostrarInfo()
+    public void mostrarInfo()
     {
         System.out.println("Nombre : " + nombre);
         System.out.println("Nivel : " + nivel);
