@@ -211,9 +211,10 @@ public class Metodos
             System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
             System.out.println("");
             Pausa();
-            System.out.println("            (1) Jugar             ");
-            System.out.println("            (2) Ranking           ");
-            System.out.println("            (3) Salir             ");
+            System.out.println("            (1) Nueva partida     ");
+            System.out.println("            (2) Consultar ranking ");
+            System.out.println("            (3) Ayuda             ");
+            System.out.println("            (4) Salir             ");
 
             System.out.println("Elija que acción quiere hacer: ");
             eleccion = sc.nextLine();
@@ -227,6 +228,9 @@ public class Metodos
                     Ranking(nombres, puntos, cantidad);
                     break;
                 case "3":
+                    Ayuda();
+                    break;
+                case "4":
                     System.out.println("Hasta pronto, héroe");
                     break;
                 default:
@@ -235,7 +239,41 @@ public class Metodos
                     break;
             }
         }
-        while (!eleccion.equals("3"));      //si no se elige Salir, el menú vuelve a salir
+        while (!eleccion.equals("4"));      //si no se elige Salir, el menú vuelve a salir
+    }
+
+    //---Ayuda: explica las reglas, las acciones del combate y la puntuación (usa las constantes para que siempre coincida)---
+    public static void Ayuda()
+    {
+        System.out.println("");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("|                                          |");
+        System.out.println("|                  AYUDA                   |");
+        System.out.println("|                                          |");
+        System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
+        System.out.println("");
+        Pausa();
+        System.out.println("REGLAS");
+        System.out.println("- Tienes que superar tres mounstruos seguidos dentro de la torre, cada uno más fuerte que el anterior.");
+        System.out.println("- Empiezas con " + VIDA_MAXIMA + " de vida y " + POCIONES_INICIALES + " pociones que curan " + CURACION_POCION + " de vida (nunca más de " + VIDA_MAXIMA + ").");
+        System.out.println("- Los mounstruos tienen " + VIDA_ENEMIGO_1 + ", " + VIDA_ENEMIGO_2 + " y " + VIDA_ENEMIGO_3 + " de vida.");
+        System.out.println("- La partida termina si ganas al tercer mounstruo, si tu vida llega a 0 o si abandonas.");
+        System.out.println("- Entre nivel y nivel eliges un pasillo: puede haber un cofre con una poción o con una maldición.");
+        Pausa();
+        System.out.println("");
+        System.out.println("ACCIONES EN TU TURNO");
+        System.out.println("(1) Atacar: haces entre " + DAÑO_MINIMO_HEROE + " y " + DAÑO_MAXIMO_HEROE + " de daño, según tu arma.");
+        System.out.println("(2) Usar cura: bebes una poción. Si no te quedan o tienes la vida al máximo, no pierdes el turno.");
+        System.out.println("(3) Salir de la torre: abandonas la partida.");
+        System.out.println("(4) Panel de información y (5) Ver inventario: no gastan el turno.");
+        System.out.println("Si el mounstruo sigue vivo después de atacar o curarte, te ataca una vez con entre " + DAÑO_MINIMO_ENEMIGO + " y " + DAÑO_MAXIMO_ENEMIGO + " de daño.");
+        Pausa();
+        System.out.println("");
+        System.out.println("PUNTUACIÓN");
+        System.out.println("- Cada mounstruo derrotado da " + PUNTOS_POR_ENEMIGO + " puntos.");
+        System.out.println("- Si superas la torre entera, se suma la vida que te quede.");
+        System.out.println("- Toda partida terminada (también si abandonas) se guarda en el ranking de los " + MAXIMO_RANKING + " mejores.");
+        Pausa();
     }
 
     //---Creación del panel informativo durante el videojuego---
