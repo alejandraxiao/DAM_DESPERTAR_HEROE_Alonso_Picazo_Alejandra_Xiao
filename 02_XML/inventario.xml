@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet type="text/xsl" href="inventario.xslt"?>
+
+<!DOCTYPE inventario SYSTEM "inventario.dtd">
+
+<inventario capacidad = "3" ocupadas = "3">
+    <pocion posicion = "1">
+        <nombre>Poción de curación</nombre>
+        <curacion>25</curacion>
+    </pocion>
+    <pocion posicion = "2">
+        <nombre>Poción de curación</nombre>
+        <curacion>25</curacion>
+    </pocion>
+    <pocion posicion = "3">
+        <nombre>Poción de curación</nombre>
+        <curacion>25</curacion>
+    </pocion>
+</inventario>

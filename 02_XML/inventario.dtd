@@ -1,0 +1,10 @@
+<!-- Estructura del inventario: lo escribe GuardarInventarioXml() de Metodos.java cada vez que cambia -->
+<!-- pocion* porque el inventario puede quedarse vacío -->
+<!ELEMENT inventario (pocion*)>
+<!-- capacidad = tamaño del array (3), ocupadas = contador de pociones -->
+<!ATTLIST inventario capacidad CDATA #REQUIRED ocupadas CDATA #REQUIRED>
+<!ELEMENT pocion (nombre, curacion)>
+<!-- posicion = hueco del array que ocupa (1, 2 o 3) -->
+<!ATTLIST pocion posicion CDATA #REQUIRED>
+<!ELEMENT nombre (#PCDATA)>
+<!ELEMENT curacion (#PCDATA)>

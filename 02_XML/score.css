@@ -13,6 +13,12 @@ h2
     font-size: 24px;
 }
 
+/* ---Textos sueltos (contador de pociones, inventario vacío) centrados--- */
+p
+{
+    text-align: center;
+}
+
 /* ---Tabla centrada con borde fucsia--- */
 table
 {
