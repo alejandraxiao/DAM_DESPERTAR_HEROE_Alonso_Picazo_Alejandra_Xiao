@@ -1,0 +1,21 @@
+# ---Archivos compilados de Java---
+*.class
+
+# ---Carpetas de compilación---
+bin/
+target/
+out/
+build/
+
+# ---Configuración local del editor (VS Code, IntelliJ, Eclipse)---
+.vscode/
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+
+# ---Archivos del sistema---
+Thumbs.db
+desktop.ini
+.DS_Store

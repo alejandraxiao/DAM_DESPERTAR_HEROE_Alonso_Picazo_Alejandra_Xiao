@@ -2,24 +2,10 @@ package Proyecto;
 
 public class Codigo 
 {
-    public static void main(String[] args) 
+    public static void main(String [] args)
     {
-        Metodos m = new Metodos();
-
-        boolean jugar = true;
-
-        while (jugar)
-        {
-            m.Historia();
-            m.Inicio();
-            while (juego)
-            {
-                m.EleccionPersonaje(null, null);
-                m.TorreExplicacion(null, null);
-                m.Ataque(null, null);
-                m.Jugar();
-            }
-            
-        }
+        //---Los métodos son static: se llaman con el nombre de la clase, sin crear un objeto---
+        Metodos.historia();
+        Metodos.inicio();
     }
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet type="text/xsl" href="ranking.xsl"?>
+
+<!DOCTYPE score SYSTEM "ranking.dtd">
+
+<score>
+    <jugadores>
+        <jugador id = "1">
+            <nombre>Lucía</nombre>
+            <puntos>1072</puntos>
+        </jugador>
+        <jugador id = "2">
+            <nombre>Marcos</nombre>
+            <puntos>1035</puntos>
+        </jugador>
+        <jugador id = "3">
+            <nombre>Sara</nombre>
+            <puntos>500</puntos>
+        </jugador>
+        <jugador id = "4">
+            <nombre>Hugo</nombre>
+            <puntos>450</puntos>
+        </jugador>
+        <jugador id = "5">
+            <nombre>Nerea</nombre>
+            <puntos>450</puntos>
+        </jugador>
+        <jugador id = "6">
+            <nombre>alejandra</nombre>
+            <puntos>178</puntos>
+        </jugador>
+        <jugador id = "7">
+            <nombre>Jose</nombre>
+            <puntos>170</puntos>
+        </jugador>
+        <jugador id = "8">
+            <nombre>Pablo</nombre>
+            <puntos>100</puntos>
+        </jugador>
+        <jugador id = "9">
+            <nombre>Irene</nombre>
+            <puntos>75</puntos>
+        </jugador>
+    </jugadores>
+</score>

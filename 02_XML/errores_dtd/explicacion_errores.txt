@@ -1,0 +1,66 @@
+ERRORES DE VALIDACIÓN CON EL DTD
+================================
+
+En esta carpeta hay dos copias de ranking.xml con un error cada una. Las dos apuntan al mismo
+DTD que el ranking de verdad (<!DOCTYPE score SYSTEM "../ranking.dtd">). El ranking.xml original
+no se ha tocado y es válido.
+
+Los mensajes son los que da el validador de Saxon HE 13.1 al validar con el DTD activado
+(opción -dtd:on). Otros validadores, como el de VS Code, dicen lo mismo con otras palabras.
+
+
+1) ranking_error1.xml: un jugador sin el elemento <puntos>
+------------------------------------------------------------
+
+Qué error tiene:
+   La jugadora Sara (id 3) solo tiene <nombre>. El DTD dice <!ELEMENT jugador (nombre, puntos)>,
+   así que cada jugador tiene que tener un nombre y unos puntos, en ese orden.
+
+Mensaje del validador:
+   Error on line 22 column 19 of ranking_error1.xml:
+     SXXP0003   Error reported by XML parser: The content of element type "jugador" is
+     incomplete, it must match "(nombre,puntos)".
+
+Cómo se corrige:
+   Añadir el elemento que falta después del nombre:
+       <nombre>Sara</nombre>
+       <puntos>500</puntos>
+
+
+2) ranking_error2.xml: un jugador sin el atributo id
+-----------------------------------------------------
+
+Qué error tiene:
+   El jugador Hugo está escrito como <jugador> sin id. El DTD dice
+   <!ATTLIST jugador id CDATA #REQUIRED>, así que el id es obligatorio en todos los jugadores.
+
+Mensaje del validador:
+   Error on line 24 column 18 of ranking_error2.xml:
+     SXXP0003   Error reported by XML parser: Attribute "id" is required and must be specified
+     for element type "jugador".
+
+Cómo se corrige:
+   Poner el atributo con su posición en el ranking:
+       <jugador id = "4">
+
+
+NOTA: lo que el DTD no comprueba
+--------------------------------
+
+El DTD solo comprueba la estructura: qué elementos hay, en qué orden y qué atributos son
+obligatorios. Para el DTD el contenido de <nombre> y <puntos> es texto (#PCDATA), así que NO
+comprueba que:
+
+   - los puntos sean un número y no sean negativos (<puntos>-5</puntos> es válido para el DTD),
+   - el nombre no esté vacío (<nombre></nombre> es válido para el DTD),
+   - haya como máximo 10 jugadores (con jugador* puede haber los que se quiera).
+
+Esto lo comprueba el programa Java al cargar el ranking (método cargarRanking de Metodos.java).
+Si encuentra uno de estos casos, avisa y no sobrescribe el archivo hasta que se corrija:
+
+   Error en el ranking: hay una puntuación negativa (-5).
+   Error en el ranking: hay un jugador sin nombre.
+   Error en el ranking: hay más de 10 jugadores.
+
+Se ha comprobado de verdad: los tres casos pasan la validación con el DTD y el juego los rechaza
+con esos mensajes.

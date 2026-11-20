@@ -1,0 +1,61 @@
+/* ---Fondo de la página--- */
+body
+{
+    background-color: #FADADD;
+    font-family: 'Times New Roman';
+}
+
+/* ---Título--- */
+h2
+{
+    text-align: center;
+    color: #E75480;
+    font-size: 24px;
+}
+
+/* ---Textos sueltos (contador de pociones, inventario vacío) centrados--- */
+p
+{
+    text-align: center;
+}
+
+/* ---Tabla centrada con borde fucsia--- */
+table
+{
+    margin: auto;
+    border-collapse: collapse;
+    border: 3px solid #FF1493;
+}
+
+/* ---Celdas--- */
+th, td
+{
+    border: 3px solid #FF1493;
+    padding: 8px 20px;
+    text-align: center;
+    color: black;
+}
+
+/* ---Cabecera y filas en blanco--- */
+tr
+{
+    background-color: white;
+}
+
+/* ---Filas pares en rosa (la 1ª fila es la cabecera)--- */
+tr:nth-child(odd)
+{
+    background-color: #FFC0CB;
+}
+
+/* ---Cabecera en blanco--- */
+tr:first-child
+{
+    background-color: white;
+}
+
+/* ---1º puesto en dorado--- */
+tr:nth-child(2)
+{
+    background-color: gold;
+}
