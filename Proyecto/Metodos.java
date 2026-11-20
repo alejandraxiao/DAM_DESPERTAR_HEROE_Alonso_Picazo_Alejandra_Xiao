@@ -313,7 +313,7 @@ public class Metodos
     
     //--------------------------------------------FUNCIONES DEL VIDEOJUEGO----------------------------------------------------------
 
-    //---Muestra el nombre, la vida, el daño y el score actual del héroe---
+    //---Muestra el nombre, la vida, el arma, el daño y el score actual del héroe---
     //---Parámetros: el héroe y los tres mounstruos (para calcular el score). Devuelve: nada---
     public static void infoPersonaje(ClasePersonaje CP, Nivel1 N1, Nivel2 N2, Nivel3 N3)
     {
@@ -322,6 +322,7 @@ public class Metodos
         System.out.println("");
         System.out.println("Nombre : " + CP.getNombre());
         System.out.println("Vida : " + CP.getVida());
+        System.out.println("Arma : " + CP.getArma());
         System.out.println("Daño : " + CP.getDaño());
         System.out.println("Score : " + infoScore(CP, N1, N2, N3, false));
         pausa();
@@ -1261,8 +1262,8 @@ public class Metodos
         System.out.println("");
 
         CP.setClase("Mago");
-        PoderLuz PL = new PoderLuz(null, 1, 16, null);
-        PoderOscuridad PO = new PoderOscuridad(null, 1, 19, null);
+        PoderLuz PL = new PoderLuz("Poder de luz", 1, 16, null);
+        PoderOscuridad PO = new PoderOscuridad("Poder de oscuridad", 1, 19, null);
 
         //---Se repite hasta que elija una opción válida (1 o 2)---
         boolean armaElegida = false;
@@ -1323,8 +1324,8 @@ public class Metodos
         System.out.println("");
 
         CP.setClase("Caballero");
-        EspadaPesada EP = new EspadaPesada(null, 1, 20, null);
-        EspadaLigera EL = new EspadaLigera(null, 1, 17, null);
+        EspadaPesada EP = new EspadaPesada("Espada pesada", 1, 20, null);
+        EspadaLigera EL = new EspadaLigera("Espada ligera", 1, 17, null);
 
         //---Se repite hasta que elija una opción válida (1 o 2)---
         boolean armaElegida = false;
@@ -1385,8 +1386,8 @@ public class Metodos
         System.out.println("");
 
         CP.setClase("Arquero");
-        ArcoTriple AT = new ArcoTriple(null, 1, 17, null);
-        ArcoSimple AS = new ArcoSimple(null, 1, 15, null);
+        ArcoTriple AT = new ArcoTriple("Arco triple", 1, 17, null);
+        ArcoSimple AS = new ArcoSimple("Arco simple", 1, 15, null);
 
         //---Se repite hasta que elija una opción válida (1 o 2)---
         boolean armaElegida = false;
