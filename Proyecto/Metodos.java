@@ -533,12 +533,18 @@ public class Metodos
         int cantidad = 0;
         String nombre = "";
         String error = "";          //si se queda vacío es que el archivo está bien
+        boolean tieneRaiz = false;  //un ranking correcto tiene que tener la etiqueta <score>
 
         try (Scanner lector = new Scanner(fichero))
         {
             while (lector.hasNextLine() && error.equals(""))
             {
                 String linea = lector.nextLine().trim();
+
+                if (linea.equals("<score>"))
+                {
+                    tieneRaiz = true;
+                }
 
                 if (linea.startsWith("<nombre>"))
                 {
@@ -587,6 +593,12 @@ public class Metodos
         catch (IOException e)
         {
             error = "no se pudo leer el archivo";
+        }
+
+        //---Si no tiene <score> no es un ranking: no se puede leer y no se sobrescribe---
+        if (error.equals("") && !tieneRaiz)
+        {
+            error = "el archivo no tiene la estructura del ranking";
         }
 
         //---Si algo está mal se avisa y el archivo no se sobrescribe---
