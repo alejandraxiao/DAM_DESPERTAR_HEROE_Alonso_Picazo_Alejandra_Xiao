@@ -84,14 +84,14 @@ Notas extra/   Diagrama de flujo
 
 | Fichero | Para qué sirve |
 |---|---|
-| `score.xml` | Ranking. Lo lee el juego al arrancar y lo reescribe al terminar cada partida |
-| `score.dtd` | Estructura válida del ranking (puede estar vacío; cada jugador tiene id, nombre y puntos). El juego guarda como máximo 10 |
-| `score.xslt` | Transforma el ranking en una tabla HTML ordenada de mayor a menor |
-| `score.html` | Resultado de aplicar `score.xslt` a `score.xml` |
-| `score.css` | Diseño del HTML del ranking |
+| `ranking.xml` | Ranking. Lo lee el juego al arrancar y lo reescribe al terminar cada partida |
+| `ranking.dtd` | Estructura válida del ranking (puede estar vacío; cada jugador tiene id, nombre y puntos). El juego guarda como máximo 10 |
+| `ranking.xsl` | Transforma el ranking en una tabla HTML ordenada de mayor a menor |
+| `ranking.html` | Resultado de aplicar `ranking.xsl` a `ranking.xml` |
+| `ranking.css` | Hoja de estilos externa del HTML del ranking (la enlaza `ranking.xsl`) |
 
 El inventario no se guarda en ningún fichero: está en memoria (un array de tamaño fijo y un contador) mientras dura la partida.
 
 El XML enlaza su DTD (`<!DOCTYPE>`) y su XSLT (`<?xml-stylesheet?>`), así que se puede validar y transformar con la extensión XSLT/XPath de VS Code o abriéndolo en un navegador que aplique XSLT a ficheros locales (por ejemplo Firefox).
 
-Si al leer `score.xml` el juego encuentra datos incorrectos (puntos negativos, puntos que no son números, un jugador sin nombre o más de 10 jugadores), avisa y no lo sobrescribe hasta que se corrija. Si no existe, empieza con el ranking vacío.
+Si al leer `ranking.xml` el juego encuentra datos incorrectos (puntos negativos, puntos que no son números, un jugador sin nombre o más de 10 jugadores), avisa y no lo sobrescribe hasta que se corrija. Si no existe, empieza con el ranking vacío.

@@ -487,7 +487,7 @@ public class Metodos
     //---Ruta del xml del ranking---
     public static String RutaXml()
     {
-        return CarpetaXml() + "score.xml";
+        return CarpetaXml() + "ranking.xml";
     }
 
     //---Cargar: lee el xml línea a línea y mete cada jugador en los arrays---
@@ -625,7 +625,7 @@ public class Metodos
         return cantidad;
     }
 
-    //---Guardar en el xml con la misma estructura que score.dtd (se reescribe con todos los jugadores)---
+    //---Guardar en el xml con la misma estructura que ranking.dtd (se reescribe con todos los jugadores)---
     public static void GuardarXml(String [] nombres, int [] puntos, int cantidad, boolean archivoCorrecto)
     {
         //---No se pisa un archivo que tenía errores---
@@ -638,8 +638,8 @@ public class Metodos
         try (FileWriter escritor = new FileWriter(RutaXml()))
         {
             escritor.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n");
-            escritor.write("<?xml-stylesheet type=\"text/xsl\" href=\"score.xslt\"?>\n\n");
-            escritor.write("<!DOCTYPE score SYSTEM \"score.dtd\">\n\n");
+            escritor.write("<?xml-stylesheet type=\"text/xsl\" href=\"ranking.xsl\"?>\n\n");
+            escritor.write("<!DOCTYPE score SYSTEM \"ranking.dtd\">\n\n");
             escritor.write("<score>\n");
             escritor.write("    <jugadores>\n");
 

@@ -8,8 +8,8 @@
       <head>
         <meta charset="UTF-8"/>
         <title>Ranking de jugadores</title>
-        <!-- Todo el diseño está en score.css -->
-        <link rel="stylesheet" type="text/css" href="score.css"/>
+        <!-- Todo el diseño está en la hoja de estilos externa ranking.css -->
+        <link rel="stylesheet" type="text/css" href="ranking.css"/>
       </head>
       <body>
 

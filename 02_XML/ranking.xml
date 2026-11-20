@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?xml-stylesheet type="text/xsl" href="score.xslt"?>
+<?xml-stylesheet type="text/xsl" href="ranking.xsl"?>
 
-<!DOCTYPE score SYSTEM "score.dtd">
+<!DOCTYPE score SYSTEM "ranking.dtd">
 
 <score>
     <jugadores>
