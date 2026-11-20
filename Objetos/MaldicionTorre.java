@@ -39,14 +39,14 @@ public class MaldicionTorre extends ClaseObjeto
     public void ponerMaldicionMounstruosPrimerCofre(Nivel2 N2, Nivel3 N3)
     {
         N2.setVida(N2.getVida() + vidaMounstruo);
-        N2.setVida(N2.getFuerza() + dañoMounstruo);
+        N2.setFuerza(N2.getFuerza() + dañoMounstruo);
 
         N3.setVida(N3.getVida() + vidaMounstruo);
-        N3.setVida(N3.getFuerza() + dañoMounstruo);
+        N3.setFuerza(N3.getFuerza() + dañoMounstruo);
     }
     public void ponerMaldicionMounstruosSegundoCofre(Nivel3 N3)
     {
         N3.setVida(N3.getVida() + vidaMounstruo);
-        N3.setVida(N3.getFuerza() + dañoMounstruo);
+        N3.setFuerza(N3.getFuerza() + dañoMounstruo);
     }
 }
