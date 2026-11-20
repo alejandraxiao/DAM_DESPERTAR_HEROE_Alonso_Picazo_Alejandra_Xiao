@@ -66,7 +66,7 @@ Reglas principales (todas son constantes en `Proyecto/Metodos.java`):
 - Los mounstruos tienen 40, 60 y 80 de vida y hacen entre 5 y 15 de daño.
 - La vida nunca baja de 0 ni pasa de 100.
 - Entre nivel y nivel se elige un pasillo; en uno de los dos hay un cofre que puede dar una poción o una maldición.
-- **Puntuación:** 100 puntos por cada mounstruo derrotado y, solo si se gana la torre entera, se suma la vida que queda.
+- **Puntuación:** 100 puntos si se derrota a 1 mounstruo, 450 si se derrota a 2 y 1000 si se derrota a los 3, más la vida que queda. Si se abandona se restan 10 puntos y el score nunca baja de 0.
 
 ## Estructura del proyecto
 

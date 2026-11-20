@@ -39,9 +39,6 @@ public class Metodos
     static final int DAÑO_MINIMO_ENEMIGO = 5;
     static final int DAÑO_MAXIMO_ENEMIGO = 15;
 
-    //---Puntos que da cada mounstruo derrotado---
-    static final int PUNTOS_POR_ENEMIGO = 100;
-
     //---Método para la pausa entre textos---
     public static void Pausa()
     {
@@ -133,7 +130,7 @@ public class Metodos
         }
 
         //---Si llega aquí ha ganado los tres combates---
-        score = InfoScore(CP, N1, N2, N3);
+        score = InfoScore(CP, N1, N2, N3, false);
         PartidaGanada(guia, CP.getNombre(), score);
         return GuardarPartida(nombres, puntos, cantidad, CP.getNombre(), score, archivoCorrecto);
     }
@@ -143,7 +140,7 @@ public class Metodos
     {
         if (CP.getVida() <= 0)
         {
-            int score = InfoScore(CP, N1, N2, N3);
+            int score = InfoScore(CP, N1, N2, N3, false);
             PartidaPerdida(guia, CP.getNombre(), score);
             return score;
         }
@@ -151,7 +148,7 @@ public class Metodos
         //---El héroe sigue vivo y el mounstruo también: solo puede ser que haya abandonado---
         if (M.getVida() > 0)
         {
-            int score = InfoScore(CP, N1, N2, N3);
+            int score = InfoScore(CP, N1, N2, N3, true);
             PartidaAbandonada(guia, CP.getNombre(), score);
             return score;
         }
@@ -271,8 +268,9 @@ public class Metodos
         Pausa();
         System.out.println("");
         System.out.println("PUNTUACIÓN");
-        System.out.println("- Cada mounstruo derrotado da " + PUNTOS_POR_ENEMIGO + " puntos.");
-        System.out.println("- Si superas la torre entera, se suma la vida que te quede.");
+        System.out.println("- Si derrotas a 1 mounstruo consigues 100 puntos, a 2 consigues 450 y a los 3 consigues 1000.");
+        System.out.println("- A esos puntos se les suma la vida que te quede.");
+        System.out.println("- Si abandonas se restan 10 puntos (el score nunca baja de 0).");
         System.out.println("- Toda partida terminada (también si abandonas) se guarda en el ranking de los " + MAXIMO_RANKING + " mejores.");
         Pausa();
     }
@@ -324,7 +322,7 @@ public class Metodos
         System.out.println("Nombre : " + CP.getNombre());
         System.out.println("Vida : " + CP.getVida());
         System.out.println("Daño : " + CP.getDaño());
-        System.out.println("Score : " + InfoScore(CP, N1, N2, N3));
+        System.out.println("Score : " + InfoScore(CP, N1, N2, N3, false));
         Pausa();
     }
 
@@ -715,31 +713,41 @@ public class Metodos
         return texto.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&");
     }
 
-    //---Score: PUNTOS_POR_ENEMIGO por cada mounstruo derrotado y, solo si se gana la torre, se suma la vida final---
-    //---Recibe el personaje y los tres mounstruos y devuelve el score (nunca es negativo)---
-    public static int InfoScore(ClasePersonaje CP, Nivel1 N1, Nivel2 N2, Nivel3 N3)
+    //---Score: 1000, 450 o 100 puntos si se derrotan 3, 2 o 1 mounstruos, más la vida que queda---
+    //---Si se abandona se restan 10 puntos; el score nunca es negativo---
+    public static int InfoScore(ClasePersonaje CP, Nivel1 N1, Nivel2 N2, Nivel3 N3, boolean abandonado)
     {
-        int enemigosDerrotados = 0;
+        int scorePartida = 0;
+        int scoreVida = 0;
+        int scoreAbandono = 10;
 
-        if (N1.getVida() <= 0)
-        {
-            enemigosDerrotados++;
-        }
-        if (N2.getVida() <= 0)
-        {
-            enemigosDerrotados++;
-        }
+        scoreVida = Math.max(CP.getVida(), 0);      //la vida negativa no resta puntos
+
+        //---La vida del mounstruo puede quedar negativa, por eso <= 0---
         if (N3.getVida() <= 0)
         {
-            enemigosDerrotados++;
+            scorePartida = 1000;
+        }
+        else if (N2.getVida() <= 0)
+        {
+            scorePartida = 450;
+        }
+        else if (N1.getVida() <= 0)
+        {
+            scorePartida = 100;
         }
 
-        int scoreTotal = enemigosDerrotados * PUNTOS_POR_ENEMIGO;
+        int scoreTotal = scorePartida + scoreVida;
 
-        //---Victoria completa: el tercer mounstruo está derrotado, se suma la vida que queda como bonificación---
-        if (N3.getVida() <= 0)
+        if (abandonado)
         {
-            scoreTotal = scoreTotal + CP.getVida();
+            scoreTotal = scoreTotal - scoreAbandono;
+        }
+
+        //---El score nunca puede ser negativo (al abandonar con poca vida podría quedar por debajo de 0)---
+        if (scoreTotal < 0)
+        {
+            scoreTotal = 0;
         }
         return scoreTotal;
     }
@@ -1137,10 +1145,7 @@ public class Metodos
             System.out.println(guia + " : Las normas sin fáciles, si tu vida llega a 0 los profesores te sacarán inmediatamente de la torre, si ganas tu solo pasaste la prueba y podrás salir sin ningún problema.");
             Pausa();
             System.out.println("");
-            System.out.println(guia + " : En caso de que tu conscienda se salga sola sin querer se te guardará tu score o incluso si te ves atrapado puedes obtar por abandonar la prueba, eso si, decidelo bien porque si abandonas solo te llevas los puntos de los mounstruos que hayas derrotado.");
-            Pausa();
-            System.out.println("");
-            System.out.println(guia + " : Cada mounstruo derrotado te da " + PUNTOS_POR_ENEMIGO + " puntos, y si superas la torre entera se te suma la vida que te quede.");
+            System.out.println(guia + " : En caso de que tu conscienda se salga sola sin querer se te guardará tu score o incluso si te ves atrapado puedes obtar por abandonar la prueba, eso si, decidelo bien porque si abandonas se te restará 10 puntos de tu nota.");
             Pausa();
             System.out.println("");
             System.out.println(guia + " : Lo entendiste??");
