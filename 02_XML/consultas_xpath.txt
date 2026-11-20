@@ -1,0 +1,45 @@
+CONSULTAS XPATH SOBRE ranking.xml
+=================================
+
+Los resultados son los que dan los datos actuales de ranking.xml (9 jugadores).
+Se pueden probar con la extensión XSLT/XPath de VS Code o con Saxon.
+
+
+1) Nombres de todos los jugadores
+
+   /score/jugadores/jugador/nombre
+
+   Qué hace: selecciona el nombre de cada jugador del ranking, en el orden del fichero.
+   Resultado: Lucía, Marcos, Sara, Hugo, Nerea, alejandra, Jose, Pablo, Irene
+
+
+2) Primero del ranking
+
+   /score/jugadores/jugador[1]/nombre
+
+   Qué hace: [1] coge el primer jugador; como el ranking está ordenado de mayor a menor, es el que más puntos tiene.
+   Resultado: Lucía
+
+
+3) Jugadores con más de 400 puntos
+
+   /score/jugadores/jugador[puntos > 400]/nombre
+
+   Qué hace: el filtro [puntos > 400] deja solo los jugadores cuyos puntos pasan de 400 y muestra su nombre.
+   Resultado: Lucía, Marcos, Sara, Hugo, Nerea
+
+
+4) Número de jugadores
+
+   count(/score/jugadores/jugador)
+
+   Qué hace: count() cuenta cuántos elementos jugador hay en el ranking.
+   Resultado: 9
+
+
+5) Puntos de un jugador concreto
+
+   /score/jugadores/jugador[nombre = 'Sara']/puntos
+
+   Qué hace: busca el jugador cuyo nombre es Sara y muestra sus puntos.
+   Resultado: 500

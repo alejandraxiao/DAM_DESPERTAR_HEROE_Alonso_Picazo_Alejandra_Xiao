@@ -89,6 +89,7 @@ Notas extra/   Diagrama de flujo
 | `ranking.xsl` | Transforma el ranking en una tabla HTML ordenada de mayor a menor |
 | `ranking.html` | Resultado de aplicar `ranking.xsl` a `ranking.xml` |
 | `ranking.css` | Hoja de estilos externa del HTML del ranking (la enlaza `ranking.xsl`) |
+| `consultas_xpath.txt` | Cinco consultas XPath sobre `ranking.xml`, con lo que hace cada una y su resultado |
 
 El inventario no se guarda en ningún fichero: está en memoria (un array de tamaño fijo y un contador) mientras dura la partida.
 
