@@ -1,6 +1,9 @@
 package Proyecto;
 
 //---imports---
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import Clases.ClasePersonaje;       //personaje base sin herencias
@@ -8,7 +11,6 @@ import Mounstruos.*;                //Todos los mounstruos
 import Armas.*;                     //Todas las armas
 import Objetos.*;                   //Todos los objetos
 import Clases.ClaseMoustruo;        //Clase mounstruo
-import Clases.ClaseRanking;         //Ranking de partidas
 
 //---Métodos---
 public class Metodos 
@@ -18,6 +20,9 @@ public class Metodos
 
     //---Constante con el nombre del guía---
     static final String GUIA = "Bigotín";
+
+    //---Máximo de partidas que caben en el ranking---
+    static final int MAXIMO_RANKING = 10;
 
     //---Ya no hay variables globales de la partida: el personaje, los mounstruos,
     //---el inventario y el ranking se crean dentro de los métodos y se pasan por parámetro---
@@ -39,7 +44,8 @@ public class Metodos
     //----------------------------------------PARTES DEL JUEGO--------------------------------------------------------------------
     //---Juego---
 
-    public static void Juego(ClaseRanking ranking)
+    //---Juega una partida y devuelve cuántos jugadores tiene el ranking después de guardarla---
+    public static int Juego(String [] nombres, int [] puntos, int cantidad, boolean archivoCorrecto)
     {
         //---Partida nueva: todo vuelve a empezar (se crean aquí y se pasan a los demás métodos)---
         ClasePersonaje CP = new ClasePersonaje(null, null, null, 100, 15, 100, 0);
@@ -72,9 +78,10 @@ public class Metodos
         Pausa();
         //---Combate devuelve las pociones que quedan (int es primitivo: hay que recoger el valor)---
         pociones = Combate(CP, N1, N1, N2, N3, inventario, pociones, guia);
-        if (FinPartida(CP, N1, N1, N2, N3, ranking, guia))
+        int score = FinPartida(CP, N1, N1, N2, N3, guia);
+        if (score >= 0)
         {
-            return;
+            return GuardarPartida(nombres, puntos, cantidad, CP.getNombre(), score, archivoCorrecto);
         }
         pociones = ElegirPasillo(CP, N2, N3, inventario, pociones);
         System.out.println("");
@@ -86,9 +93,10 @@ public class Metodos
         System.out.println("");
         Pausa();
         pociones = Combate(CP, N2, N1, N2, N3, inventario, pociones, guia);
-        if (FinPartida(CP, N2, N1, N2, N3, ranking, guia))
+        score = FinPartida(CP, N2, N1, N2, N3, guia);
+        if (score >= 0)
         {
-            return;
+            return GuardarPartida(nombres, puntos, cantidad, CP.getNombre(), score, archivoCorrecto);
         }
         pociones = ElegirPasillo(CP, N2, N3, inventario, pociones);
         System.out.println("");
@@ -100,26 +108,26 @@ public class Metodos
         System.out.println("");
         Pausa();
         pociones = Combate(CP, N3, N1, N2, N3, inventario, pociones, guia);
-        if (FinPartida(CP, N3, N1, N2, N3, ranking, guia))
+        score = FinPartida(CP, N3, N1, N2, N3, guia);
+        if (score >= 0)
         {
-            return;
+            return GuardarPartida(nombres, puntos, cantidad, CP.getNombre(), score, archivoCorrecto);
         }
 
         //---Si llega aquí ha ganado los tres combates---
-        int score = InfoScore(CP, N1, N2, N3, false);
+        score = InfoScore(CP, N1, N2, N3, false);
         PartidaGanada(guia, CP.getNombre(), score);
-        GuardarPartida(ranking, CP.getNombre(), score);
+        return GuardarPartida(nombres, puntos, cantidad, CP.getNombre(), score, archivoCorrecto);
     }
 
-    //---Mira cómo ha terminado el combate: devuelve true si la partida se acaba (perdida o abandonada)---
-    public static boolean FinPartida(ClasePersonaje CP, ClaseMoustruo M, Nivel1 N1, Nivel2 N2, Nivel3 N3, ClaseRanking ranking, String guia)
+    //---Mira cómo ha terminado el combate: devuelve el score si la partida se acaba (perdida o abandonada) o -1 si sigue---
+    public static int FinPartida(ClasePersonaje CP, ClaseMoustruo M, Nivel1 N1, Nivel2 N2, Nivel3 N3, String guia)
     {
         if (CP.getVida() <= 0)
         {
             int score = InfoScore(CP, N1, N2, N3, false);
             PartidaPerdida(guia, CP.getNombre(), score);
-            GuardarPartida(ranking, CP.getNombre(), score);
-            return true;
+            return score;
         }
 
         //---El héroe sigue vivo y el mounstruo también: solo puede ser que haya abandonado---
@@ -127,11 +135,10 @@ public class Metodos
         {
             int score = InfoScore(CP, N1, N2, N3, true);
             PartidaAbandonada(guia, CP.getNombre(), score);
-            GuardarPartida(ranking, CP.getNombre(), score);
-            return true;
+            return score;
         }
 
-        return false;
+        return -1;      //el score nunca es negativo, así que -1 significa que la partida continúa
     }
 
 
@@ -160,8 +167,19 @@ public class Metodos
     //--Menú de inicio---
     public static void Inicio()
     {
-        //---El ranking se carga una vez al arrancar y se pasa a los métodos que lo usan---
-        ClaseRanking ranking = new ClaseRanking();
+        //---Ranking: dos arrays paralelos (la posición i de los dos es el mismo jugador) y un contador---
+        String [] nombres = new String[MAXIMO_RANKING];
+        int [] puntos = new int[MAXIMO_RANKING];
+
+        //---Se carga una vez al arrancar: devuelve cuántos jugadores hay, o -1 si el xml tiene errores---
+        int cantidad = CargarRanking(nombres, puntos);
+        boolean archivoCorrecto = true;
+
+        if (cantidad == -1)
+        {
+            archivoCorrecto = false;        //el archivo con errores no se sobrescribe
+            cantidad = 0;
+        }
 
         String eleccion = "";      //se lee como texto para que una letra no cierre el programa
 
@@ -186,10 +204,10 @@ public class Metodos
             switch (eleccion)
             {
                 case "1":
-                    Juego(ranking);
+                    cantidad = Juego(nombres, puntos, cantidad, archivoCorrecto);
                     break;
                 case "2":
-                    Ranking(ranking);
+                    Ranking(nombres, puntos, cantidad);
                     break;
                 case "3":
                     System.out.println("Hasta pronto, héroe");
@@ -390,7 +408,7 @@ public class Metodos
 
   //---ranking---
 
-    public static void Ranking(ClaseRanking ranking)
+    public static void Ranking(String [] nombres, int [] puntos, int cantidad)
     {
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -400,14 +418,210 @@ public class Metodos
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
         System.out.println("");
         Pausa();
-        ranking.Ver();
+        VerRanking(nombres, puntos, cantidad);
         Pausa();
     }
 
-    //---Guarda la partida terminada en el ranking---
-    public static void GuardarPartida(ClaseRanking ranking, String nombre, int score)
+    //---Guarda la partida terminada en el ranking y devuelve cuántos jugadores hay ahora---
+    public static int GuardarPartida(String [] nombres, int [] puntos, int cantidad, String nombre, int score, boolean archivoCorrecto)
     {
-        ranking.Modificar(nombre, score);
+        cantidad = ModificarRanking(nombres, puntos, cantidad, nombre, score);
+        GuardarXml(nombres, puntos, cantidad, archivoCorrecto);
+        return cantidad;
+    }
+
+    //---Ruta del xml: si el juego se ejecuta desde la carpeta Proyecto, el xml está una carpeta más arriba---
+    public static String RutaXml()
+    {
+        File carpeta = new File("02_XML");
+        if (carpeta.exists())
+        {
+            return "02_XML/score.xml";
+        }
+        return "../02_XML/score.xml";
+    }
+
+    //---Cargar: lee el xml línea a línea y mete cada jugador en los arrays---
+    //---Devuelve cuántos jugadores ha cargado, o -1 si el archivo tiene errores---
+    public static int CargarRanking(String [] nombres, int [] puntos)
+    {
+        File fichero = new File(RutaXml());
+
+        if (!fichero.exists())
+        {
+            System.out.println("No se encontró el xml del ranking, se empieza con un ranking vacío");
+            return 0;
+        }
+
+        int cantidad = 0;
+        String nombre = "";
+        String error = "";          //si se queda vacío es que el archivo está bien
+
+        try (Scanner lector = new Scanner(fichero))
+        {
+            while (lector.hasNextLine() && error.equals(""))
+            {
+                String linea = lector.nextLine().trim();
+
+                if (linea.startsWith("<nombre>"))
+                {
+                    nombre = Desescapar(linea.replace("<nombre>", "").replace("</nombre>", ""));
+                }
+                else if (linea.startsWith("<puntos>"))
+                {
+                    String textoPuntos = linea.replace("<puntos>", "").replace("</puntos>", "");
+
+                    //---Comprobaciones antes de meter el jugador en los arrays---
+                    if (cantidad == MAXIMO_RANKING)
+                    {
+                        error = "hay más de " + MAXIMO_RANKING + " jugadores";
+                    }
+                    else if (nombre.trim().equals(""))
+                    {
+                        error = "hay un jugador sin nombre";
+                    }
+                    else
+                    {
+                        try
+                        {
+                            int puntosLeidos = Integer.parseInt(textoPuntos);
+
+                            if (puntosLeidos < 0)
+                            {
+                                error = "hay una puntuación negativa (" + puntosLeidos + ")";
+                            }
+                            else
+                            {
+                                //---Jugador correcto: se pone en la misma posición de los dos arrays---
+                                nombres[cantidad] = nombre;
+                                puntos[cantidad] = puntosLeidos;
+                                cantidad++;
+                                nombre = "";        //el siguiente jugador tiene que traer su propio nombre
+                            }
+                        }
+                        catch (NumberFormatException e)
+                        {
+                            error = "la puntuación '" + textoPuntos + "' no es un número";
+                        }
+                    }
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            error = "no se pudo leer el archivo";
+        }
+
+        //---Si algo está mal se avisa y el archivo no se sobrescribe---
+        if (!error.equals(""))
+        {
+            System.out.println("Error en el ranking: " + error + ".");
+            System.out.println("El archivo no se va a modificar hasta que se corrija. Esta vez las partidas no se guardarán.");
+            return -1;
+        }
+        return cantidad;
+    }
+
+    //---Ver: mostrar el ranking por pantalla---
+    public static void VerRanking(String [] nombres, int [] puntos, int cantidad)
+    {
+        if (cantidad == 0)
+        {
+            System.out.println("Todavía no hay partidas en el ranking");
+            return;
+        }
+
+        for (int i = 0; i < cantidad; i++)
+        {
+            System.out.println((i + 1) + ". " + nombres[i] + " - " + puntos[i] + " puntos");
+        }
+    }
+
+    //---Modificar: mete la partida nueva en su sitio y devuelve cuántos jugadores hay ahora---
+    //---Los arrays son referencias (se cambian también fuera), el contador es int y hay que devolverlo---
+    public static int ModificarRanking(String [] nombres, int [] puntos, int cantidad, String nombre, int puntosNuevos)
+    {
+        //---Si el ranking está lleno, solo entra si supera al último---
+        if (cantidad == MAXIMO_RANKING && puntosNuevos <= puntos[cantidad - 1])
+        {
+            System.out.println("Tu puntuación no entra en el ranking, el último tiene " + puntos[cantidad - 1] + " puntos");
+            return cantidad;
+        }
+
+        //---Buscar la posición: se pasa a todos los que tienen más o los mismos puntos---
+        //---Así en un empate el más antiguo queda delante---
+        int posicion = 0;
+        while (posicion < cantidad && puntos[posicion] >= puntosNuevos)
+        {
+            posicion++;
+        }
+
+        //---Si hay hueco el ranking crece, si está lleno el último se pierde---
+        if (cantidad < MAXIMO_RANKING)
+        {
+            cantidad++;
+        }
+
+        //---Mover una posición hacia abajo a los que van detrás (desde el final para no pisar datos)---
+        for (int i = cantidad - 1; i > posicion; i--)
+        {
+            nombres[i] = nombres[i - 1];
+            puntos[i] = puntos[i - 1];
+        }
+
+        //---Poner al nuevo jugador en su hueco, en la misma posición de los dos arrays---
+        nombres[posicion] = nombre;
+        puntos[posicion] = puntosNuevos;
+
+        return cantidad;
+    }
+
+    //---Guardar en el xml con la misma estructura que score.dtd (se reescribe con todos los jugadores)---
+    public static void GuardarXml(String [] nombres, int [] puntos, int cantidad, boolean archivoCorrecto)
+    {
+        //---No se pisa un archivo que tenía errores---
+        if (!archivoCorrecto)
+        {
+            System.out.println("La partida no se guarda porque el xml del ranking tiene errores");
+            return;
+        }
+
+        try (FileWriter escritor = new FileWriter(RutaXml()))
+        {
+            escritor.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n");
+            escritor.write("<?xml-stylesheet type=\"text/xsl\" href=\"score.xslt\"?>\n\n");
+            escritor.write("<!DOCTYPE score SYSTEM \"score.dtd\">\n\n");
+            escritor.write("<score>\n");
+            escritor.write("    <jugadores>\n");
+
+            //---Se guardan ya ordenados, así al volver a cargar se mantiene el orden y los empates---
+            for (int i = 0; i < cantidad; i++)
+            {
+                escritor.write("        <jugador id = \"" + (i + 1) + "\">\n");
+                escritor.write("            <nombre>" + Escapar(nombres[i]) + "</nombre>\n");
+                escritor.write("            <puntos>" + puntos[i] + "</puntos>\n");
+                escritor.write("        </jugador>\n");
+            }
+
+            escritor.write("    </jugadores>\n");
+            escritor.write("</score>\n");
+        }
+        catch (IOException e)
+        {
+            System.out.println("No se pudo guardar el xml");
+        }
+    }
+
+    //---Al guardar: & < > se escriben como &amp; &lt; &gt; para que el xml siga bien formado---
+    public static String Escapar(String texto)
+    {
+        return texto.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+    }
+
+    //---Al cargar: se hace al revés (el &amp; el último para no estropear los otros)---
+    public static String Desescapar(String texto)
+    {
+        return texto.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&");
     }
 
     public static int InfoScore(ClasePersonaje CP, Nivel1 N1, Nivel2 N2, Nivel3 N3, boolean abandonado)
@@ -437,6 +651,12 @@ public class Metodos
         if (abandonado)
         {
             scoreTotal = scoreTotal - scoreAbandono;
+        }
+
+        //---El score nunca puede ser negativo (al abandonar con poca vida podría quedar por debajo de 0)---
+        if (scoreTotal < 0)
+        {
+            scoreTotal = 0;
         }
         return scoreTotal;
     }
