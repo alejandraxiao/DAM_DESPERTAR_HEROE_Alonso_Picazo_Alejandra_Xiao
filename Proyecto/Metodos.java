@@ -1191,23 +1191,36 @@ public class Metodos
         Pausa();
         System.out.println("");
 
-        System.out.println("(1) Luz");
-        System.out.println("(2) Oscuridad");
-
-        String eleccionArma = sc.nextLine();
         CP.setClase("Mago");
         PoderLuz PL = new PoderLuz(null, 1, 16, null);
         PoderOscuridad PO = new PoderOscuridad(null, 1, 19, null);
 
-        if (eleccionArma.equals("1"))
+        //---Se repite hasta que elija una opción válida (1 o 2)---
+        boolean armaElegida = false;
+        while (!armaElegida)
         {
-            CP.setArma(PL.getNombre());
-            CP.setDaño(PL.getDaño());
-        }
-        else
-        {
-            CP.setArma(PO.getNombre());
-            CP.setDaño(PO.getDaño());
+            System.out.println("(1) Luz");
+            System.out.println("(2) Oscuridad");
+
+            String eleccionArma = sc.nextLine();
+
+            if (eleccionArma.equals("1"))
+            {
+                CP.setArma(PL.getNombre());
+                CP.setDaño(PL.getDaño());
+                armaElegida = true;
+            }
+            else if (eleccionArma.equals("2"))
+            {
+                CP.setArma(PO.getNombre());
+                CP.setDaño(PO.getDaño());
+                armaElegida = true;
+            }
+            else
+            {
+                System.out.println("Esa opción no es válida, elige 1 o 2");
+                Pausa();
+            }
         }
     }
 
@@ -1238,23 +1251,36 @@ public class Metodos
         Pausa();
         System.out.println("");
 
-        System.out.println("(1) Espada pesada");
-        System.out.println("(2) Espada ligera");
-
-        String eleccionArma = sc.nextLine();
         CP.setClase("Caballero");
         EspadaPesada EP = new EspadaPesada(null, 1, 20, null);
         EspadaLigera EL = new EspadaLigera(null, 1, 17, null);
 
-        if (eleccionArma.equals("1"))
+        //---Se repite hasta que elija una opción válida (1 o 2)---
+        boolean armaElegida = false;
+        while (!armaElegida)
         {
-            CP.setArma(EP.getNombre());
-            CP.setDaño(EP.getDaño());
-        }
-        else
-        {
-            CP.setArma(EL.getNombre());
-            CP.setDaño(EL.getDaño());
+            System.out.println("(1) Espada pesada");
+            System.out.println("(2) Espada ligera");
+
+            String eleccionArma = sc.nextLine();
+
+            if (eleccionArma.equals("1"))
+            {
+                CP.setArma(EP.getNombre());
+                CP.setDaño(EP.getDaño());
+                armaElegida = true;
+            }
+            else if (eleccionArma.equals("2"))
+            {
+                CP.setArma(EL.getNombre());
+                CP.setDaño(EL.getDaño());
+                armaElegida = true;
+            }
+            else
+            {
+                System.out.println("Esa opción no es válida, elige 1 o 2");
+                Pausa();
+            }
         }
     }
 
@@ -1285,22 +1311,36 @@ public class Metodos
         Pausa();
         System.out.println("");
 
-        System.out.println("(1) Arco Triple");
-        System.out.println("(2) Arco Ligero");
-
-        String eleccionArma = sc.nextLine();
         CP.setClase("Arquero");
         ArcoTriple AT = new ArcoTriple(null, 1, 17, null);
         ArcoSimple AS = new ArcoSimple(null, 1, 15, null);
-        if (eleccionArma.equals("1"))
+
+        //---Se repite hasta que elija una opción válida (1 o 2)---
+        boolean armaElegida = false;
+        while (!armaElegida)
         {
-            CP.setArma(AT.getNombre());
-            CP.setDaño(AT.getDaño());
-        }
-        else
-        {
-            CP.setArma(AS.getNombre());
-            CP.setDaño(AS.getDaño());
+            System.out.println("(1) Arco Triple");
+            System.out.println("(2) Arco Ligero");
+
+            String eleccionArma = sc.nextLine();
+
+            if (eleccionArma.equals("1"))
+            {
+                CP.setArma(AT.getNombre());
+                CP.setDaño(AT.getDaño());
+                armaElegida = true;
+            }
+            else if (eleccionArma.equals("2"))
+            {
+                CP.setArma(AS.getNombre());
+                CP.setDaño(AS.getDaño());
+                armaElegida = true;
+            }
+            else
+            {
+                System.out.println("Esa opción no es válida, elige 1 o 2");
+                Pausa();
+            }
         }
     }
 
