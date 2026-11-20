@@ -1,6 +1,5 @@
 package Proyecto;
 
-import java.lang.annotation.Documented;
 //---imports---
 import java.util.Scanner;
 
@@ -14,54 +13,17 @@ import Clases.ClaseRanking;         //Ranking de partidas
 //---Métodos---
 public class Metodos 
 {
-    Scanner sc = new Scanner(System.in);
-    String guia = "Bigotín";
+    //---Teclado compartido por todos los métodos (no guarda datos de la partida)---
+    static Scanner sc = new Scanner(System.in);
 
-    //---Imports de clases de Herencias---
+    //---Constante con el nombre del guía---
+    static final String GUIA = "Bigotín";
 
-    //-----------------------------------PROTAGONISTA-------------------------------------------
-    ClasePersonaje CP = new ClasePersonaje(null, null, null, 100, 15, 100, 0);
-
-    //-------------------------------------ARMAS------------------------------------------------
-    //---Arcos---
-    ArcoSimple AS = new ArcoSimple(null, 1, 15, null);
-    ArcoTriple AT = new ArcoTriple(null, 1, 17, null);
-    //---Espada--
-    EspadaLigera EL = new EspadaLigera(null, 1, 17, null);
-    EspadaPesada EP = new EspadaPesada(null, 1, 20, null);
-    //---Poder---
-    PoderLuz PL = new PoderLuz(null, 1, 16, null);
-    PoderOscuridad PO = new PoderOscuridad(null, 1, 19, null);
-
-    //-----------------------------------MOUNSTRUOS-----------------------------------------------
-    Nivel1 N1 = new Nivel1("Hada corrupta", 50, 1, 10, 0);
-    Nivel2 N2 = new Nivel2("Espectro de Maná", 100, 2, 15, 0);
-    Nivel3 N3 = new Nivel3("Guardian de la Torre", 120, 3, 25, 0);
-
-    //-----------------------------------OBJETOS--------------------------------------------------
-    //---Maldiciones---
-    MaldicionAlmas MA = new MaldicionAlmas("Maldición de las Almas", 1, -20, null);
-    MaldicionMuertos MM = new MaldicionMuertos("Maldición de los Muertos", 1, -15, null);
-    MaldicionTorre MR = new MaldicionTorre("Maldición de la Torre", 1, 20, 5, null);
-
-    //---Pociones---
-    PocionCuracion PC = new PocionCuracion("Poción de Curación", 1, 0, null);
-
-
-    //---------------------------------------------------------------------------------------------------------------------------
-
-    //---Inventario: array de tamaño fijo con las pociones y un contador de las que quedan---
-    String [] inventario = new String[3];
-    int pociones = 0;       //posiciones ocupadas: siempre están al principio del array (0 .. pociones-1)
-
-    //---Abandono de la partida---
-    boolean abandonado = false;
-
-    //---Ranking (carga las partidas guardadas al empezar)---
-    ClaseRanking rankingJuego = new ClaseRanking();
+    //---Ya no hay variables globales de la partida: el personaje, los mounstruos,
+    //---el inventario y el ranking se crean dentro de los métodos y se pasan por parámetro---
 
     //---Método para la pausa entre textos---
-    public void Pausa()
+    public static void Pausa()
     {
         try
         {
@@ -77,27 +39,26 @@ public class Metodos
     //----------------------------------------PARTES DEL JUEGO--------------------------------------------------------------------
     //---Juego---
 
-    public void Juego()
+    public static void Juego(ClaseRanking ranking)
     {
-       //---Partida nueva: todo vuelve a empezar---
-        CP.setVida(100);
-        N1 = new Nivel1("Hada corrupta", 50, 1, 10, 0);
-        N2 = new Nivel2("Espectro de maná", 100, 2, 15, 0);
-        N3 = new Nivel3("Guardián de la Torre", 150, 3, 18, 0);
+        //---Partida nueva: todo vuelve a empezar (se crean aquí y se pasan a los demás métodos)---
+        ClasePersonaje CP = new ClasePersonaje(null, null, null, 100, 15, 100, 0);
+        Nivel1 N1 = new Nivel1("Hada corrupta", 50, 1, 10, 0);
+        Nivel2 N2 = new Nivel2("Espectro de maná", 100, 2, 15, 0);
+        Nivel3 N3 = new Nivel3("Guardián de la Torre", 150, 3, 18, 0);
 
-        //---Nuestro inventario al inicio---
-        inventario = new String[3];
+        //---Nuestro inventario al inicio: array fijo y contador de pociones---
+        String [] inventario = new String[3];
         inventario [0] = "Poción de curación";
         inventario [1] = "Poción de curación";
         inventario [2] = "Poción de curación";
-        pociones = 3;
+        int pociones = 3;       //posiciones ocupadas: siempre están al principio del array (0 .. pociones-1)
 
-        //---Abandono de la partida---
-        abandonado = false;
+        String guia = GUIA;
 
         //---Inicio con Bigotín---
-        EleccionPersonaje(CP.getNombre(), guia);
-        TorreExplicacion(guia);
+        EleccionPersonaje(CP, guia);
+        TorreExplicacion(CP.getNombre(), guia);
         Ataque(guia);
 
         //---INICIO DEL JUEGO---
@@ -109,11 +70,13 @@ public class Metodos
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
         System.out.println("");
         Pausa();
-        if (!Combate(N1))
+        //---Combate devuelve las pociones que quedan (int es primitivo: hay que recoger el valor)---
+        pociones = Combate(CP, N1, N1, N2, N3, inventario, pociones, guia);
+        if (FinPartida(CP, N1, N1, N2, N3, ranking, guia))
         {
             return;
         }
-        ElegirPasillo();
+        pociones = ElegirPasillo(CP, N2, N3, inventario, pociones);
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
         System.out.println("|                                          |");
@@ -122,11 +85,12 @@ public class Metodos
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
         System.out.println("");
         Pausa();
-        if (!Combate(N2))
+        pociones = Combate(CP, N2, N1, N2, N3, inventario, pociones, guia);
+        if (FinPartida(CP, N2, N1, N2, N3, ranking, guia))
         {
             return;
         }
-        ElegirPasillo();
+        pociones = ElegirPasillo(CP, N2, N3, inventario, pociones);
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
         System.out.println("|                                          |");
@@ -135,16 +99,44 @@ public class Metodos
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
         System.out.println("");
         Pausa();
-        if (!Combate(N3))
+        pociones = Combate(CP, N3, N1, N2, N3, inventario, pociones, guia);
+        if (FinPartida(CP, N3, N1, N2, N3, ranking, guia))
         {
             return;
         }
-        PartidaGanada(guia, CP.getNombre());
+
+        //---Si llega aquí ha ganado los tres combates---
+        int score = InfoScore(CP, N1, N2, N3, false);
+        PartidaGanada(guia, CP.getNombre(), score);
+        GuardarPartida(ranking, CP.getNombre(), score);
+    }
+
+    //---Mira cómo ha terminado el combate: devuelve true si la partida se acaba (perdida o abandonada)---
+    public static boolean FinPartida(ClasePersonaje CP, ClaseMoustruo M, Nivel1 N1, Nivel2 N2, Nivel3 N3, ClaseRanking ranking, String guia)
+    {
+        if (CP.getVida() <= 0)
+        {
+            int score = InfoScore(CP, N1, N2, N3, false);
+            PartidaPerdida(guia, CP.getNombre(), score);
+            GuardarPartida(ranking, CP.getNombre(), score);
+            return true;
+        }
+
+        //---El héroe sigue vivo y el mounstruo también: solo puede ser que haya abandonado---
+        if (M.getVida() > 0)
+        {
+            int score = InfoScore(CP, N1, N2, N3, true);
+            PartidaAbandonada(guia, CP.getNombre(), score);
+            GuardarPartida(ranking, CP.getNombre(), score);
+            return true;
+        }
+
+        return false;
     }
 
 
     //---Introducción de la historia---
-    public void Historia()
+    public static void Historia()
     {
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -166,8 +158,11 @@ public class Metodos
     }
 
     //--Menú de inicio---
-    public boolean Inicio()
+    public static void Inicio()
     {
+        //---El ranking se carga una vez al arrancar y se pasa a los métodos que lo usan---
+        ClaseRanking ranking = new ClaseRanking();
+
         String eleccion = "";      //se lee como texto para que una letra no cierre el programa
 
         //---do-while: el menú se muestra al menos una vez y se repite hasta elegir Salir---
@@ -191,10 +186,10 @@ public class Metodos
             switch (eleccion)
             {
                 case "1":
-                    Juego();
+                    Juego(ranking);
                     break;
                 case "2":
-                    Ranking();
+                    Ranking(ranking);
                     break;
                 case "3":
                     System.out.println("Hasta pronto, héroe");
@@ -206,12 +201,10 @@ public class Metodos
             }
         }
         while (!eleccion.equals("3"));      //si no se elige Salir, el menú vuelve a salir
-
-        return false;
     }
 
     //---Creación del panel informativo durante el videojuego---
-    public void PanelInfo()
+    public static void PanelInfo(ClasePersonaje CP, Nivel1 N1, Nivel2 N2, Nivel3 N3)
     {
         boolean respuesta = false;
 
@@ -230,10 +223,10 @@ public class Metodos
     
             switch (eleccion) {
                 case "1":
-                    InfoPersonaje();
+                    InfoPersonaje(CP, N1, N2, N3);
                     break;
                 case "2":
-                    InfoMounstruos();
+                    InfoMounstruos(N1, N2, N3);
                     break;
                 case "3":
                     respuesta  = true;
@@ -249,7 +242,7 @@ public class Metodos
     
     //--------------------------------------------FUNCIONES DEL VIDEOJUEGO----------------------------------------------------------
 
-    public void InfoPersonaje()
+    public static void InfoPersonaje(ClasePersonaje CP, Nivel1 N1, Nivel2 N2, Nivel3 N3)
     {
         System.out.println("");
         System.out.println("--------------=[ PERSONAJE ]=---------------");
@@ -257,11 +250,11 @@ public class Metodos
         System.out.println("Nombre : " + CP.getNombre());
         System.out.println("Vida : " + CP.getVida());
         System.out.println("Daño : " + CP.getDaño());
-        System.out.println("Score : " + InfoScore());
+        System.out.println("Score : " + InfoScore(CP, N1, N2, N3, false));
         Pausa();
     }
 
-    public void InfoMounstruos()
+    public static void InfoMounstruos(Nivel1 N1, Nivel2 N2, Nivel3 N3)
     {
         System.out.println("");
         System.out.println("---------------=[ NIVEL 1 ]=----------------");
@@ -286,8 +279,14 @@ public class Metodos
         Pausa();
     }
 
-    public String CofreAleatorio()
+    //---Devuelve las pociones que quedan, porque el cofre puede dar una---
+    public static int CofreAleatorio(ClasePersonaje CP, Nivel2 N2, Nivel3 N3, String [] inventario, int pociones)
     {
+        //---Las maldiciones solo se usan aquí, así que se crean aquí---
+        MaldicionAlmas MA = new MaldicionAlmas("Maldición de las Almas", 1, -20, null);
+        MaldicionMuertos MM = new MaldicionMuertos("Maldición de los Muertos", 1, -15, null);
+        MaldicionTorre MR = new MaldicionTorre("Maldición de la Torre", 1, 20, 5, null);
+
         String [] objetoGanado = {"Maldición Almas", "Maldición de Muertos" , "Maldición de la Torre", "Poción de curación"};
         int ganado = (int)(Math.random() * objetoGanado.length);      //número entre 0 y 3
         String objeto  = objetoGanado[ganado];
@@ -345,16 +344,17 @@ public class Metodos
                 break;
         }
         
-        return objetoGanado[ganado];
+        return pociones;
     }
 
-    public int PasilloAleatorio()
+    public static int PasilloAleatorio()
     {
         int pasillo = (int)(Math.random() * 2);      //0 o 1
         return pasillo;
     }
 
-    public void ElegirPasillo()
+    //---Devuelve las pociones que quedan (si hay cofre puede cambiar)---
+    public static int ElegirPasillo(ClasePersonaje CP, Nivel2 N2, Nivel3 N3, String [] inventario, int pociones)
     {
         int pasilloCofre = PasilloAleatorio();   // dónde está el cofre esta vez
 
@@ -378,18 +378,19 @@ public class Metodos
         {
             System.out.println("¡Has encontrado un cofre!");
             Pausa();
-            CofreAleatorio();
+            pociones = CofreAleatorio(CP, N2, N3, inventario, pociones);
         }
         else
         {
             System.out.println("No hay cofre en este pasillo. Pasas al siguiente nivel.");
             Pausa();
         }
+        return pociones;
     }
 
   //---ranking---
 
-    public void Ranking()
+    public static void Ranking(ClaseRanking ranking)
     {
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -399,17 +400,17 @@ public class Metodos
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
         System.out.println("");
         Pausa();
-        rankingJuego.Ver();
+        ranking.Ver();
         Pausa();
     }
 
     //---Guarda la partida terminada en el ranking---
-    public void GuardarPartida()
+    public static void GuardarPartida(ClaseRanking ranking, String nombre, int score)
     {
-        rankingJuego.Modificar(CP.getNombre(), InfoScore());
+        ranking.Modificar(nombre, score);
     }
 
-    public int InfoScore()
+    public static int InfoScore(ClasePersonaje CP, Nivel1 N1, Nivel2 N2, Nivel3 N3, boolean abandonado)
     {
         int scorePartida = 0;
         int scoreVida = 0;
@@ -440,7 +441,7 @@ public class Metodos
         return scoreTotal;
     }
 
-    public void PartidaPerdida(String guia,String nombre)
+    public static void PartidaPerdida(String guia,String nombre, int score)
     {
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -456,16 +457,15 @@ public class Metodos
         System.out.println(guia + " : " + nombre + " te dejo tu score de esta partida.");
         Pausa();
         System.out.println("");
-        System.out.println("-------------=[ SCORE : " + InfoScore() + " ]=-------------");
+        System.out.println("-------------=[ SCORE : " + score + " ]=-------------");
         System.out.println("");
         Pausa();
         System.out.println("");
         System.out.println(guia + " : Seguiremos en contacto, por ahora descansa un poco, que ese último golpe debió doler.");
         Pausa();
-        GuardarPartida();
     }
 
-    public void PartidaGanada (String guia, String nombre)
+    public static void PartidaGanada (String guia, String nombre, int score)
     {
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -484,13 +484,12 @@ public class Metodos
         System.out.println(guia + " : Te dejo tu score por aquí:");
         Pausa();
         System.out.println("");
-        System.out.println("-------------=[ SCORE : " + InfoScore() + " ]=-------------");
+        System.out.println("-------------=[ SCORE : " + score + " ]=-------------");
         System.out.println("");
         Pausa();
-        GuardarPartida();
     }
 
-    public void PartidaAbandonada(String guia, String nombre)
+    public static void PartidaAbandonada(String guia, String nombre, int score)
     {
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -506,73 +505,75 @@ public class Metodos
         System.out.println(guia + " : Sigues teniendo tu score te la dejo por aquí para que la tengas:");
         Pausa();
         System.out.println("");
-        System.out.println("-------------=[ SCORE : " + InfoScore() + " ]=-------------");
+        System.out.println("-------------=[ SCORE : " + score + " ]=-------------");
         System.out.println("");
         Pausa();
-        GuardarPartida();
     }
     
 
     //-------------------------------------------PARTE DE COMBATES------------------------------------------------------------------
 
-    //---Combate por turnos---
-    public boolean Combate(ClaseMoustruo M)
+    //---Combate por turnos: devuelve las pociones que quedan---
+    //---CP y M son referencias: su vida cambia también fuera de este método; pociones es int y hay que devolverlo---
+    public static int Combate(ClasePersonaje CP, ClaseMoustruo M, Nivel1 N1, Nivel2 N2, Nivel3 N3, String [] inventario, int pociones, String guia)
     {
+        boolean abandonado = false;
+
         System.out.println("");
         System.out.println("---------------=[ COMBATE ]=----------------");
         System.out.println("");
         System.out.println("Aparece " + M.getNombre() + " con " + M.getVida() + " de vida");
         Pausa();
 
-        while (CP.getVida() > 0 && M.getVida() > 0)
+        while (CP.getVida() > 0 && M.getVida() > 0 && !abandonado)
         {
-            //---Turno del personaje---
-            VisualizacionAtaque(M);
+            //---Turno del personaje: devuelve la acción elegida---
+            String accion = VisualizacionAtaque(CP, M, N1, N2, N3, inventario, pociones);
 
-            if (abandonado)
+            if (accion.equals("2"))
             {
-                PartidaAbandonada(guia, CP.getNombre());
-                return false;
+                pociones = ConsumirCura(CP, inventario, pociones);      //curarse no gasta el turno
             }
-
-            if (M.getVida() <= 0)
+            else if (accion.equals("3"))
+            {
+                abandonado = true;          //Juego() se encarga de llamar a PartidaAbandonada
+            }
+            else if (M.getVida() <= 0)
             {
                 System.out.println("Has derrotado a " + M.getNombre());
                 Pausa();
-                return true;
             }
-
-            //---Turno del mounstruo---
-            int dañoMounstruo = (int)(Math.random() * (M.getFuerza() - 5 + 1)) + 5;      //entre 5 y su fuerza, los dos incluidos
-            CP.setVida(CP.getVida() - dañoMounstruo);
-            System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
-            Pausa();
-
-            if (CP.getVida() <= 0)
+            else
             {
-                PartidaPerdida(guia, CP.getNombre());
-                return false;
-            }
+                //---Turno del mounstruo---
+                int dañoMounstruo = (int)(Math.random() * (M.getFuerza() - 5 + 1)) + 5;      //entre 5 y su fuerza, los dos incluidos
+                CP.setVida(CP.getVida() - dañoMounstruo);
+                System.out.println(M.getNombre() + " te hace " + dañoMounstruo + " de daño. Tu vida: " + CP.getVida());
+                Pausa();
 
-            //---Vida baja con el aviso de Bigotín---
-            if (CP.getVida() <= 25)
-            {
-                Emergencia(guia);
-
-                if (abandonado)
+                //---Vida baja con el aviso de Bigotín---
+                if (CP.getVida() > 0 && CP.getVida() <= 25)
                 {
-                    PartidaAbandonada(guia, CP.getNombre());
-                    return false;
+                    String respuestaEmergencia = Emergencia(guia);
+
+                    if (respuestaEmergencia.equals("1"))
+                    {
+                        pociones = ConsumirCura(CP, inventario, pociones);
+                    }
+                    else if (respuestaEmergencia.equals("2"))
+                    {
+                        abandonado = true;
+                    }
                 }
             }
         }
-        return CP.getVida() > 0;
+        return pociones;
     }
 
-    public void VisualizacionAtaque(ClaseMoustruo M)
+    //---Menú de tu turno: devuelve "1" si has atacado, "2" si quieres curarte o "3" si sales de la torre---
+    public static String VisualizacionAtaque(ClasePersonaje CP, ClaseMoustruo M, Nivel1 N1, Nivel2 N2, Nivel3 N3, String [] inventario, int pociones)
     {
-        boolean respuesta = true;
-        while (respuesta)
+        while (true)
         {
             //---El menú se vuelve a pedir en cada vuelta para poder corregir una opción no válida---
             System.out.println("");
@@ -593,40 +594,32 @@ public class Metodos
                     M.setVida(M.getVida() - numeroDaño);
                     System.out.println("Le haces " + numeroDaño + " de daño a " + M.getNombre() + ". Su vida: " + Math.max(M.getVida(), 0));
                     Pausa();
-                    respuesta = false;
-                    break;
-    
+                    return "1";
+
                 case "2":
-                    ConsumirCura();
-                    respuesta = true;           //curarse no gasta el turno, solo atacar lo pasa
-                    break;
-    
+                    return "2";             //Combate() gasta la poción
+
                 case "3":
-                    abandonado = true;          //Combate() se encarga de llamar a PartidaAbandonada
-                    respuesta = false;
-                    break;
+                    return "3";             //Combate() se encarga de salir
 
                 case "4":
-                    PanelInfo();
-                    respuesta = true;           //mirar la información no gasta el turno
+                    PanelInfo(CP, N1, N2, N3);      //mirar la información no gasta el turno
                     break;
 
                 case "5":
-                    VerInventario();
-                    respuesta = true;           //mirar el inventario no gasta el turno
+                    VerInventario(inventario, pociones);      //mirar el inventario no gasta el turno
                     break;
 
                 default:
                     System.out.println("Elija una de las opciones disponibles");
                     Pausa();
-                    respuesta = true;
                     break;
             }
         }
     }
 
     //---Ver inventario: recorre solo las posiciones ocupadas del array---
-    public void VerInventario()
+    public static void VerInventario(String [] inventario, int pociones)
     {
         System.out.println("");
         System.out.println("---------------=[ INVENTARIO ]=-------------");
@@ -650,14 +643,15 @@ public class Metodos
     }
 
     //---Consumir cura: se gasta la última poción ocupada y se deja su hueco vacío---
-    public void ConsumirCura()
+    //---Devuelve las pociones que quedan: el array se cambia por referencia, el contador hay que devolverlo---
+    public static int ConsumirCura(ClasePersonaje CP, String [] inventario, int pociones)
     {
         //---Con la vida al máximo no se gasta la poción---
         if (CP.getVida() >= 100)
         {
             System.out.println("Tienes la vida al máximo, no necesitas curarte");
             Pausa();
-            return;
+            return pociones;
         }
 
         //---Si el contador está a 0 no hay ninguna posición ocupada que consumir---
@@ -665,7 +659,7 @@ public class Metodos
         {
             System.out.println("No te quedan pociones");
             Pausa();
-            return;
+            return pociones;
         }
 
         pociones--;                         //la última poción está en la posición pociones-1
@@ -673,14 +667,15 @@ public class Metodos
         CP.setVida(Math.min(CP.getVida() + 25, 100));
         System.out.println("Te has curado. Tu vida: " + CP.getVida() + ". Pociones: " + pociones + "/" + inventario.length);
         Pausa();
+        return pociones;
     }
 
     //-------------------------------------------BIGOTÍN--------------------------------------------------------------------------
 
     //---Elección del personaje---
-    public void EleccionPersonaje(String nombre, String guia)
+    public static void EleccionPersonaje(ClasePersonaje CP, String guia)
     {
-        SaludoInicial();
+        SaludoInicial(CP);
 
         boolean elegido = false;
 
@@ -697,15 +692,15 @@ public class Metodos
 
             switch (eleccionPersonaje) {
                 case "1":
-                    ArmaMago();
+                    ArmaMago(CP);
                     elegido = true;
                     break;
                 case "2":
-                    ArmaCaballero();
+                    ArmaCaballero(CP);
                     elegido = true;
                     break;
                 case "3":
-                    ArmaArquero();
+                    ArmaArquero(CP);
                     elegido = true;
                     break;
                 default:
@@ -717,7 +712,7 @@ public class Metodos
     }
 
     //---Diálogos del Bigotín---
-    public void SaludoInicial()
+    public static void SaludoInicial(ClasePersonaje CP)
     {
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -801,7 +796,7 @@ public class Metodos
         Pausa();
     }
 
-    public void TorreExplicacion(String guia)
+    public static void TorreExplicacion(String nombre, String guia)
     {
         boolean respuesta = false;
 
@@ -816,7 +811,7 @@ public class Metodos
 
         while (!respuesta)
         {
-            System.out.println(guia + " : " + "Que emoción " + CP.getNombre() + " ya tenemos nuestro destino elegido, y como primera prueba para ver tu nivel, los profesores han preparado la 'prueba de la torre'.");
+            System.out.println(guia + " : " + "Que emoción " + nombre + " ya tenemos nuestro destino elegido, y como primera prueba para ver tu nivel, los profesores han preparado la 'prueba de la torre'.");
             Pausa();
             System.out.println("");
             System.out.println(guia + " : No te preocupes de nada, generalmente la mayoría de estudiantes la pasan sin problema y al ser una prueba de inicio lo único que estás haciendo es poner tu consciencia dentro de la torre.");
@@ -834,7 +829,7 @@ public class Metodos
             System.out.println(guia + " : Lo entendiste??");
             Pausa();
             System.out.println("");
-            System.out.println(CP.getNombre() + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
+            System.out.println(nombre + " : (1) Todo entendido!  (2) La verdad es que es mucha información");
             Pausa();
 
             String respuestaNuestra = sc.nextLine();
@@ -850,7 +845,7 @@ public class Metodos
         }
     }
 
-    public void Ataque(String guia)
+    public static void Ataque(String guia)
     {
         System.out.println("");
         System.out.println("*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*");
@@ -870,7 +865,8 @@ public class Metodos
         Pausa();
     }
 
-    public void Emergencia(String guia)
+    //---Devuelve la opción elegida: "1" beber poción, "2" abandonar, otra cosa seguir---
+    public static String Emergencia(String guia)
     {
         System.out.println("");
         System.out.println("-------------=[ ¡EMERGENCIA! ]=-------------");
@@ -888,25 +884,12 @@ public class Metodos
         Pausa();
 
         String respuestaEmergencia = sc.nextLine();
-
-        switch (respuestaEmergencia) 
-        {
-            case "1":
-                ConsumirCura();
-                break;
-            case "2":
-                abandonado = true;
-                break;
-            default:
-                break;
-        }
-        
-
+        return respuestaEmergencia;         //Combate() hace lo que se ha elegido
     }
 
 
     //---Explicación de  tipo de armas---
-    public void ArmaMago()
+    public static void ArmaMago(ClasePersonaje CP)
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Mago! Seguro serás el mejor.");
         Pausa();
@@ -935,6 +918,8 @@ public class Metodos
 
         String eleccionArma = sc.nextLine();
         CP.setClase("Mago");
+        PoderLuz PL = new PoderLuz(null, 1, 16, null);
+        PoderOscuridad PO = new PoderOscuridad(null, 1, 19, null);
 
         if (eleccionArma.equals("1"))
         {
@@ -948,7 +933,7 @@ public class Metodos
         }
     }
 
-    public void ArmaCaballero()
+    public static void ArmaCaballero(ClasePersonaje CP)
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Caballero! Seguro serás el mejor.");
         Pausa();
@@ -980,6 +965,8 @@ public class Metodos
 
         String eleccionArma = sc.nextLine();
         CP.setClase("Caballero");
+        EspadaPesada EP = new EspadaPesada(null, 1, 20, null);
+        EspadaLigera EL = new EspadaLigera(null, 1, 17, null);
 
         if (eleccionArma.equals("1"))
         {
@@ -993,7 +980,7 @@ public class Metodos
         }
     }
 
-    public void ArmaArquero()
+    public static void ArmaArquero(ClasePersonaje CP)
     {
         System.out.println("MIAUUUUU! Que buena elección nuevo Arquero! Seguro tendrás una puntería increible.");
         Pausa();
@@ -1025,6 +1012,8 @@ public class Metodos
 
         String eleccionArma = sc.nextLine();
         CP.setClase("Arquero");
+        ArcoTriple AT = new ArcoTriple(null, 1, 17, null);
+        ArcoSimple AS = new ArcoSimple(null, 1, 15, null);
         if (eleccionArma.equals("1"))
         {
             CP.setArma(AT.getNombre());
